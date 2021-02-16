@@ -45,7 +45,7 @@ const addImage_student = (req, res, next) => {
       console.log(err);
     } else {
       item.save();
-      res.redirect("/student/list_images");
+      res.redirect("/users/student/list_images");
     }
   });
 };

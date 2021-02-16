@@ -106,24 +106,27 @@ https://templatemo.com/tm-539-simple-house
                 {{/each }}
             </div>
 
-            {{!--
             <!-- Gallery -->
             <div class="row tm-gallery">
                 <!-- gallery page 1 -->
                 <div id="tm-gallery-page-pizza" class="tm-gallery-page">
+                    {{#each items}}
                     <article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
                         <figure>
-                            <img src="/images/gallery/01.jpg" alt="Image" class="img-fluid tm-gallery-img" />
+                            <img src="{{image.img.data}}" alt="Image" class="img-fluid tm-gallery-img" />
                             <figcaption>
-                                <h4 class="tm-gallery-title">Fusce dictum finibus</h4>
-                                <p class="tm-gallery-description">Nam in suscipit nisi, sit amet consectetur metus. Ut
-                                    sit amet tellus accumsan</p>
+                                <h4 class="tm-gallery-title">{{image.name}}</h4>
+                                <p class="tm-gallery-description">{{image.desc}}</p>
                                 <p class="tm-gallery-price">$45 / $55</p>
                             </figcaption>
                         </figure>
                     </article>
+                    {{/each}}
                 </div> <!-- gallery page 1 -->
             </div>
+
+            {{!--
+
             <div class="tm-section tm-container-inner">
                 <div class="row">
                     <div class="col-md-6">
