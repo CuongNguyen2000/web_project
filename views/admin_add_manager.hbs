@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adding new Manager</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/templatemo-style.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Top box -->
+        <!-- Logo & Site Name -->
+        <div class="placeholder">
+            <div class="parallax-window" data-parallax="scroll" data-image-src="/images/simple-house-01.jpg">
+                <div class="tm-header">
+                    <div class="row tm-header-inner">
+                        <div class="col-md-6 col-12">
+                            <img src="/images/simple-house-logo.png" alt="Logo" class="tm-site-logo" />
+                            <div class="tm-site-text-box">
+                                <h1 class="tm-site-title">Simple House</h1>
+                                <h6 class="tm-site-description">Welcome Administrator</h6>
+                            </div>
+                        </div>
+                        {{!-- <nav class="col-md-6 col-12 tm-nav">
+                            <ul class="tm-nav-ul" style="color: lightgreen">
+                                <li class="tm-nav-li">
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
+                                        onclick="window.location = '/users/logout'">Logout</button>
+                                </li>
+                            </ul>
+                        </nav> --}}
+                    </div>
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <a class="navbar-brand" href="/users/admin/home">Simple House</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                    <a class="nav-link" href="/users/admin/home">Home <span
+                                            class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        User Account
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a class="dropdown-item" href="/users/admin/list_all_students">
+                                            Student Account
+                                        </a>
+                                        <a class="dropdown-item" href="/users/admin/list_all_coordinators">
+                                            Marketing Coordinator Account
+                                        </a>
+                                        <a class="dropdown-item" href="/users/admin/list_all_managers">
+                                            Marketing Manager Account
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
+                                onclick="window.location = '/users/logout'">
+                                Logout
+                            </button>
+                            {{!-- <form class="form-inline my-2 my-lg-0">
+                                <input class="form-control mr-sm-2" type="search" placeholder="Search"
+                                    aria-label="Search">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                            </form> --}}
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+        <main>
+            <br>
+            <div class="border rounded" style="width: auto;">
+                {{!-- <div class="d-flex flex-row-reverse">
+                    <div style="padding-top: 20px; padding-right: 20px">
+                        <button type="button" class="btn btn-success">Add more user</button>
+                    </div>
+                </div> --}}
+                <div style="padding: 20px;">
+                    <form action="/users/admin/add_manager" method="POST">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="usr" name="usr" placeholder="Username"
+                                    required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword">Password</label>
+                                <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Password"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputName">Full Name</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="Enter your full name ..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail">Email</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                placeholder="Enter your email ..." required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    <br><br>
+                    {{!-- {{#if err}}
+                    <div class="alert alert-danger" role="alert">
+                        {{err}}
+                    </div>
+                    {{/if}} --}}
+                </div>
+            </div>
+        </main>
+
+        <footer class="tm-footer text-center">
+            <p>Copyright &copy; 2020 Simple House
+
+                | Design: <a rel="nofollow" href="https://templatemo.com">TemplateMo</a></p>
+        </footer>
+    </div>
+
+    <!--===============================================================================================-->
+    <script src="/js/jquery.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/js/parallax.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <!--===============================================================================================-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <!--===============================================================================================-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <!--===============================================================================================-->
+    <script>
+        $(document).ready(function () {
+            // Handle click on paging links
+            $('.tm-paging-link').click(function (e) {
+                e.preventDefault();
+
+                var page = $(this).text().toLowerCase();
+                $('.tm-gallery-page').addClass('hidden');
+                $('#tm-gallery-page-' + page).removeClass('hidden');
+                $('.tm-paging-link').removeClass('active');
+                $(this).addClass("active");
+            });
+        });
+    </script>
+    <!--===============================================================================================-->
+
+</body>
+
+</html>
