@@ -88,7 +88,7 @@ https://templatemo.com/tm-539-simple-house
             </div>
 
             <h1>Uploaded Images</h1>
-            <div>
+            {{!-- <div>
                 {{#each items}}
                 <div>
                     <div>
@@ -104,7 +104,7 @@ https://templatemo.com/tm-539-simple-house
                     </div>
                 </div>
                 {{/each }}
-            </div>
+            </div> --}}
 
             <!-- Gallery -->
             <div class="row tm-gallery">
@@ -113,10 +113,10 @@ https://templatemo.com/tm-539-simple-house
                     {{#each items}}
                     <article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
                         <figure>
-                            <img src="{{image.img.data}}" alt="Image" class="img-fluid tm-gallery-img" />
+                            <img src="/uploads/{{ this.img }}" alt="Image" class="img-fluid tm-gallery-img" />
                             <figcaption>
-                                <h4 class="tm-gallery-title">{{image.name}}</h4>
-                                <p class="tm-gallery-description">{{image.desc}}</p>
+                                <h4 class="tm-gallery-title">{{ this.name }}</h4>
+                                <p class="tm-gallery-description">{{ this.desc }}</p>
                                 <p class="tm-gallery-price">$45 / $55</p>
                             </figcaption>
                         </figure>

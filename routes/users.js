@@ -161,6 +161,7 @@ router.get("/student/list_images", isStudent, (req, res, next) => {
       console.log(err);
       res.status(500).send("An error occurred", err);
     } else {
+      console.log(items);
       res.render("student_home", { items: items });
     }
   });

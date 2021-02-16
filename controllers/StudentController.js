@@ -28,26 +28,40 @@ const GetStudentHome = (req, res, next) => {
     });
 };
 
-const addImage_student = (req, res, next) => {
-  var obj = {
+const addImage_student = async (req, res, next) => {
+  // var obj = {
+  //   name: req.body.name,
+  //   desc: req.body.desc,
+  //   img: {
+  //     data: fs
+  //       .readFileSync(path.join(__dirname + "/uploads/" + req.file.filename))
+  //       .toString("base64"),
+  //   },
+  // };
+
+  // Articles.create(obj, (err, item) => {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     item.save();
+  //     res.redirect("/users/student/list_images");
+  //   }
+  // });
+
+  console.log(req.file);
+
+  Articles = new Articles({
     name: req.body.name,
     desc: req.body.desc,
-    img: {
-      data: fs
-        .readFileSync(path.join(__dirname + "/uploads/" + req.file.filename))
-        .toString("base64"),
-      type: "image/png",
-    },
-  };
-
-  Articles.create(obj, (err, item) => {
-    if (err) {
-      console.log(err);
-    } else {
-      item.save();
-      res.redirect("/users/student/list_images");
-    }
+    img: req.file.filename,
   });
+
+  try {
+    Articles = await Articles.save();
+    res.redirect("/users/student/list_images");
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 module.exports = { GetStudentHome, addImage_student };

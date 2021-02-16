@@ -4,8 +4,11 @@ const ArticlesSchema = new mongoose.Schema({
   name: String,
   desc: String,
   img: {
-    data: Buffer,
     type: String,
+  },
+  timeCreated: {
+    type: Date,
+    default: () => Date.now(),
   },
 });
 
