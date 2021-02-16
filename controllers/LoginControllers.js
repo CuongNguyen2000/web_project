@@ -21,9 +21,9 @@ const Login = (req, res, next) => {
       console.log(err);
       return res.redirect("/");
     } else if (!user) {
-      res.status(401);
+      // res.status(401);
       const msg = "User Not Found !!!";
-      res.redirect(`/?msg=${msg}`);
+      return res.redirect(`/?msg=${msg}`);
     }
 
     bcrypt.compare(pwd, user.password, (err, same) => {
