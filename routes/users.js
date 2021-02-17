@@ -155,14 +155,14 @@ router.get("/coordinator/home", isCoordinator, GetCoordinatorHome);
 // Get Homepage
 router.get("/student/home", isStudent, GetStudentHome);
 
-router.get("/student/list_images", isStudent, (req, res, next) => {
+router.get("/student/list_articles", isStudent, (req, res, next) => {
   Articles.find({}, (err, items) => {
     if (err) {
       console.log(err);
       res.status(500).send("An error occurred", err);
     } else {
       console.log(items);
-      res.render("student_home", { items: items });
+      res.render("student_list_articles", { items: items });
     }
   });
 });
