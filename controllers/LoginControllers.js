@@ -19,11 +19,11 @@ const Login = (req, res, next) => {
   AppUser.findOne({ username: usr }).exec((err, user) => {
     if (err) {
       console.log(err);
-      return res.redirect("/");
+      return res.redirect("/users/login");
     } else if (!user) {
       // res.status(401);
       const msg = "User Not Found !!!";
-      return res.redirect(`/?msg=${msg}`);
+      return res.redirect(`/users/login?msg=${msg}`);
     }
 
     bcrypt.compare(pwd, user.password, (err, same) => {
@@ -45,7 +45,7 @@ const Login = (req, res, next) => {
         }
       } else {
         const msg = "Username or Password is incorrect !!!";
-        return res.redirect(`/?msg=${msg}`);
+        return res.redirect(`/users/login?msg=${msg}`);
       }
     });
   });

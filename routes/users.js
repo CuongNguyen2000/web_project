@@ -55,6 +55,11 @@ router.use(
   })
 );
 
+// Get login page
+router.get("/login", (req, res, next) => {
+  res.render("login");
+});
+
 // Get login / logout request
 router.post("/login", Login);
 router.get("/logout", Logout);
