@@ -4,7 +4,7 @@ const isAdmin = (req, res, next) => {
   } else {
     const msg =
       "You must be logged in with admin permission to view this page.";
-    return res.redirect(`/login?msg=${msg}`);
+    return res.redirect(`/users/login?msg=${msg}`);
   }
 };
 
@@ -14,7 +14,7 @@ const isCoordinator = (req, res, next) => {
   } else {
     const msg =
       "You must be logged in with Marketing Coordinator permission to view this page.";
-    return res.redirect(`/login?msg=${msg}`);
+    return res.redirect(`/users/login?msg=${msg}`);
   }
 };
 
@@ -24,7 +24,7 @@ const isStudent = (req, res, next) => {
   } else {
     const msg =
       "You must be logged in with student permission to view this page.";
-    return res.redirect(`/login?msg=${msg}`);
+    return res.redirect(`/users/login?msg=${msg}`);
   }
 };
 
@@ -34,7 +34,7 @@ const isManager = (req, res, next) => {
   } else {
     const msg =
       "You must be logged in with Manager permission to view this page.";
-    return res.redirect(`/login?msg=${msg}`);
+    return res.redirect(`/?msg=${msg}`);
   }
 };
 
