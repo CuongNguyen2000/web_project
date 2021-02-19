@@ -2,13 +2,12 @@
 <html lang="en">
 
 <head>
-    <title>Welcome to Aladdin</title>
+    <title>Welcome to Simple House</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="stylesheets/indexLayout.css" type="text/css" media="all">
-    <link rel="stylesheet" type="text/css" href="/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="stylesheets/all.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
@@ -23,7 +22,7 @@
         <header id="header" class="hoc clear">
             <!-- ################################################################################################ -->
             <div id="logo" class="one_quarter first">
-                <h1><a href="/">Aladdin</a></h1>
+                <h1><a href="/">Simple House</a></h1>
                 <p>Welcome to our world</p>
             </div>
             <div class="three_quarter">
@@ -90,7 +89,7 @@
             <!-- ################################################################################################ -->
             <article>
                 <p>NDC.Aladdin</p>
-                <h3 class="heading">Welcome to Lala-Land</h3>
+                <h3 class="heading">Welcome to Simple House</h3>
                 <p>This is a project of Group 6 for Enterprise Website Subject</p>
             </article>
             <!-- ################################################################################################ -->
@@ -107,63 +106,123 @@
             <!-- ################################################################################################ -->
             <section id="introblocks">
                 <ul class="nospace group">
+                    {{#each items}}
                     <li class="one_third">
-                        <figure><a class="imgover" href="#"><img src="images/demo/348x220.png" alt="Article image"></a>
+                        <figure>
+                            <a class="imgover" href="#">
+                                <img src="/uploads/{{img}}" alt="Article image">
+                            </a>
                             <figcaption>
-                                <h6 class="heading">Aliquam faucibus</h6>
-                                <p>Ipsum eu ipsum donec ac orci sed lectus elementum fringilla nullam dictum nisi nec
-                                    mauris phasellus ut lacus.</p>
+                                <h6 class="heading">{{name}}</h6>
+                                <p>{{desc}}</p>
                             </figcaption>
                         </figure>
                     </li>
+                    {{/each}}
                 </ul>
             </section>
             <!-- ################################################################################################ -->
             <!-- / main body -->
-            <div class="clear"></div>
+            {{!-- <div class="clear"></div> --}}
         </main>
     </div>
     <!-- ################################################################################################ -->
     <!-- ################################################################################################ -->
     <!-- ################################################################################################ -->
+
     <div class="wrapper coloured">
         <section id="testimonials" class="hoc container clear">
-            <!-- ################################################################################################ -->
             <div class="sectiontitle">
-                <h5 class="heading">Team Member of Group 6</h5>
+                <p class="nospace font-xs">At ante morbi consequat lobortis</p>
+                <h6 class="heading">Eros suspendisse scelerisque</h6>
             </div>
-            <article class="one_half first"><img src="images/teamAVT/me.png" alt="teamAVT">
-                <blockquote>lalaalalala
-                </blockquote>
-                <h6 class="heading">Nguyen Duc Cuong</h6>
-                <em>Leader of the team</em>
-            </article>
-            <article class="one_half"><img src="images/teamAVT/thang.png" alt="teamAVT">
-                <blockquote>lalaalalala
-                </blockquote>
-                <h6 class="heading">Pham Ngoc Thang</h6>
-                <em>Leader of the team</em>
-            </article>
-            <article class="one_half first"><img src="images/teamAVT/vu duc.png" alt="teamAVT">
-                <blockquote>lalaalalala
-                </blockquote>
-                <h6 class="heading">Vu Viet Duc</h6>
-                <em>Database Designer</em>
-            </article>
-            <article class="one_half"><img src="images/teamAVT/son.png" alt="teamAVT">
-                <blockquote>lalaalalala
-                </blockquote>
-                <h6 class="heading">Nguyen Hoang Son</h6>
-                <em>Front-end Designer</em>
-            </article>
-            <article class="one_half first"><img src="images/teamAVT/p.cuong.png" alt="teamAVT">
-                <blockquote>alalalalaala
-                </blockquote>
-                <h6 class="heading">Pham Quoc Cuong</h6>
-                <em>Front-end Developer</em>
-            </article>
-            <!-- ################################################################################################ -->
+            <div class="tm-container-inner tm-persons">
+                <div class="row">
+                    <article class="col-lg-6">
+                        <figure class="tm-person">
+                            <img src="images/teamAVT/me.png" alt="Image" class="img-fluid tm-person-img" />
+                            <figcaption class="tm-person-description">
+                                <h4 class="tm-person-name">Nguyen Duc Cuong</h4>
+                                <p class="tm-person-title">Leader</p>
+                                <p class="tm-person-about">Vivamus cursus leo nec sem feugiat sagittis.
+                                    Duis ut feugiat odio, sit amet accumsan
+                                    odio.</p>
+                            </figcaption>
+                        </figure>
+                    </article>
+                    <article class="col-lg-6">
+                        <figure class="tm-person">
+                            <img src="images/teamAVT/thang.png" alt="Image" class="img-fluid tm-person-img" />
+                            <figcaption class="tm-person-description">
+                                <h4 class="tm-person-name">Pham Ngoc Thang</h4>
+                                <p class="tm-person-title">Leader</p>
+                                <p class="tm-person-about">Praesent non vulputate elit. Orci varius
+                                    natoque et magnis dis parturient, nascetur ridiculus mus.</p>
+                            </figcaption>
+                        </figure>
+                    </article>
+                    <article class="col-lg-6">
+                        <figure class="tm-person">
+                            <img src="images/teamAVT/vu duc.png" alt="Image" class="img-fluid tm-person-img" />
+                            <figcaption class="tm-person-description">
+                                <h4 class="tm-person-name">Vu Viet Duc</h4>
+                                <p class="tm-person-title">Database Designer</p>
+                                <p class="tm-person-about">Aenean sapien sem, ultricies sed vulputate
+                                    et, auctor vel mauris. Integer sit amet diam eget est facilisis lacinia vitae.</p>
+                            </figcaption>
+                        </figure>
+                    </article>
+                    <article class="col-lg-6">
+                        <figure class="tm-person">
+                            <img src="images/teamAVT/p.cuong.png" alt="Image" class="img-fluid tm-person-img" />
+                            <figcaption class="tm-person-description">
+                                <h4 class="tm-person-name">Pham Quoc Cuong</h4>
+                                <p class="tm-person-title">Front-end Developer</p>
+                                <p class="tm-person-about">Praesent non vulputate elit. Orci varius
+                                    natoque penatibus et magnis montes, nascetur ridiculus mus.</p>
+                            </figcaption>
+                        </figure>
+                    </article>
+                    <article class="col-lg-6">
+                        <figure class="tm-person">
+                            <img src="images/teamAVT/son.png" alt="Image" class="img-fluid tm-person-img" />
+                            <figcaption class="tm-person-description">
+                                <h4 class="tm-person-name">Nguyen Hoang Son</h4>
+                                <p class="tm-person-title">Front-end Designer</p>
+                                <p class="tm-person-about">Praesent non vulputate elit. Orci varius
+                                    natoque penatibus et magnis montes, nascetur ridiculus mus.</p>
+                            </figcaption>
+                        </figure>
+                    </article>
+                </div>
+            </div>
         </section>
+    </div>
+
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <div class="bgded overlay row4" style="background-image:url('images/backgroundIndex/footerBackGround.jpg');">
+        <footer id="footer" class="hoc clear">
+            <!-- ################################################################################################ -->
+            <div class="center btmspace-50">
+                <h6 class="heading">Simple House</h6>
+                <ul class="faico clear">
+                    <li><a class="faicon-dribble" href="#"><i class="fab fa-dribbble"></i></a></li>
+                    <li><a class="faicon-facebook" href="#"><i class="fab fa-facebook"></i></a></li>
+                    <li><a class="faicon-google-plus" href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                    <li><a class="faicon-linkedin" href="#"><i class="fab fa-linkedin"></i></a></li>
+                    <li><a class="faicon-twitter" href="#"><i class="fab fa-twitter"></i></a></li>
+                    <li><a class="faicon-vk" href="#"><i class="fab fa-vk"></i></a></li>
+                </ul>
+                <p class="nospace">Sed pellentesque in nisi nulla facilisi sed pretium duis varius ut ut.</p>
+            </div>
+            <!-- ################################################################################################ -->
+            <!-- <hr class="btmspace-50"> -->
+            <!-- ################################################################################################ -->
+
+            <!-- ################################################################################################ -->
+        </footer>
     </div>
     <!-- ################################################################################################ -->
     <!-- ################################################################################################ -->
@@ -181,7 +240,9 @@
     <!-- ################################################################################################ -->
     <!-- ################################################################################################ -->
     <a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
+
     <!-- JAVASCRIPTS -->
+
     <script src="js/indexJS/jquery.min.js"></script>
     <script src="js/indexJS/jquery.backtotop.js"></script>
     <script src="js/indexJS/jquery.mobilemenu.js"></script>

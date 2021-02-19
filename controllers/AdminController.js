@@ -1,7 +1,9 @@
 var AppUser = require("../models/AppUserModel");
 var Student = require("../models/StudentModel");
 var Coordinator = require("../models/CoordinatorModel");
-const Manager = require("../models/ManagerModel");
+var Manager = require("../models/ManagerModel");
+var Faculty = require("../models/FacultyModel");
+const { Mongoose } = require("mongoose");
 
 // The processing section for a student's account is below
 // showing list of student
@@ -103,7 +105,7 @@ const updateStudentInfo_admin = (req, res, next) => {
     (err, data) => {
       if (err) {
         console.log(err);
-        return res.render("admin_update_student_info");
+        return res.render("admin_update_studentAcc");
       } else {
         console.log(data);
         return res.redirect("/users/admin/list_all_students");
@@ -125,7 +127,7 @@ const updateStudentAcc_admin = (req, res, next) => {
     (err, data) => {
       if (err) {
         console.log(err);
-        return res.render("admin_update_student_acc");
+        return res.render("admin_update_studentAcc");
       } else {
         console.log(data);
         return res.redirect("/users/admin/list_all_students");
@@ -156,6 +158,25 @@ const deleteStudent_Admin = async (req, res, next) => {
       return res.redirect("/users/admin/list_all_students");
     }
   });
+};
+
+// Assign student to Faculty
+const assignFacultyForStudent_admin = (req, res, next) => {
+  const { _id, faculty } = req.body;
+  console.log(faculty, _id);
+  Student.findOneAndUpdate(
+    { _id: _id },
+    { $set: { faculty_id: faculty } },
+    { new: true, useFindAndModify: false }
+  )
+    .exec()
+    .then((value) => {
+      console.log(value);
+      res.redirect("/users/admin/list_all_students");
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 };
 
 /* ================================================================
@@ -264,7 +285,7 @@ const updateCoordinatorInfo_admin = (req, res, next) => {
     (err, data) => {
       if (err) {
         console.log(err);
-        return res.render("admin_update_coordinator_info");
+        return res.render("admin_update_coordinatorAcc");
       } else {
         console.log(data);
         return res.redirect("/users/admin/list_all_coordinators");
@@ -286,7 +307,7 @@ const updateCoordinatorAcc_admin = (req, res, next) => {
     (err, data) => {
       if (err) {
         console.log(err);
-        return res.render("admin_update_coordinator_acc");
+        return res.render("admin_update_coordinatorAcc");
       } else {
         console.log(data);
         return res.redirect("/users/admin/list_all_coordinators");
@@ -425,7 +446,7 @@ const updateManagerInfo_admin = (req, res, next) => {
     (err, data) => {
       if (err) {
         console.log(err);
-        return res.render("admin_update_manager_info");
+        return res.render("admin_update_managerAcc");
       } else {
         console.log(data);
         return res.redirect("/users/admin/list_all_managers");
@@ -447,7 +468,7 @@ const updateManagerAcc_admin = (req, res, next) => {
     (err, data) => {
       if (err) {
         console.log(err);
-        return res.render("admin_update_manager_acc");
+        return res.render("admin_update_managerAcc");
       } else {
         console.log(data);
         return res.redirect("/users/admin/list_all_managers");
@@ -480,13 +501,108 @@ const deleteManager_Admin = async (req, res, next) => {
   });
 };
 
+/* ================================================================
+===================================================================
+===================================================================
+===================================================================
+=================================================================== */
+
+// Get list of Faculty
+const listFaculty_admin = (req, res, next) => {
+  Faculty.find({})
+    .exec()
+    .then((faculty) => {
+      res.render("admin_list_faculty", { faculty: faculty });
+    })
+    .catch((err) => console.log(err));
+};
+
+// adding new faculty
+const addFaculty_admin = (req, res, next) => {
+  const { name, desc } = req.body;
+  Faculty.findOne({ name: name })
+    .exec()
+    .then((value) => {
+      const msg = "This faculty is already exist !!! Please Try again";
+      res.redirect(`/users/admin/add_faculty?msg=${msg}`);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+
+  const newFaculty = new Faculty({
+    name: name,
+    description: desc,
+  });
+
+  newFaculty.save();
+
+  return res.redirect("/users/admin/list_all_faculty");
+};
+
+// update faculty
+// get update faculty page
+const updatePageFaculty_admin = (req, res, next) => {
+  const { _id } = req.body;
+  // console.log(_id);
+  Faculty.findOne({ _id: _id })
+    .exec()
+    .then((value) => {
+      console.log(value);
+      res.render("admin_update_faculty", {
+        data: {
+          name: value.name,
+          desc: value.description,
+          _id: value._id,
+        },
+      });
+    })
+    .catch((err) => {
+      res.render("admin_update_faculty", { err: err });
+    });
+};
+
+const updateFaculty_admin = (req, res, next) => {
+  const { name, desc, _id } = req.body;
+  const newValue = {};
+  if (name) newValue.name = name;
+  if (desc) newValue.description = desc;
+
+  Faculty.findByIdAndUpdate({ _id: _id }, { $set: newValue }, { new: true })
+    .exec()
+    .then((value) => {
+      console.log(value);
+      res.redirect("/users/admin/list_all_faculty");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
+};
+
+// Delete Faculty
+const deleteFaculty_admin = (req, res, next) => {
+  const { _id } = req.body;
+  Faculty.findByIdAndRemove({ _id: _id })
+    .exec()
+    .then((value) => {
+      console.log(value);
+      res.redirect("/users/admin/list_all_faculty");
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
 module.exports = {
   listStudent_Admin,
   listCoordinator_Admin,
   listManager_Admin,
+  listFaculty_admin,
   addStudent_admin,
   addCoordinator_admin,
   addManager_admin,
+  addFaculty_admin,
   updateStudent_admin,
   updateStudentAcc_admin,
   updateStudentInfo_admin,
@@ -496,7 +612,10 @@ module.exports = {
   updateManager_admin,
   updateManagerAcc_admin,
   updateManagerInfo_admin,
+  updatePageFaculty_admin,
+  updateFaculty_admin,
   deleteStudent_Admin,
   deleteCoordinator_Admin,
   deleteManager_Admin,
+  deleteFaculty_admin,
 };

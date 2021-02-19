@@ -28,9 +28,11 @@ var {
   listStudent_Admin,
   listCoordinator_Admin,
   listManager_Admin,
+  listFaculty_admin,
   addStudent_admin,
   addCoordinator_admin,
   addManager_admin,
+  addFaculty_admin,
   updateStudent_admin,
   updateStudentAcc_admin,
   updateStudentInfo_admin,
@@ -40,9 +42,12 @@ var {
   updateManager_admin,
   updateManagerAcc_admin,
   updateManagerInfo_admin,
+  updatePageFaculty_admin,
+  updateFaculty_admin,
   deleteStudent_Admin,
   deleteCoordinator_Admin,
   deleteManager_Admin,
+  deleteFaculty_admin,
 } = require("../controllers/AdminController");
 const { route } = require(".");
 
@@ -79,10 +84,11 @@ router.get("/admin/home", isAdmin, (req, res, next) => {
   res.render("admin_home");
 });
 
-// Displaying user accounts
+// Displaying user accounts / list faculties
 router.get("/admin/list_all_students", isAdmin, listStudent_Admin);
 router.get("/admin/list_all_coordinators", isAdmin, listCoordinator_Admin);
 router.get("/admin/list_all_managers", isAdmin, listManager_Admin);
+router.get("/admin/list_all_faculty", isAdmin, listFaculty_admin);
 
 // Adding new user account
 router.get("/admin/add_student", isAdmin, (req, res, next) => {
@@ -99,6 +105,12 @@ router.get("/admin/add_manager", isAdmin, (req, res, next) => {
   res.render("admin_add_manager");
 });
 router.post("/admin/add_manager", isAdmin, addManager_admin);
+
+// Adding new Faculty
+router.get("/admin/add_faculty", isAdmin, (req, res, next) => {
+  res.render("admin_add_faculty");
+});
+router.post("/admin/add_faculty", isAdmin, addFaculty_admin);
 
 // Update student
 router.put("/admin/update_student_account", isAdmin, updateStudentAcc_admin);
@@ -131,10 +143,15 @@ router.put(
 );
 router.post("/admin/update_manager", isAdmin, updateManager_admin);
 
-// Delete user account
+// Update Faculty
+router.put("/admin/update_faculty_information", isAdmin, updateFaculty_admin);
+router.post("/admin/update_faculty", isAdmin, updatePageFaculty_admin);
+
+// Delete user account / faculty
 router.delete("/admin/delete_student", isAdmin, deleteStudent_Admin);
 router.delete("/admin/delete_coordinator", isAdmin, deleteCoordinator_Admin);
 router.delete("/admin/delete_manager", isAdmin, deleteManager_Admin);
+router.delete("/admin/delete_faculty", isAdmin, deleteFaculty_admin);
 
 /* ================================================================
 ===================================================================

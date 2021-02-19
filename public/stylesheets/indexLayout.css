@@ -10,7 +10,7 @@ File: Layout CSS
 */
 
 @import url("fontawesome-free/css/all.css");
-@import url("framework.css");
+@import url("/stylesheets/framework.css");
 
 /* Rows
 --------------------------------------------------------------------------------------------------------------- */

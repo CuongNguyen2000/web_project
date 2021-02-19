@@ -8,7 +8,7 @@ Licence URI: https://www.os-templates.com/template-terms
 File: Back to Top JS
 */
 
-jQuery("#backtotop").click(function () {
+jQuery("#backtotop").click(() => {
   jQuery("body,html").animate(
     {
       scrollTop: 0,

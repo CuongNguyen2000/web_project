@@ -10,6 +10,7 @@ const StudentSchema = new mongoose.Schema({
     required: true,
   },
   account_id: mongoose.Schema.Types.ObjectId,
+  faculty_id: mongoose.Schema.Types.ObjectId,
 });
 
 const Student = mongoose.model("Student", StudentSchema);
