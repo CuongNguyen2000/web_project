@@ -171,17 +171,15 @@ const deleteStudent_Admin = async (req, res, next) => {
       return res.redirect("/users/admin/list_all_students");
     } else {
       console.log("Ok");
-      return res.redirect("/users/admin/list_all_students");
-    }
-  });
-
-  Student.findByIdAndRemove({ account_id: _id }, (err) => {
-    if (err) {
-      console.log(err);
-      return res.redirect("/users/admin/list_all_students");
-    } else {
-      console.log("Ok");
-      return res.redirect("/users/admin/list_all_students");
+      Student.findOneAndRemove({ account_id: _id })
+        .then((result) => {
+          console.log("OK");
+          return res.redirect("/users/admin/list_all_students");
+        })
+        .catch((err) => {
+          console.log(err);
+          return res.redirect("/users/admin/list_all_students");
+        });
     }
   });
 };
@@ -378,17 +376,15 @@ const deleteCoordinator_Admin = async (req, res, next) => {
       return res.redirect("/users/admin/list_all_coordinators");
     } else {
       console.log("Ok");
-      return res.redirect("/users/admin/list_all_coordinators");
-    }
-  });
-
-  Coordinator.findByIdAndRemove({ account_id: _id }, (err) => {
-    if (err) {
-      console.log(err);
-      return res.redirect("/users/admin/list_all_coordinators");
-    } else {
-      console.log("Ok");
-      return res.redirect("/users/admin/list_all_coordinators");
+      Coordinator.findOneAndRemove({ account_id: _id })
+        .then((result) => {
+          console.log("OK");
+          return res.redirect("/users/admin/list_all_coordinators");
+        })
+        .catch((err) => {
+          console.log(err);
+          return res.redirect("/users/admin/list_all_coordinators");
+        });
     }
   });
 };
@@ -559,17 +555,15 @@ const deleteManager_Admin = async (req, res, next) => {
       return res.redirect("/users/admin/list_all_managers");
     } else {
       console.log("Ok");
-      return res.redirect("/users/admin/list_all_managers");
-    }
-  });
-
-  Manager.findByIdAndRemove({ account_id: _id }, (err) => {
-    if (err) {
-      console.log(err);
-      return res.redirect("/users/admin/list_all_managers");
-    } else {
-      console.log("Ok");
-      return res.redirect("/users/admin/list_all_managers");
+      Manager.findOneAndRemove({ account_id: _id })
+        .then((result) => {
+          console.log("OK");
+          return res.redirect("/users/admin/list_all_managers");
+        })
+        .catch((err) => {
+          console.log(err);
+          return res.redirect("/users/admin/list_all_managers");
+        });
     }
   });
 };

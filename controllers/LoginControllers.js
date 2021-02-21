@@ -1,11 +1,13 @@
 var AppUser = require("../models/AppUserModel");
+var Student = require("../models/StudentModel");
+var Faculty = require("../models/FacultyModel");
 var bcrypt = require("bcrypt");
 
 // const SignUp = async (req, res, next) => {
 //   const user = AppUser({
-//     username: "cuong",
-//     password: "abcdef",
-//     role: "student",
+//     username: "admin",
+//     password: "admin",
+//     role: "admin",
 //   });
 //   await user.save();
 //   console.log(user);

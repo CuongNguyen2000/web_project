@@ -4,6 +4,10 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var methodOverride = require("method-override");
+var session = require("express-session");
+
+var Student = require("./models/StudentModel");
+var Faculty = require("./models/FacultyModel");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -43,6 +47,36 @@ app.use(
     }
   })
 );
+
+app.use(
+  session({
+    secret: "mySecretSession",
+    resave: true,
+    saveUninitialized: false,
+  })
+);
+
+// app.use((req, res, next) => {
+//   if (!req.session.userId) {
+//     return next();
+//   }
+//   if (req.session.isStudent) {
+//     Student.findOne({ account_id: req.session.userId })
+//       .exec()
+//       .then((value) => {
+//         req.user = value;
+//         if (value.faculty_id) {
+//           Faculty.findOne({ _id: value.faculty_id })
+//             .exec()
+//             .then((faculty) => {
+//               req.faculty = faculty;
+//             });
+//         }
+//       });
+//     return next();
+//   }
+//   return next();
+// });
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);

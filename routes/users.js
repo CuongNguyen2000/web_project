@@ -3,7 +3,6 @@ var router = express.Router();
 var AppUser = require("../models/AppUserModel");
 var Student = require("../models/StudentModel");
 var Articles = require("../models/ArticlesModel");
-var session = require("express-session");
 
 var {
   isAdmin,
@@ -19,6 +18,7 @@ var { Login, Logout } = require("../controllers/LoginControllers");
 var {
   GetStudentHome,
   addImage_student,
+  getListImage_student,
 } = require("../controllers/StudentController");
 
 var { GetCoordinatorHome } = require("../controllers/CoordinatorController");
@@ -53,14 +53,14 @@ var {
 } = require("../controllers/AdminController");
 const { route } = require(".");
 
-// Session
-router.use(
-  session({
-    secret: "mySecretSession",
-    resave: true,
-    saveUninitialized: false,
-  })
-);
+// // Session
+// router.use(
+//   session({
+//     secret: "mySecretSession",
+//     resave: false,
+//     saveUninitialized: false,
+//   })
+// );
 
 // Get login page
 router.get("/login", (req, res, next) => {
@@ -191,17 +191,7 @@ router.get("/coordinator/home", isCoordinator, GetCoordinatorHome);
 // Get Homepage
 router.get("/student/home", isStudent, GetStudentHome);
 
-router.get("/student/list_articles", isStudent, (req, res, next) => {
-  Articles.find({}, (err, items) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send("An error occurred", err);
-    } else {
-      console.log(items);
-      res.render("student_list_articles", { items: items });
-    }
-  });
-});
+router.get("/student/list_articles", isStudent, getListImage_student);
 
 router.get("/student/add_image", isStudent, (req, res, next) => {
   res.render("student_add_image");

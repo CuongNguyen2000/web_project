@@ -13,6 +13,12 @@ const ArticlesSchema = new mongoose.Schema({
   faculty_id: mongoose.Schema.Types.ObjectId,
 });
 
+ArticlesSchema.virtual("student", {
+  ref: "Student",
+  localField: "_id",
+  foreignField: "posts.post",
+});
+
 const Articles = mongoose.model("Articles", ArticlesSchema);
 
 module.exports = Articles;
