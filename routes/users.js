@@ -48,6 +48,8 @@ var {
   deleteCoordinator_Admin,
   deleteManager_Admin,
   deleteFaculty_admin,
+  assignFacultyForStudent_admin,
+  assignFacultyForCoordinator_admin,
 } = require("../controllers/AdminController");
 const { route } = require(".");
 
@@ -146,6 +148,18 @@ router.post("/admin/update_manager", isAdmin, updateManager_admin);
 // Update Faculty
 router.put("/admin/update_faculty_information", isAdmin, updateFaculty_admin);
 router.post("/admin/update_faculty", isAdmin, updatePageFaculty_admin);
+
+// assign faculty for student / coordinator
+router.put(
+  "/admin/assign_faculty_student",
+  isAdmin,
+  assignFacultyForStudent_admin
+);
+router.put(
+  "/admin/assign_faculty_coordinator",
+  isAdmin,
+  assignFacultyForCoordinator_admin
+);
 
 // Delete user account / faculty
 router.delete("/admin/delete_student", isAdmin, deleteStudent_Admin);

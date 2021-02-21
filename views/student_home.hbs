@@ -11,7 +11,7 @@
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="/stylesheets/templatemo-style.css" rel="stylesheet" />
     <style>
-        .desc-name {
+        .changeStyle {
             font-weight: bold;
             font-style: italic;
         }
@@ -39,7 +39,7 @@ https://templatemo.com/tm-539-simple-house
                             <div class="tm-site-text-box">
                                 <h1 class="tm-site-title">Simple House</h1>
                                 <h6 class="tm-site-description">
-                                    Welcome <span class="desc-name">{{data.info.name}}</span>
+                                    Welcome
                                 </h6>
                             </div>
                         </div>
@@ -86,56 +86,17 @@ https://templatemo.com/tm-539-simple-house
             <header class="row tm-welcome-section">
                 <h2 class="col-12 text-center tm-section-title">Welcome to Simple House</h2>
             </header>
-            {{!--
-            <div style="padding-top: 20px; padding-right: 20px">
-                <button type="button" class="btn btn-success" onclick="window.location='/users/student/add_image';">
-                    Add more user
-                </button>
-            </div> --}}
-
-            {{!-- <h1>Uploaded Images</h1> --}}
-
-            {{!--
-            <!-- Gallery -->
-            <div class="row tm-gallery">
-                <!-- gallery page 1 -->
-                <div id="tm-gallery-page-pizza" class="tm-gallery-page">
-                    {{#each items}}
-                    <article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
-                        <figure>
-                            <img src="/uploads/{{ this.img }}" alt="Image" class="img-fluid tm-gallery-img" />
-                            <figcaption>
-                                <h4 class="tm-gallery-title">{{ this.name }}</h4>
-                                <p class="tm-gallery-description">{{ this.desc }}</p>
-                                <p class="tm-gallery-price">$45 / $55</p>
-                            </figcaption>
-                        </figure>
-                    </article>
-                    {{/each}}
-                </div> <!-- gallery page 1 -->
-            </div> --}}
-
-            {{!--
-
-            <div class="tm-section tm-container-inner">
-                <div class="row">
-                    <div class="col-md-6">
-                        <figure class="tm-description-figure">
-                            <img src="/images/img-01.jpg" alt="Image" class="img-fluid" />
-                        </figure>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="tm-description-box">
-                            <h4 class="tm-gallery-title">Maecenas nulla neque</h4>
-                            <p class="tm-mb-45">Redistributing this template as a downloadable ZIP file on any template
-                                collection site is strictly prohibited. You will need to <a rel="nofollow"
-                                    href="https://templatemo.com/contact">talk to us</a> for additional permissions
-                                about our templates. Thank you.</p>
-                            <a href="about.html" class="tm-btn tm-btn-default tm-right">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
+            <div style="padding: 20px;">
+                <h1>Student Information</h1>
+                <br>
+                <ol>
+                    <li>Username: <span class="changeStyle">{{data.user.username}}</span></li>
+                    <li>Name: <span class="changeStyle">{{data.info.name}}</span></li>
+                    <li>Email: <span class="changeStyle">{{data.info.email}}</span></li>
+                    <li>Faculty: <span class="changeStyle">{{data.assign}}</span></li>
+                    <input type="hidden" name="_id" value="{{data._id}}">
+                </ol>
+            </div>
         </main>
 
         <footer class="tm-footer text-center">

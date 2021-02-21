@@ -10,6 +10,7 @@ const ArticlesSchema = new mongoose.Schema({
     type: Date,
     default: () => Date.now(),
   },
+  faculty_id: mongoose.Schema.Types.ObjectId,
 });
 
 const Articles = mongoose.model("Articles", ArticlesSchema);

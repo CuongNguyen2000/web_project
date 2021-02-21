@@ -11,7 +11,7 @@
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="/stylesheets/templatemo-style.css">
     <style>
-        .desc-name {
+        .changeStyle {
             font-weight: bold;
             font-style: italic;
         }
@@ -31,7 +31,7 @@
                             <div class="tm-site-text-box">
                                 <h1 class="tm-site-title">Simple House</h1>
                                 <h6 class="tm-site-description">
-                                    Welcome Marketing Coordinator: <span class="desc-name">{{data.info.name}}</span>
+                                    Welcome Marketing Coordinator
                                 </h6>
                             </div>
                         </div>
@@ -73,6 +73,17 @@
             <header class="row tm-welcome-section">
                 <h2 class="col-12 text-center tm-section-title">Welcome to Simple House</h2>
             </header>
+            <div style="padding: 20px;">
+                <h1>Marketing Coordinator Information</h1>
+                <br>
+                <ol>
+                    <li>Username: <span class="changeStyle">{{data.user.username}}</span></li>
+                    <li>Name: <span class="changeStyle">{{data.info.name}}</span></li>
+                    <li>Email: <span class="changeStyle">{{data.info.email}}</span></li>
+                    <li>Faculty: <span class="changeStyle">{{data.assign}}</span></li>
+                    <input type="hidden" name="_id" value="{{data._id}}">
+                </ol>
+            </div>
         </main>
 
         <footer class="tm-footer text-center">

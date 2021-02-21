@@ -1,28 +1,65 @@
 var AppUser = require("../models/AppUserModel");
 var Student = require("../models/StudentModel");
 var Articles = require("../models/ArticlesModel");
+var Faculty = require("../models/FacultyModel");
 
 const GetStudentHome = (req, res, next) => {
-  Student.findOne({ account_id: req.session.userId })
+  let user = {};
+  let info = {};
+
+  AppUser.findOne({ _id: req.session.userId })
     .exec()
-    .then((info) => {
-      console.log(info);
-      AppUser.findOne({ _id: req.session.userId })
+    .then((value) => {
+      user = {
+        _id: value._id,
+        username: value.username,
+      };
+      Student.findOne({ account_id: req.session.userId })
         .exec()
-        .then((user) => {
-          res.render("student_home", {
-            data: {
-              user: user,
-              info: info,
-            },
-          });
+        .then((value) => {
+          info = {
+            name: value.name,
+            email: value.email,
+          };
+          Faculty.find({})
+            .exec()
+            .then((faculty) => {
+              if (value.faculty_id) {
+                Faculty.findOne({ _id: value.faculty_id })
+                  .exec()
+                  .then((assign) => {
+                    console.log(assign);
+                    res.render("student_home", {
+                      data: {
+                        _id: value._id,
+                        user: user,
+                        info: info,
+                        assign: assign.name,
+                      },
+                    });
+                  });
+              } else {
+                res.render("student_home", {
+                  data: {
+                    _id: value._id,
+                    user: user,
+                    info: info,
+                  },
+                });
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         })
         .catch((err) => {
-          res.send(err);
+          console.log(err);
+          res.redirect("/users/student/home");
         });
     })
     .catch((err) => {
-      res.send(err);
+      console.log(err);
+      res.redirect("/users/student/home");
     });
 };
 

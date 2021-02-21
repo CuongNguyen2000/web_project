@@ -3,7 +3,6 @@ var Student = require("../models/StudentModel");
 var Coordinator = require("../models/CoordinatorModel");
 var Manager = require("../models/ManagerModel");
 var Faculty = require("../models/FacultyModel");
-const { Mongoose } = require("mongoose");
 
 // The processing section for a student's account is below
 // showing list of student
@@ -66,7 +65,6 @@ const updateStudent_admin = (req, res, next) => {
         _id: value._id,
         username: value.username,
       };
-
       Student.findOne({ account_id: _id })
         .exec()
         .then((value) => {
@@ -74,13 +72,41 @@ const updateStudent_admin = (req, res, next) => {
             name: value.name,
             email: value.email,
           };
-
-          res.render("admin_update_studentAcc", {
-            data: {
-              user: user,
-              info: info,
-            },
-          });
+          Faculty.find({})
+            .exec()
+            .then((faculty) => {
+              if (value.faculty_id) {
+                Faculty.findOne({ _id: value.faculty_id })
+                  .exec()
+                  .then((assign) => {
+                    console.log(assign);
+                    res.render("admin_update_studentAcc", {
+                      data: {
+                        name: value.name,
+                        desc: value.description,
+                        _id: value._id,
+                        user: user,
+                        info: info,
+                        assign: assign.name,
+                        faculty: faculty,
+                      },
+                    });
+                  })
+                  .catch();
+              } else {
+                res.render("admin_update_studentAcc", {
+                  data: {
+                    _id: value._id,
+                    user: user,
+                    info: info,
+                    faculty: faculty,
+                  },
+                });
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         })
         .catch((err) => {
           console.log(err);
@@ -175,6 +201,7 @@ const assignFacultyForStudent_admin = (req, res, next) => {
       res.redirect("/users/admin/list_all_students");
     })
     .catch((err) => {
+      console.log(err);
       res.send(err);
     });
 };
@@ -246,7 +273,6 @@ const updateCoordinator_admin = (req, res, next) => {
         _id: value._id,
         username: value.username,
       };
-
       Coordinator.findOne({ account_id: _id })
         .exec()
         .then((value) => {
@@ -254,13 +280,40 @@ const updateCoordinator_admin = (req, res, next) => {
             name: value.name,
             email: value.email,
           };
-
-          res.render("admin_update_coordinatorAcc", {
-            data: {
-              user: user,
-              info: info,
-            },
-          });
+          Faculty.find({})
+            .exec()
+            .then((faculty) => {
+              if (value.faculty_id) {
+                Faculty.findOne({ _id: value.faculty_id })
+                  .exec()
+                  .then((assign) => {
+                    console.log(assign);
+                    res.render("admin_update_coordinatorAcc", {
+                      data: {
+                        name: value.name,
+                        desc: value.description,
+                        _id: value._id,
+                        user: user,
+                        info: info,
+                        assign: assign.name,
+                        faculty: faculty,
+                      },
+                    });
+                  });
+              } else {
+                res.render("admin_update_coordinatorAcc", {
+                  data: {
+                    _id: value._id,
+                    user: user,
+                    info: info,
+                    faculty: faculty,
+                  },
+                });
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
         })
         .catch((err) => {
           console.log(err);
@@ -338,6 +391,26 @@ const deleteCoordinator_Admin = async (req, res, next) => {
       return res.redirect("/users/admin/list_all_coordinators");
     }
   });
+};
+
+// Assign faculty for coordinator
+const assignFacultyForCoordinator_admin = (req, res, next) => {
+  const { _id, faculty } = req.body;
+  console.log(faculty, _id);
+  Coordinator.findOneAndUpdate(
+    { _id: _id },
+    { $set: { faculty_id: faculty } },
+    { new: true, useFindAndModify: false }
+  )
+    .exec()
+    .then((value) => {
+      console.log(value);
+      res.redirect("/users/admin/list_all_coordinators");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
 };
 
 /* ================================================================
@@ -618,4 +691,6 @@ module.exports = {
   deleteCoordinator_Admin,
   deleteManager_Admin,
   deleteFaculty_admin,
+  assignFacultyForStudent_admin,
+  assignFacultyForCoordinator_admin,
 };
