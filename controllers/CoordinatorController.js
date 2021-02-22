@@ -21,36 +21,29 @@ const GetCoordinatorHome = (req, res, next) => {
             name: value.name,
             email: value.email,
           };
-          Faculty.find({})
-            .exec()
-            .then((faculty) => {
-              if (value.faculty_id) {
-                Faculty.findOne({ _id: value.faculty_id })
-                  .exec()
-                  .then((assign) => {
-                    console.log(assign);
-                    res.render("coordinator_home", {
-                      data: {
-                        _id: value._id,
-                        user: user,
-                        info: info,
-                        assign: assign.name,
-                      },
-                    });
-                  });
-              } else {
+          if (value.faculty_id) {
+            Faculty.findOne({ _id: value.faculty_id })
+              .exec()
+              .then((assign) => {
+                console.log(assign);
                 res.render("coordinator_home", {
                   data: {
                     _id: value._id,
                     user: user,
                     info: info,
+                    assign: assign.name,
                   },
                 });
-              }
-            })
-            .catch((err) => {
-              console.log(err);
+              });
+          } else {
+            res.render("coordinator_home", {
+              data: {
+                _id: value._id,
+                user: user,
+                info: info,
+              },
             });
+          }
         })
         .catch((err) => {
           console.log(err);
