@@ -6,9 +6,6 @@ var logger = require("morgan");
 var methodOverride = require("method-override");
 var session = require("express-session");
 
-var Student = require("./models/StudentModel");
-var Faculty = require("./models/FacultyModel");
-
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 
@@ -28,6 +25,15 @@ mongoose
   .then(() => console.log("Connection to DB ...."))
   .catch((err) => console.log(`Connect to Db failed. Error: ${err}`));
 
+// Session
+app.use(
+  session({
+    secret: "mySecretSession",
+    resave: true,
+    saveUninitialized: false,
+  })
+);
+
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "hbs");
@@ -45,14 +51,6 @@ app.use(
       delete req.body._method;
       return method;
     }
-  })
-);
-
-app.use(
-  session({
-    secret: "mySecretSession",
-    resave: true,
-    saveUninitialized: false,
   })
 );
 
