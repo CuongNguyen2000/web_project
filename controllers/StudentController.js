@@ -86,7 +86,7 @@ const addImage_student = async (req, res, next) => {
     });
 };
 
-const getListImage_student = (req, res, next) => {
+const getListArticles_student = (req, res, next) => {
   Student.findOne({ account_id: req.session.userId })
     .exec()
     .then((info) => {
@@ -104,4 +104,4 @@ const getListImage_student = (req, res, next) => {
     });
 };
 
-module.exports = { GetStudentHome, addImage_student, getListImage_student };
+module.exports = { GetStudentHome, addImage_student, getListArticles_student };

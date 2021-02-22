@@ -18,10 +18,13 @@ var { Login, Logout } = require("../controllers/LoginControllers");
 var {
   GetStudentHome,
   addImage_student,
-  getListImage_student,
+  getListArticles_student,
 } = require("../controllers/StudentController");
 
-var { GetCoordinatorHome } = require("../controllers/CoordinatorController");
+var {
+  GetCoordinatorHome,
+  getListArticles_coordinator,
+} = require("../controllers/CoordinatorController");
 var { GetManagerHome } = require("../controllers/ManagerController");
 
 var {
@@ -53,14 +56,11 @@ var {
 } = require("../controllers/AdminController");
 const { route } = require(".");
 
-// // Session
-// router.use(
-//   session({
-//     secret: "mySecretSession",
-//     resave: false,
-//     saveUninitialized: false,
-//   })
-// );
+/* ================================================================
+===================================================================
+===================================================================
+===================================================================
+=================================================================== */
 
 // Get login page
 router.get("/login", (req, res, next) => {
@@ -179,6 +179,13 @@ router.delete("/admin/delete_faculty", isAdmin, deleteFaculty_admin);
 // Get Homepage
 router.get("/coordinator/home", isCoordinator, GetCoordinatorHome);
 
+// get list of article page
+router.get(
+  "/coordinator/list_articles",
+  isCoordinator,
+  getListArticles_coordinator
+);
+
 /* ================================================================
 ===================================================================
 ===================================================================
@@ -191,7 +198,7 @@ router.get("/coordinator/home", isCoordinator, GetCoordinatorHome);
 // Get Homepage
 router.get("/student/home", isStudent, GetStudentHome);
 
-router.get("/student/list_articles", isStudent, getListImage_student);
+router.get("/student/list_articles", isStudent, getListArticles_student);
 
 router.get("/student/add_image", isStudent, (req, res, next) => {
   res.render("student_add_image");
