@@ -10,12 +10,6 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link href="/stylesheets/templatemo-style.css" rel="stylesheet" />
-    <style>
-        .desc-name {
-            font-weight: bold;
-            font-style: italic;
-        }
-    </style>
 </head>
 
 <body>
@@ -78,25 +72,24 @@
             <br>
             <h1>To Upload Image on mongoDB</h1>
             <hr>
-            <div class="border rounded" style="width: auto;">
-                <form action="/users/student/add_image" method="POST" enctype="multipart/form-data">
-                    <div>
-                        <label for="name">Image Title</label>
-                        <input type="text" id="name" placeholder="Name" value="" name="name" required>
-                    </div>
-                    <div>
-                        <label for="desc">Image Description</label>
-                        <textarea id="desc" name="desc" value="" rows="2" placeholder="Description" required></textarea>
-                    </div>
-                    <div>
-                        <label for="image">Upload Image</label>
-                        <input type="file" id="image" name="image" value="" required>
-                    </div>
-                    <div>
-                        <button type="submit">Submit</button>
-                    </div>
-                </form>
-            </div>
+            <form action="/users/student/add_image" method="POST" enctype="multipart/form-data">
+                <div class="from-group">
+                    <label for="name">Image Title</label>
+                    <input class="form-control" type="text" id="name" placeholder="Name" value="" name="name" required>
+                </div>
+                <div class="from-group">
+                    <label for="desc">Image Description</label>
+                    <textarea class="form-control" id="desc" name="desc" value="" rows="2" placeholder="Description"
+                        required></textarea>
+                </div>
+                <div class="from-group">
+                    <label for="image">Upload File</label>
+                    <input class="form-control" type="file" id="image" name="image" value="" required multiple>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
         </main>
 
         <footer class="tm-footer text-center">

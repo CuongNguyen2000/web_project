@@ -56,7 +56,7 @@ const GetStudentHome = (req, res, next) => {
     });
 };
 
-const addImage_student = async (req, res, next) => {
+const addArticle_student = async (req, res, next) => {
   Student.findOne({ account_id: req.session.userId })
     .exec()
     .then((info) => {
@@ -67,7 +67,7 @@ const addImage_student = async (req, res, next) => {
             var obj = {
               name: req.body.name,
               desc: req.body.desc,
-              img: req.file.filename,
+              articleImage: req.file.filename,
               faculty_id: faculty._id,
             };
 
@@ -104,4 +104,8 @@ const getListArticles_student = (req, res, next) => {
     });
 };
 
-module.exports = { GetStudentHome, addImage_student, getListArticles_student };
+module.exports = {
+  GetStudentHome,
+  addArticle_student,
+  getListArticles_student,
+};

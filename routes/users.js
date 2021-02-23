@@ -11,13 +11,13 @@ var {
   isManager,
 } = require("../middlewares/RequiresLogin");
 
-var multerInstance = require("../middlewares/upload");
+var multerInstance = require("../middlewares/uploadImage");
 
 var { Login, Logout } = require("../controllers/LoginControllers");
 
 var {
   GetStudentHome,
-  addImage_student,
+  addArticle_student,
   getListArticles_student,
 } = require("../controllers/StudentController");
 
@@ -208,7 +208,7 @@ router.post(
   "/student/add_image",
   multerInstance.single("image"),
   isStudent,
-  addImage_student
+  addArticle_student
 );
 
 /* ================================================================

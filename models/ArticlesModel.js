@@ -3,7 +3,7 @@ var mongoose = require("mongoose");
 const ArticlesSchema = new mongoose.Schema({
   name: String,
   desc: String,
-  img: {
+  articleImage: {
     type: String,
   },
   timeCreated: {
