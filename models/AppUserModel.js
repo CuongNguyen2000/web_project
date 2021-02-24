@@ -16,12 +16,12 @@ const AppUserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["admin", "student", "coordinator", "manager"],
+    enum: ["admin", "student", "coordinator", "manager", "guest"],
     default: "student",
   },
-  created_date: {
+  timeCreated: {
     type: Date,
-    default: Date.now,
+    default: () => Date.now(),
   },
 });
 

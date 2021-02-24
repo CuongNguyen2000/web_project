@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List of all Marketing Manger Account</title>
+    <title>List of all Guest Account</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -45,7 +45,7 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Marketing Manager Account
+                                        Guest Account
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="/users/admin/list_all_students">
@@ -85,14 +85,14 @@
         <main>
 
             <header class="row tm-welcome-section">
-                <h2 class="col-12 text-center tm-section-title">List of Manager Account</h2>
+                <h2 class="col-12 text-center tm-section-title">List of Guest Account</h2>
             </header>
 
             <div class="border rounded" style="width: auto;">
                 <div class="d-flex flex-row-reverse">
                     <div style="padding-top: 20px; padding-right: 20px">
                         <button type="button" class="btn btn-success"
-                            onclick="window.location='/users/admin/add_manager';">
+                            onclick="window.location='/users/admin/add_guest';">
                             Adding more user
                         </button>
                     </div>
@@ -119,11 +119,11 @@
                                 <td>Hidden</td>
                                 <td>{{timeCreated}}</td>
                                 <td class="d-flex flex-row">
-                                    <form action="/users/admin/update_manager" method="POST">
+                                    <form action="/users/admin/update_guest" method="POST">
                                         <input type="hidden" name="_id" value={{_id}}>
                                         <button type="submit" class="btn btn-primary">Update</button>
                                     </form>
-                                    <form action="/users/admin/delete_manager" method="POST"
+                                    <form action="/users/admin/delete_guest" method="POST"
                                         enctype="application/x-www-form-urlencoded">
                                         <input type="hidden" name="_id" value={{_id}}>
                                         <input type="hidden" name="_method" value="DELETE">

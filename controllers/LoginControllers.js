@@ -1,6 +1,4 @@
 var AppUser = require("../models/AppUserModel");
-var Student = require("../models/StudentModel");
-var Faculty = require("../models/FacultyModel");
 var bcrypt = require("bcrypt");
 
 // const SignUp = async (req, res, next) => {
@@ -35,6 +33,7 @@ const Login = (req, res, next) => {
         req.session.isStudent = user.role === "student" ? true : false;
         req.session.isCoordinator = user.role === "coordinator" ? true : false;
         req.session.isManager = user.role === "manager" ? true : false;
+        req.session.isGuest = user.role === "guest" ? true : false;
 
         if (user.role === "admin") {
           return res.redirect(`/users/admin/home`);
@@ -42,8 +41,10 @@ const Login = (req, res, next) => {
           return res.redirect(`/users/student/home`);
         } else if (user.role === "manager") {
           return res.redirect(`/users/manager/home`);
-        } else {
+        } else if (user.role === "coordinator") {
           return res.redirect(`/users/coordinator/home`);
+        } else {
+          return res.redirect(`/users/guest/home`);
         }
       } else {
         const msg = "Username or Password is incorrect !!!";

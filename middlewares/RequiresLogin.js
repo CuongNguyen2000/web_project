@@ -34,8 +34,18 @@ const isManager = (req, res, next) => {
   } else {
     const msg =
       "You must be logged in with Manager permission to view this page.";
-    return res.redirect(`/?msg=${msg}`);
+    return res.redirect(`/users/login?msg=${msg}`);
   }
 };
 
-module.exports = { isAdmin, isCoordinator, isStudent, isManager };
+const isGuest = (req, res, next) => {
+  if (req.session && req.session.isGuest === true && req.session.userId) {
+    return next();
+  } else {
+    const msg =
+      "You must be logged in with Guest permission to view this page.";
+    return res.redirect(`/users/login?msg=${msg}`);
+  }
+};
+
+module.exports = { isAdmin, isCoordinator, isStudent, isManager, isGuest };

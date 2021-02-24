@@ -102,12 +102,11 @@ https://templatemo.com/tm-539-simple-house
                     {{#each items}}
                     <article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
                         <figure>
-                            <img src="/uploads/{{ this.articleImage }}" alt="Image" class="img-fluid tm-gallery-img" />
+                            <img src="/uploads/{{this.articleImage}}" alt="Image" class="img-fluid tm-gallery-img" />
                             <figcaption>
                                 <a href="/uploads/{{this.articleImage}}">
-                                    <p class="tm-gallery-title">{{this.articleImage}}</p>
+                                    {{this.articleImage}}
                                 </a>
-
                                 <h4 class="tm-gallery-title">{{ this.name }}</h4>
                                 <p class="tm-gallery-description">{{ this.desc }}</p>
                             </figcaption>

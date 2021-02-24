@@ -72,7 +72,7 @@
             <br>
             <h1>To Upload Image on mongoDB</h1>
             <hr>
-            <form action="/users/student/add_image" method="POST" enctype="multipart/form-data">
+            <form id="uploadForm" action="/users/student/add_image" method="POST" enctype="multipart/form-data">
                 <div class="from-group">
                     <label for="name">Image Title</label>
                     <input class="form-control" type="text" id="name" placeholder="Name" value="" name="name" required>
@@ -89,6 +89,7 @@
                 <div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
+                <span id="status"></span>
             </form>
         </main>
 
@@ -131,6 +132,23 @@
         });
     </script>
     <!--===============================================================================================-->
+    <script>
+        $(document).ready(function () {
+            $('#uploadForm').submit(function () {
+                $("#status").empty().text("File is uploading...");
+                $(this).ajaxSubmit({
+                    error: function (xhr) {
+                        status('Error: ' + xhr.status);
+                    },
+                    success: function (response) {
+                        console.log(response)
+                        $("#status").empty().text(response);
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
 
 </body>
 

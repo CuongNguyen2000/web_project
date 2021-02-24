@@ -3,6 +3,7 @@ var Student = require("../models/StudentModel");
 var Coordinator = require("../models/CoordinatorModel");
 var Manager = require("../models/ManagerModel");
 var Faculty = require("../models/FacultyModel");
+const Guest = require("../models/GuestModel");
 
 // The processing section for a student's account is below
 // showing list of student
@@ -661,15 +662,222 @@ const deleteFaculty_admin = (req, res, next) => {
     });
 };
 
+/* ================================================================
+===================================================================
+===================================================================
+===================================================================
+=================================================================== */
+
+// The processing section for a Guest's account is below
+// Displaying list of Guest acc
+const listGuest_admin = (req, res, next) => {
+  AppUser.find({ role: "guest" })
+    .exec()
+    .then((user) => {
+      res.render("admin_list_guest", { user: user });
+    })
+    .catch((err) => console.log(err));
+};
+
+// Adding new Guest account
+const addGuest_admin = async (req, res, next) => {
+  const { usr, pwd, name, email } = req.body;
+  AppUser.findOne({ username: usr }).exec((err, user) => {
+    if (err) {
+      return console.log(err);
+    } else if (user) {
+      const msg = "User has already exist !!!";
+      return res.redirect(`/admin/add_guest?msg=${msg}`);
+    }
+  });
+
+  const newUser = new AppUser({
+    username: usr,
+    password: pwd,
+    role: "guest",
+  });
+
+  await newUser.save();
+
+  AppUser.findOne({ username: usr }).exec(async (err, user) => {
+    if (err) {
+      return console.log(err);
+    } else {
+      const newGuest = new Guest({
+        name: name,
+        email: email,
+        account_id: user._id,
+      });
+
+      await newGuest.save();
+
+      return res.redirect("/users/admin/list_all_guests");
+    }
+  });
+};
+
+// Update guest Account
+const updateGuest_admin = (req, res, next) => {
+  let user = {};
+  let info = {};
+  const { _id } = req.body;
+
+  AppUser.findOne({ _id: _id })
+    .exec()
+    .then((value) => {
+      user = {
+        _id: value._id,
+        username: value.username,
+      };
+      Guest.findOne({ account_id: _id })
+        .exec()
+        .then((value) => {
+          info = {
+            name: value.name,
+            email: value.email,
+          };
+          Faculty.find({})
+            .exec()
+            .then((faculty) => {
+              if (value.faculty_id) {
+                Faculty.findOne({ _id: value.faculty_id })
+                  .exec()
+                  .then((assign) => {
+                    console.log(assign);
+                    res.render("admin_update_guestAcc", {
+                      data: {
+                        name: value.name,
+                        desc: value.description,
+                        _id: value._id,
+                        user: user,
+                        info: info,
+                        assign: assign.name,
+                        faculty: faculty,
+                      },
+                    });
+                  });
+              } else {
+                res.render("admin_update_guestAcc", {
+                  data: {
+                    _id: value._id,
+                    user: user,
+                    info: info,
+                    faculty: faculty,
+                  },
+                });
+              }
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.redirect("/users/admin/list_all_guests");
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect("/users/admin/list_all_guests");
+    });
+};
+
+const updateGuestInfo_admin = (req, res, next) => {
+  const { name, email, _id } = req.body;
+  const newValue = {};
+  if (name) newValue.name = name;
+  if (email) newValue.email = email;
+
+  Guest.findOneAndUpdate(
+    { account_id: _id },
+    { $set: newValue },
+    (err, data) => {
+      if (err) {
+        console.log(err);
+        return res.render("admin_update_guestAcc");
+      } else {
+        console.log(data);
+        return res.redirect("/users/admin/list_all_guests");
+      }
+    }
+  );
+};
+
+const updateGuestAcc_admin = (req, res, next) => {
+  const { usr, pwd, _id } = req.body;
+  const newValue = {};
+  if (usr) newValue.username = usr;
+  if (pwd) newValue.password = pwd;
+
+  AppUser.findOneAndUpdate(
+    { _id: _id },
+    { $set: newValue },
+    { new: true },
+    (err, data) => {
+      if (err) {
+        console.log(err);
+        return res.render("admin_update_guestAcc");
+      } else {
+        console.log(data);
+        return res.redirect("/users/admin/list_all_guests");
+      }
+    }
+  );
+};
+
+// Assign faculty for guest
+const assignFacultyForGuest_admin = (req, res, next) => {
+  const { _id, faculty } = req.body;
+  console.log(faculty, _id);
+  Guest.findOneAndUpdate(
+    { _id: _id },
+    { $set: { faculty_id: faculty } },
+    { new: true, useFindAndModify: false }
+  )
+    .exec()
+    .then((value) => {
+      console.log(value);
+      res.redirect("/users/admin/list_all_guests");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
+};
+
+// Delete Guest account
+const deleteGuest_Admin = async (req, res, next) => {
+  const { _id } = req.body;
+  await AppUser.findOneAndRemove({ _id: _id }, (err) => {
+    if (err) {
+      console.log(err);
+      return res.redirect("/users/admin/list_all_guests");
+    } else {
+      console.log("Ok");
+      Guest.findOneAndRemove({ account_id: _id })
+        .then((result) => {
+          console.log("OK");
+          return res.redirect("/users/admin/list_all_guests");
+        })
+        .catch((err) => {
+          console.log(err);
+          return res.redirect("/users/admin/list_all_guests");
+        });
+    }
+  });
+};
+
 module.exports = {
   listStudent_Admin,
   listCoordinator_Admin,
   listManager_Admin,
   listFaculty_admin,
+  listGuest_admin,
   addStudent_admin,
   addCoordinator_admin,
   addManager_admin,
   addFaculty_admin,
+  addGuest_admin,
   updateStudent_admin,
   updateStudentAcc_admin,
   updateStudentInfo_admin,
@@ -679,12 +887,17 @@ module.exports = {
   updateManager_admin,
   updateManagerAcc_admin,
   updateManagerInfo_admin,
+  updateGuest_admin,
+  updateGuestAcc_admin,
+  updateGuestInfo_admin,
   updatePageFaculty_admin,
   updateFaculty_admin,
   deleteStudent_Admin,
   deleteCoordinator_Admin,
   deleteManager_Admin,
+  deleteGuest_Admin,
   deleteFaculty_admin,
   assignFacultyForStudent_admin,
   assignFacultyForCoordinator_admin,
+  assignFacultyForGuest_admin,
 };

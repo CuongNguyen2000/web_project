@@ -9,6 +9,7 @@ var {
   isStudent,
   isCoordinator,
   isManager,
+  isGuest,
 } = require("../middlewares/RequiresLogin");
 
 var multerInstance = require("../middlewares/uploadImage");
@@ -25,17 +26,25 @@ var {
   GetCoordinatorHome,
   getListArticles_coordinator,
 } = require("../controllers/CoordinatorController");
+
 var { GetManagerHome } = require("../controllers/ManagerController");
+
+var {
+  GetGuestHome,
+  getListArticles_guest,
+} = require("../controllers/guestController");
 
 var {
   listStudent_Admin,
   listCoordinator_Admin,
   listManager_Admin,
   listFaculty_admin,
+  listGuest_admin,
   addStudent_admin,
   addCoordinator_admin,
   addManager_admin,
   addFaculty_admin,
+  addGuest_admin,
   updateStudent_admin,
   updateStudentAcc_admin,
   updateStudentInfo_admin,
@@ -47,13 +56,19 @@ var {
   updateManagerInfo_admin,
   updatePageFaculty_admin,
   updateFaculty_admin,
+  updateGuest_admin,
+  updateGuestAcc_admin,
+  updateGuestInfo_admin,
   deleteStudent_Admin,
   deleteCoordinator_Admin,
   deleteManager_Admin,
+  deleteGuest_Admin,
   deleteFaculty_admin,
   assignFacultyForStudent_admin,
   assignFacultyForCoordinator_admin,
+  assignFacultyForGuest_admin,
 } = require("../controllers/AdminController");
+
 const { route } = require(".");
 
 /* ================================================================
@@ -90,6 +105,7 @@ router.get("/admin/home", isAdmin, (req, res, next) => {
 router.get("/admin/list_all_students", isAdmin, listStudent_Admin);
 router.get("/admin/list_all_coordinators", isAdmin, listCoordinator_Admin);
 router.get("/admin/list_all_managers", isAdmin, listManager_Admin);
+router.get("/admin/list_all_guests", isAdmin, listGuest_admin);
 router.get("/admin/list_all_faculty", isAdmin, listFaculty_admin);
 
 // Adding new user account
@@ -107,6 +123,11 @@ router.get("/admin/add_manager", isAdmin, (req, res, next) => {
   res.render("admin_add_manager");
 });
 router.post("/admin/add_manager", isAdmin, addManager_admin);
+
+router.get("/admin/add_guest", isAdmin, (req, res, next) => {
+  res.render("admin_add_guest");
+});
+router.post("/admin/add_guest", isAdmin, addGuest_admin);
 
 // Adding new Faculty
 router.get("/admin/add_faculty", isAdmin, (req, res, next) => {
@@ -145,6 +166,11 @@ router.put(
 );
 router.post("/admin/update_manager", isAdmin, updateManager_admin);
 
+// Update Guest
+router.put("/admin/update_guest_account", isAdmin, updateGuestAcc_admin);
+router.put("/admin/update_guest_information", isAdmin, updateGuestInfo_admin);
+router.post("/admin/update_guest", isAdmin, updateGuest_admin);
+
 // Update Faculty
 router.put("/admin/update_faculty_information", isAdmin, updateFaculty_admin);
 router.post("/admin/update_faculty", isAdmin, updatePageFaculty_admin);
@@ -155,16 +181,20 @@ router.put(
   isAdmin,
   assignFacultyForStudent_admin
 );
+
 router.put(
   "/admin/assign_faculty_coordinator",
   isAdmin,
   assignFacultyForCoordinator_admin
 );
 
+router.put("/admin/assign_faculty_guest", isAdmin, assignFacultyForGuest_admin);
+
 // Delete user account / faculty
 router.delete("/admin/delete_student", isAdmin, deleteStudent_Admin);
 router.delete("/admin/delete_coordinator", isAdmin, deleteCoordinator_Admin);
 router.delete("/admin/delete_manager", isAdmin, deleteManager_Admin);
+router.delete("/admin/delete_guest", isAdmin, deleteGuest_Admin);
 router.delete("/admin/delete_faculty", isAdmin, deleteFaculty_admin);
 
 /* ================================================================
@@ -222,5 +252,20 @@ router.post(
 
 // Get Homepage
 router.get("/manager/home", isManager, GetManagerHome);
+
+/* ================================================================
+===================================================================
+===================================================================
+===================================================================
+=================================================================== */
+
+// The processing section for guest is below
+// Coordinator request
+
+// Get Homepage
+router.get("/guest/home", isGuest, GetGuestHome);
+
+// get list of article page
+router.get("/guest/list_articles", isGuest, getListArticles_guest);
 
 module.exports = router;

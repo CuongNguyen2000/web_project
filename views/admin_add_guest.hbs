@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>List of all Marketing Manger Account</title>
+    <title>Adding new Guest</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
@@ -45,7 +45,7 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        Marketing Manager Account
+                                        User Account
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="/users/admin/list_all_students">
@@ -83,57 +83,40 @@
         </div>
 
         <main>
-
-            <header class="row tm-welcome-section">
-                <h2 class="col-12 text-center tm-section-title">List of Manager Account</h2>
-            </header>
-
+            <br>
             <div class="border rounded" style="width: auto;">
-                <div class="d-flex flex-row-reverse">
-                    <div style="padding-top: 20px; padding-right: 20px">
-                        <button type="button" class="btn btn-success"
-                            onclick="window.location='/users/admin/add_manager';">
-                            Adding more user
-                        </button>
+                <div style="padding: 20px;">
+                    <form action="/users/admin/add_guest" method="POST">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="usr" name="usr" placeholder="Username"
+                                    required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword">Password</label>
+                                <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Password"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputName">Full Name</label>
+                            <input type="text" class="form-control" id="name" name="name"
+                                placeholder="Enter your full name ..." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputEmail">Email</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                placeholder="Enter your email ..." required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    <br><br>
+                    {{#if err}}
+                    <div class="alert alert-danger" role="alert">
+                        {{err}}
                     </div>
-                </div>
-                <br>
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">User_id</th>
-                                <th scope="col">Username</th>
-                                <th scope="col">Password</th>
-                                <th scope="col">Created date</th>
-                                <th scope="col">Option</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each user}}
-                            <tr>
-                                <th scope="row">{{@index}}</th>
-                                <td>{{_id}}</td>
-                                <td>{{username}}</td>
-                                <td>Hidden</td>
-                                <td>{{timeCreated}}</td>
-                                <td class="d-flex flex-row">
-                                    <form action="/users/admin/update_manager" method="POST">
-                                        <input type="hidden" name="_id" value={{_id}}>
-                                        <button type="submit" class="btn btn-primary">Update</button>
-                                    </form>
-                                    <form action="/users/admin/delete_manager" method="POST"
-                                        enctype="application/x-www-form-urlencoded">
-                                        <input type="hidden" name="_id" value={{_id}}>
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
+                    {{/if}}
                 </div>
             </div>
         </main>

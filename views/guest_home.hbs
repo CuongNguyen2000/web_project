@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Welcome to Simple House</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="/stylesheets/indexLayout.css" type="text/css" media="all">
+    <link rel="stylesheet" href="/stylesheets/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body id="top">
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- Top Background Image Wrapper -->
+    <div class="bgded overlay" style="background-image:url('/images/simple-house-01.jpg');">
+        <!-- ################################################################################################ -->
+        <header id="header" class="hoc clear">
+            <!-- ################################################################################################ -->
+            <div id="logo" class="one_quarter first">
+                <h1><a href="/">Simple House</a></h1>
+                <p>Welcome to our world</p>
+            </div>
+            <div class="three_quarter">
+                <ul class="nospace clear">
+                    <li class="one_third first">
+                        <div class="block clear"><a href="#"><i class="fas fa-phone"></i></a> <span><strong>Give us a
+                                    call:</strong> +84 (336) 424 121</span></div>
+                    </li>
+                    <li class="one_third">
+                        <div class="block clear"><a href="#"><i class="fas fa-envelope"></i></a> <span><strong>Send us a
+                                    mail:</strong> cn1122000@gmail.com</span></div>
+                    </li>
+                    <li class="one_third">
+                        <div class="block clear"><a href="#"><i class="fas fa-clock"></i></a> <span><strong> Mon. -
+                                    Sat.:</strong> 08.00am - 18.00pm</span></div>
+                    </li>
+                </ul>
+            </div>
+            <!-- ################################################################################################ -->
+        </header>
+        <!-- ################################################################################################ -->
+        <!-- ################################################################################################ -->
+        <!-- ################################################################################################ -->
+        <section id="navwrapper" class="hoc clear">
+            <!-- ################################################################################################ -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="/">Navbar</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/users/guest/home">Home <span class="sr-only">(current)</span></a>
+                        </li>
+                    </ul>
+                    <button type="button" class="btn btn-primary"
+                        onclick="window.location = '/users/logout'">Logout</button>
+                </div>
+            </nav>
+            <!-- ################################################################################################ -->
+        </section>
+        <!-- ################################################################################################ -->
+        <!-- ################################################################################################ -->
+        <!-- ################################################################################################ -->
+        <div id="pageintro" class="hoc clear">
+            <!-- ################################################################################################ -->
+            <article>
+                <p>Welcome Guest: {{data.info.name}}</p>
+                <h3 class="heading">Welcome to Simple House</h3>
+                <p>This is a project of Group 6 for Enterprise Website Subject</p>
+            </article>
+            <!-- ################################################################################################ -->
+        </div>
+        <!-- ################################################################################################ -->
+    </div>
+    <!-- End Top Background Image Wrapper -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <div class="wrapper row3">
+        <main class="hoc container clear">
+            <!-- main body -->
+            <!-- ################################################################################################ -->
+            <section id="introblocks">
+                <ul class="nospace group">
+                    {{#each items}}
+                    <li class="one_third">
+                        <figure>
+                            <a class="imgover" href="#">
+                                <img src="/uploads/{{articleImage}}" alt="Article image">
+                            </a>
+                            <figcaption>
+                                <h6 class="heading">{{name}}</h6>
+                                <p>{{desc}}</p>
+                            </figcaption>
+                        </figure>
+                    </li>
+                    {{/each}}
+                </ul>
+            </section>
+            <!-- ################################################################################################ -->
+            <!-- / main body -->
+            {{!-- <div class="clear"></div> --}}
+        </main>
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+
+    <div class="wrapper coloured">
+        <section id="testimonials" class="hoc container clear">
+            <div class="sectiontitle">
+                <p class="nospace font-xs">At ante morbi consequat lobortis</p>
+                <h6 class="heading">Eros suspendisse scelerisque</h6>
+            </div>
+            <div class="tm-container-inner tm-persons">
+                <div class="row">
+                    <article class="col-lg-6">
+                        <figure class="tm-person">
+                            <img src="/images/teamAVT/me.png" alt="Image" class="img-fluid tm-person-img" />
+                            <figcaption class="tm-person-description">
+                                <h4 class="tm-person-name">Nguyen Duc Cuong</h4>
+                                <p class="tm-person-title">Leader</p>
+                                <p class="tm-person-about">Vivamus cursus leo nec sem feugiat sagittis.
+                                    Duis ut feugiat odio, sit amet accumsan
+                                    odio.</p>
+                            </figcaption>
+                        </figure>
+                    </article>
+                    <article class="col-lg-6">
+                        <figure class="tm-person">
+                            <img src="/images/teamAVT/thang.png" alt="Image" class="img-fluid tm-person-img" />
+                            <figcaption class="tm-person-description">
+                                <h4 class="tm-person-name">Pham Ngoc Thang</h4>
+                                <p class="tm-person-title">Leader</p>
+                                <p class="tm-person-about">Praesent non vulputate elit. Orci varius
+                                    natoque et magnis dis parturient, nascetur ridiculus mus.</p>
+                            </figcaption>
+                        </figure>
+                    </article>
+                    <article class="col-lg-6">
+                        <figure class="tm-person">
+                            <img src="/images/teamAVT/vu duc.png" alt="Image" class="img-fluid tm-person-img" />
+                            <figcaption class="tm-person-description">
+                                <h4 class="tm-person-name">Vu Viet Duc</h4>
+                                <p class="tm-person-title">Database Designer</p>
+                                <p class="tm-person-about">Aenean sapien sem, ultricies sed vulputate
+                                    et, auctor vel mauris. Integer sit amet diam eget est facilisis lacinia vitae.</p>
+                            </figcaption>
+                        </figure>
+                    </article>
+                    <article class="col-lg-6">
+                        <figure class="tm-person">
+                            <img src="/images/teamAVT/p.cuong.png" alt="Image" class="img-fluid tm-person-img" />
+                            <figcaption class="tm-person-description">
+                                <h4 class="tm-person-name">Pham Quoc Cuong</h4>
+                                <p class="tm-person-title">Front-end Developer</p>
+                                <p class="tm-person-about">Praesent non vulputate elit. Orci varius
+                                    natoque penatibus et magnis montes, nascetur ridiculus mus.</p>
+                            </figcaption>
+                        </figure>
+                    </article>
+                    <article class="col-lg-6">
+                        <figure class="tm-person">
+                            <img src="/images/teamAVT/son.png" alt="Image" class="img-fluid tm-person-img" />
+                            <figcaption class="tm-person-description">
+                                <h4 class="tm-person-name">Nguyen Hoang Son</h4>
+                                <p class="tm-person-title">Front-end Designer</p>
+                                <p class="tm-person-about">Praesent non vulputate elit. Orci varius
+                                    natoque penatibus et magnis montes, nascetur ridiculus mus.</p>
+                            </figcaption>
+                        </figure>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <div class="bgded overlay row4" style="background-image:url('/images/backgroundIndex/footerBackGround.jpg');">
+        <footer id="footer" class="hoc clear">
+            <!-- ################################################################################################ -->
+            <div class="center btmspace-50">
+                <h6 class="heading">Simple House</h6>
+                <ul class="faico clear">
+                    <li><a class="faicon-dribble" href="#"><i class="fab fa-dribbble"></i></a></li>
+                    <li><a class="faicon-facebook" href="#"><i class="fab fa-facebook"></i></a></li>
+                    <li><a class="faicon-google-plus" href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                    <li><a class="faicon-linkedin" href="#"><i class="fab fa-linkedin"></i></a></li>
+                    <li><a class="faicon-twitter" href="#"><i class="fab fa-twitter"></i></a></li>
+                    <li><a class="faicon-vk" href="#"><i class="fab fa-vk"></i></a></li>
+                </ul>
+                <p class="nospace">Sed pellentesque in nisi nulla facilisi sed pretium duis varius ut ut.</p>
+            </div>
+            <!-- ################################################################################################ -->
+            <!-- <hr class="btmspace-50"> -->
+            <!-- ################################################################################################ -->
+
+            <!-- ################################################################################################ -->
+        </footer>
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <div class="wrapper row5">
+        <div id="copyright" class="hoc clear">
+            <!-- ################################################################################################ -->
+            <p class="fl_left">Copyright &copy; 2018 - All Rights Reserved - <a href="#">Domain Name</a></p>
+            <p class="fl_right">Template by <a target="_blank" href="https://www.os-templates.com/"
+                    title="Free Website Templates">OS Templates</a></p>
+            <!-- ################################################################################################ -->
+        </div>
+    </div>
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <!-- ################################################################################################ -->
+    <a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
+
+    <!-- JAVASCRIPTS -->
+
+    <script src="/js/indexJS/jquery.min.js"></script>
+    <script src="/js/indexJS/jquery.backtotop.js"></script>
+    <script src="/js/indexJS/jquery.mobilemenu.js"></script>
+    <script src="https://kit.fontawesome.com/bef6839cc1.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
