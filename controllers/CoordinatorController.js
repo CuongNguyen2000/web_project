@@ -26,7 +26,7 @@ const GetCoordinatorHome = (req, res, next) => {
               .exec()
               .then((assign) => {
                 console.log(assign);
-                res.render("coordinator_home", {
+                res.render("coordinatorViews/coordinator_home", {
                   data: {
                     _id: value._id,
                     user: user,
@@ -36,7 +36,7 @@ const GetCoordinatorHome = (req, res, next) => {
                 });
               });
           } else {
-            res.render("coordinator_home", {
+            res.render("coordinatorViews/coordinator_home", {
               data: {
                 _id: value._id,
                 user: user,
@@ -67,7 +67,9 @@ const getListArticles_coordinator = (req, res, next) => {
             res.status(500).send("An error occurred", err);
           } else {
             console.log(items);
-            res.render("coordinator_list_articles", { items: items });
+            res.render("coordinatorViews/coordinator_list_articles", {
+              items: items,
+            });
           }
         });
       }

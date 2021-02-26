@@ -11,7 +11,7 @@ const listStudent_Admin = (req, res, next) => {
   AppUser.find({ role: "student" })
     .exec()
     .then((user) => {
-      res.render("admin_list_student", { user: user });
+      res.render("adminViews/admin_list_student", { user: user });
     })
     .catch((err) => console.log(err));
 };
@@ -81,7 +81,7 @@ const updateStudent_admin = (req, res, next) => {
                   .exec()
                   .then((assign) => {
                     console.log(assign);
-                    res.render("admin_update_studentAcc", {
+                    res.render("adminViews/admin_update_studentAcc", {
                       data: {
                         name: value.name,
                         desc: value.description,
@@ -95,7 +95,7 @@ const updateStudent_admin = (req, res, next) => {
                   })
                   .catch();
               } else {
-                res.render("admin_update_studentAcc", {
+                res.render("adminViews/admin_update_studentAcc", {
                   data: {
                     _id: value._id,
                     user: user,
@@ -132,7 +132,7 @@ const updateStudentInfo_admin = (req, res, next) => {
     (err, data) => {
       if (err) {
         console.log(err);
-        return res.render("admin_update_studentAcc");
+        return res.render("adminViews/admin_update_studentAcc");
       } else {
         console.log(data);
         return res.redirect("/users/admin/list_all_students");
@@ -154,7 +154,7 @@ const updateStudentAcc_admin = (req, res, next) => {
     (err, data) => {
       if (err) {
         console.log(err);
-        return res.render("admin_update_studentAcc");
+        return res.render("adminViews/admin_update_studentAcc");
       } else {
         console.log(data);
         return res.redirect("/users/admin/list_all_students");
@@ -217,7 +217,7 @@ const listCoordinator_Admin = (req, res, next) => {
   AppUser.find({ role: "coordinator" })
     .exec()
     .then((user) => {
-      res.render("admin_list_coordinator", { user: user });
+      res.render("adminViews/admin_list_coordinator", { user: user });
     })
     .catch((err) => console.log(err));
 };
@@ -287,7 +287,7 @@ const updateCoordinator_admin = (req, res, next) => {
                   .exec()
                   .then((assign) => {
                     console.log(assign);
-                    res.render("admin_update_coordinatorAcc", {
+                    res.render("adminViews/admin_update_coordinatorAcc", {
                       data: {
                         name: value.name,
                         desc: value.description,
@@ -300,7 +300,7 @@ const updateCoordinator_admin = (req, res, next) => {
                     });
                   });
               } else {
-                res.render("admin_update_coordinatorAcc", {
+                res.render("adminViews/admin_update_coordinatorAcc", {
                   data: {
                     _id: value._id,
                     user: user,
@@ -337,7 +337,7 @@ const updateCoordinatorInfo_admin = (req, res, next) => {
     (err, data) => {
       if (err) {
         console.log(err);
-        return res.render("admin_update_coordinatorAcc");
+        return res.render("adminViews/admin_update_coordinatorAcc");
       } else {
         console.log(data);
         return res.redirect("/users/admin/list_all_coordinators");
@@ -359,7 +359,7 @@ const updateCoordinatorAcc_admin = (req, res, next) => {
     (err, data) => {
       if (err) {
         console.log(err);
-        return res.render("admin_update_coordinatorAcc");
+        return res.render("adminViews/admin_update_coordinatorAcc");
       } else {
         console.log(data);
         return res.redirect("/users/admin/list_all_coordinators");
@@ -422,7 +422,7 @@ const listManager_Admin = (req, res, next) => {
   AppUser.find({ role: "manager" })
     .exec()
     .then((user) => {
-      res.render("admin_list_manager", { user: user });
+      res.render("adminViews/admin_list_manager", { user: user });
     })
     .catch((err) => console.log(err));
 };
@@ -486,7 +486,7 @@ const updateManager_admin = (req, res, next) => {
             email: value.email,
           };
 
-          res.render("admin_update_managerAcc", {
+          res.render("adminViews/admin_update_managerAcc", {
             data: {
               user: user,
               info: info,
@@ -516,7 +516,7 @@ const updateManagerInfo_admin = (req, res, next) => {
     (err, data) => {
       if (err) {
         console.log(err);
-        return res.render("admin_update_managerAcc");
+        return res.render("adminViews/admin_update_managerAcc");
       } else {
         console.log(data);
         return res.redirect("/users/admin/list_all_managers");
@@ -538,7 +538,7 @@ const updateManagerAcc_admin = (req, res, next) => {
     (err, data) => {
       if (err) {
         console.log(err);
-        return res.render("admin_update_managerAcc");
+        return res.render("adminViews/admin_update_managerAcc");
       } else {
         console.log(data);
         return res.redirect("/users/admin/list_all_managers");
@@ -580,7 +580,7 @@ const listFaculty_admin = (req, res, next) => {
   Faculty.find({})
     .exec()
     .then((faculty) => {
-      res.render("admin_list_faculty", { faculty: faculty });
+      res.render("adminViews/admin_list_faculty", { faculty: faculty });
     })
     .catch((err) => console.log(err));
 };
@@ -617,7 +617,7 @@ const updatePageFaculty_admin = (req, res, next) => {
     .exec()
     .then((value) => {
       console.log(value);
-      res.render("admin_update_faculty", {
+      res.render("adminViews/admin_update_faculty", {
         data: {
           name: value.name,
           desc: value.description,
@@ -626,7 +626,7 @@ const updatePageFaculty_admin = (req, res, next) => {
       });
     })
     .catch((err) => {
-      res.render("admin_update_faculty", { err: err });
+      res.render("adminViews/admin_update_faculty", { err: err });
     });
 };
 
@@ -674,7 +674,7 @@ const listGuest_admin = (req, res, next) => {
   AppUser.find({ role: "guest" })
     .exec()
     .then((user) => {
-      res.render("admin_list_guest", { user: user });
+      res.render("adminViews/admin_list_guest", { user: user });
     })
     .catch((err) => console.log(err));
 };
@@ -744,7 +744,7 @@ const updateGuest_admin = (req, res, next) => {
                   .exec()
                   .then((assign) => {
                     console.log(assign);
-                    res.render("admin_update_guestAcc", {
+                    res.render("adminViews/admin_update_guestAcc", {
                       data: {
                         name: value.name,
                         desc: value.description,
@@ -757,7 +757,7 @@ const updateGuest_admin = (req, res, next) => {
                     });
                   });
               } else {
-                res.render("admin_update_guestAcc", {
+                res.render("adminViews/admin_update_guestAcc", {
                   data: {
                     _id: value._id,
                     user: user,
@@ -794,7 +794,7 @@ const updateGuestInfo_admin = (req, res, next) => {
     (err, data) => {
       if (err) {
         console.log(err);
-        return res.render("admin_update_guestAcc");
+        return res.render("adminViews/admin_update_guestAcc");
       } else {
         console.log(data);
         return res.redirect("/users/admin/list_all_guests");
@@ -816,7 +816,7 @@ const updateGuestAcc_admin = (req, res, next) => {
     (err, data) => {
       if (err) {
         console.log(err);
-        return res.render("admin_update_guestAcc");
+        return res.render("adminViews/admin_update_guestAcc");
       } else {
         console.log(data);
         return res.redirect("/users/admin/list_all_guests");

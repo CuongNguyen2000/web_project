@@ -26,7 +26,7 @@ const GetStudentHome = (req, res, next) => {
               .exec()
               .then((assign) => {
                 // console.log(assign);
-                res.render("student_home", {
+                res.render("studentViews/student_home", {
                   data: {
                     _id: value._id,
                     user: user,
@@ -36,7 +36,7 @@ const GetStudentHome = (req, res, next) => {
                 });
               });
           } else {
-            res.render("student_home", {
+            res.render("studentViews/student_home", {
               data: {
                 _id: value._id,
                 user: user,
@@ -97,7 +97,7 @@ const getListArticles_student = (req, res, next) => {
             res.status(500).send("An error occurred", err);
           } else {
             console.log(items);
-            res.render("student_list_articles", { items: items });
+            res.render("studentViews/student_list_articles", { items: items });
           }
         });
       }

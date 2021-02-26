@@ -2,14 +2,20 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Add images</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marketing Manager homepage</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link href="/stylesheets/templatemo-style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/stylesheets/templatemo-style.css">
+    <style>
+        .changeStyle {
+            font-weight: bold;
+            font-style: italic;
+        }
+    </style>
 </head>
 
 <body>
@@ -25,13 +31,13 @@
                             <div class="tm-site-text-box">
                                 <h1 class="tm-site-title">Simple House</h1>
                                 <h6 class="tm-site-description">
-                                    Welcome Student
+                                    Welcome Marketing Manager
                                 </h6>
                             </div>
                         </div>
                     </div>
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <a class="navbar-brand" href="/users/student/home">Simple House</a>
+                        <a class="navbar-brand" href="/users/manager/home">Simple House</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -41,16 +47,14 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="/users/student/home">
+                                    <a class="nav-link" href="/users/manager/home">
                                         Home
                                         <span class="sr-only">(current)</span>
                                     </a>
                                 </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="/users/student/list_articles">
-                                        list Articles
-                                        <span class="sr-only">(current)</span>
-                                    </a>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/users/manager/list_articles">List of Articles <span
+                                            class="sr-only">(current)</span></a>
                                 </li>
                             </ul>
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
@@ -70,27 +74,18 @@
 
         <main>
             <br>
-            <h1>To Upload Image on mongoDB</h1>
-            <hr>
-            <form id="uploadForm" action="/users/student/add_image" method="POST" enctype="multipart/form-data">
-                <div class="from-group">
-                    <label for="name">Image Title</label>
-                    <input class="form-control" type="text" id="name" placeholder="Name" value="" name="name" required>
-                </div>
-                <div class="from-group">
-                    <label for="desc">Image Description</label>
-                    <textarea class="form-control" id="desc" name="desc" value="" rows="2" placeholder="Description"
-                        required></textarea>
-                </div>
-                <div class="from-group">
-                    <label for="image">Upload File</label>
-                    <input class="form-control" type="file" id="image" name="image" value="" required>
-                </div>
-                <div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-                <span id="status"></span>
-            </form>
+            <header class="row tm-welcome-section">
+                <h2 class="col-12 text-center tm-section-title">Welcome to Simple House</h2>
+            </header>
+            <div style="padding: 20px;">
+                <h1>Manager Information</h1>
+                <br>
+                <ol>
+                    <li>Username: <span class="changeStyle">{{data.user.username}}</span></li>
+                    <li>Name: <span class="changeStyle">{{data.info.name}}</span></li>
+                    <li>Email: <span class="changeStyle">{{data.info.email}}</span></li>
+                </ol>
+            </div>
         </main>
 
         <footer class="tm-footer text-center">
@@ -132,23 +127,6 @@
         });
     </script>
     <!--===============================================================================================-->
-    <script>
-        $(document).ready(function () {
-            $('#uploadForm').submit(function () {
-                $("#status").empty().text("File is uploading...");
-                $(this).ajaxSubmit({
-                    error: function (xhr) {
-                        status('Error: ' + xhr.status);
-                    },
-                    success: function (response) {
-                        console.log(response)
-                        $("#status").empty().text(response);
-                    }
-                });
-                return false;
-            });
-        });
-    </script>
 
 </body>
 

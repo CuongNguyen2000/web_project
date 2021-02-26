@@ -1,8 +1,5 @@
 var express = require("express");
 var router = express.Router();
-var AppUser = require("../models/AppUserModel");
-var Student = require("../models/StudentModel");
-var Articles = require("../models/ArticlesModel");
 
 var {
   isAdmin,
@@ -27,12 +24,12 @@ var {
   getListArticles_coordinator,
 } = require("../controllers/CoordinatorController");
 
-var { GetManagerHome } = require("../controllers/ManagerController");
-
 var {
-  GetGuestHome,
-  getListArticles_guest,
-} = require("../controllers/guestController");
+  GetManagerHome,
+  getListArticles_manager,
+} = require("../controllers/ManagerController");
+
+var { GetGuestHome } = require("../controllers/guestController");
 
 var {
   listStudent_Admin,
@@ -98,7 +95,7 @@ router.get("/logout", Logout);
 
 // Get homepage
 router.get("/admin/home", isAdmin, (req, res, next) => {
-  res.render("admin_home");
+  res.render("adminViews/admin_home");
 });
 
 // Displaying user accounts / list faculties
@@ -110,28 +107,28 @@ router.get("/admin/list_all_faculty", isAdmin, listFaculty_admin);
 
 // Adding new user account
 router.get("/admin/add_student", isAdmin, (req, res, next) => {
-  res.render("admin_add_student");
+  res.render("adminViews/admin_add_student");
 });
 router.post("/admin/add_student", isAdmin, addStudent_admin);
 
 router.get("/admin/add_coordinator", isAdmin, (req, res, next) => {
-  res.render("admin_add_coordinator");
+  res.render("adminViews/admin_add_coordinator");
 });
 router.post("/admin/add_coordinator", isAdmin, addCoordinator_admin);
 
 router.get("/admin/add_manager", isAdmin, (req, res, next) => {
-  res.render("admin_add_manager");
+  res.render("adminViews/admin_add_manager");
 });
 router.post("/admin/add_manager", isAdmin, addManager_admin);
 
 router.get("/admin/add_guest", isAdmin, (req, res, next) => {
-  res.render("admin_add_guest");
+  res.render("adminViews/admin_add_guest");
 });
 router.post("/admin/add_guest", isAdmin, addGuest_admin);
 
 // Adding new Faculty
 router.get("/admin/add_faculty", isAdmin, (req, res, next) => {
-  res.render("admin_add_faculty");
+  res.render("adminViews/admin_add_faculty");
 });
 router.post("/admin/add_faculty", isAdmin, addFaculty_admin);
 
@@ -231,7 +228,7 @@ router.get("/student/home", isStudent, GetStudentHome);
 router.get("/student/list_articles", isStudent, getListArticles_student);
 
 router.get("/student/add_image", isStudent, (req, res, next) => {
-  res.render("student_add_image");
+  res.render("studentViews/student_add_image");
 });
 
 router.post(
@@ -253,6 +250,9 @@ router.post(
 // Get Homepage
 router.get("/manager/home", isManager, GetManagerHome);
 
+// get list article page
+router.get("/manager/list_articles", isManager, getListArticles_manager);
+
 /* ================================================================
 ===================================================================
 ===================================================================
@@ -260,12 +260,9 @@ router.get("/manager/home", isManager, GetManagerHome);
 =================================================================== */
 
 // The processing section for guest is below
-// Coordinator request
+// Guest request
 
 // Get Homepage
 router.get("/guest/home", isGuest, GetGuestHome);
-
-// get list of article page
-router.get("/guest/list_articles", isGuest, getListArticles_guest);
 
 module.exports = router;

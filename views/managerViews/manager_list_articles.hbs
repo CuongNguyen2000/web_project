@@ -5,15 +5,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Marketing Manager homepage</title>
+    <title>List of Articles</title>
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="/stylesheets/templatemo-style.css">
     <style>
-        .changeStyle {
-            font-weight: bold;
-            font-style: italic;
+        .reSize {
+            width: 250px;
+            height: 250px;
         }
     </style>
 </head>
@@ -30,9 +30,7 @@
                             <img src="/images/simple-house-logo.png" alt="Logo" class="tm-site-logo" />
                             <div class="tm-site-text-box">
                                 <h1 class="tm-site-title">Simple House</h1>
-                                <h6 class="tm-site-description">
-                                    Welcome Marketing Manager
-                                </h6>
+                                <h6 class="tm-site-description">Welcome Marketing Manager</h6>
                             </div>
                         </div>
                     </div>
@@ -47,10 +45,13 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="/users/manager/home">
-                                        Home
-                                        <span class="sr-only">(current)</span>
-                                    </a>
+                                    <a class="nav-link" href="/users/manager/home">Home <span
+                                            class="sr-only">(current)</span></a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/users/manager/list_articles">List of Articles <span
+                                            class="sr-only">(current)</span></a>
                                 </li>
                             </ul>
                             <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
@@ -69,18 +70,47 @@
         </div>
 
         <main>
-            <br>
+
             <header class="row tm-welcome-section">
-                <h2 class="col-12 text-center tm-section-title">Welcome to Simple House</h2>
+                <h2 class="col-12 text-center tm-section-title">List of Articles</h2>
             </header>
-            <div style="padding: 20px;">
-                <h1>Manager Information</h1>
-                <br>
-                <ol>
-                    <li>Username: <span class="changeStyle">{{data.user.username}}</span></li>
-                    <li>Name: <span class="changeStyle">{{data.info.name}}</span></li>
-                    <li>Email: <span class="changeStyle">{{data.info.email}}</span></li>
-                </ol>
+
+            <div class="border rounded" style="width: auto;">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Article Image</th>
+                                <th scope="col">Article Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Created date</th>
+                                <th scope="col">Option</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each items}}
+                            <tr>
+                                <th scope="row">{{@index}}</th>
+                                <td> <img src="/uploads/{{this.articleImage}}" alt="Image" class="reSize" /></td>
+                                <td>{{name}}</td>
+                                <td>{{desc}}</td>
+                                <td>{{timeCreated}}</td>
+                                <td class="d-flex flex-row">
+                                    <form action="#" method="POST">
+                                        <input type="hidden" name="_id" value={{_id}}>
+                                        <button type="submit" class="btn btn-primary">Detailed</button>
+                                    </form>
+                                    <form action="#" method="POST" enctype="application/x-www-form-urlencoded">
+                                        <input type="hidden" name="_id" value={{_id}}>
+                                        <button type="submit" class="btn btn-danger">Download</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </main>
 
