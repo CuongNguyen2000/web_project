@@ -104,8 +104,30 @@ const getListArticles_student = (req, res, next) => {
     });
 };
 
+const deleteArticle_student = async (req, res, next) => {
+  const { _id } = req.body;
+  await Articles.findOneAndRemove({ _id: _id }, (err) => {
+    if (err) {
+      console.log(err);
+      return res.redirect("/users/student/list_articles");
+    } else {
+      console.log("Ok");
+      Student.findOneAndRemove({ post: _id })
+        .then((result) => {
+          console.log("OK");
+          return res.redirect("/users/student/list_articles");
+        })
+        .catch((err) => {
+          console.log(err);
+          return res.redirect("/users/student/list_articles");
+        });
+    }
+  });
+};
+
 module.exports = {
   GetStudentHome,
   addArticle_student,
   getListArticles_student,
+  deleteArticle_student,
 };

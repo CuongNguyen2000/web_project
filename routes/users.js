@@ -17,6 +17,7 @@ var {
   GetStudentHome,
   addArticle_student,
   getListArticles_student,
+  deleteArticle_student,
 } = require("../controllers/StudentController");
 
 var {
@@ -237,6 +238,8 @@ router.post(
   isStudent,
   addArticle_student
 );
+
+router.delete("/student/delete_article", isStudent, deleteArticle_student);
 
 /* ================================================================
 ===================================================================
