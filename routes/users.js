@@ -228,18 +228,22 @@ router.get("/student/home", isStudent, GetStudentHome);
 
 router.get("/student/list_articles", isStudent, getListArticles_student);
 
-router.get("/student/add_image", isStudent, (req, res, next) => {
+router.get("/student/add_article", isStudent, (req, res, next) => {
   res.render("studentViews/student_add_image");
 });
 
 router.post(
-  "/student/add_image",
+  "/student/add_article",
   multerInstance.single("image"),
   isStudent,
   addArticle_student
 );
 
 router.delete("/student/delete_article", isStudent, deleteArticle_student);
+
+router.get("/student/term_and_conditions", isStudent, (req, res, next) => {
+  res.render("term_conditions");
+});
 
 /* ================================================================
 ===================================================================

@@ -87,7 +87,11 @@
                     <input class="form-control-file" type="file" id="image" name="image" value="" required>
                 </div>
                 <br>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <input type="checkbox" name="myCheck" id="myCheck" onclick="disableSubmit()"> I have read and
+                agree to the <a href="/users/student/term_and_conditions" style="text-decoration: none;">Terms and
+                    Conditions</a>
+                <br><br>
+                <input type="submit" class="btn btn-primary" id="submit" value="Submit" disabled></input>
                 <span id="status"></span>
             </form>
             <div class="col-sm-12">
@@ -136,6 +140,22 @@
                 return false;
             });
         });
+    </script>
+    <!--===============================================================================================-->
+    <script>
+        function disableSubmit() {
+            // Get the checkbox
+            var checkBox = document.getElementById("myCheck");
+            // Get the output text
+            var text = document.getElementById("submit");
+
+            // If the checkbox is checked, display the output text
+            if (checkBox.checked == true) {
+                text.disabled = false;
+            } else {
+                text.disabled = true;
+            }
+        }
     </script>
     <!--===============================================================================================-->
 
