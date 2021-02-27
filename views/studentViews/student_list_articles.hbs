@@ -84,37 +84,52 @@ https://templatemo.com/tm-539-simple-house
 
         <main>
             <header class="row tm-welcome-section">
-                <h2 class="col-12 text-center tm-section-title">Welcome to Simple House</h2>
+                <h2 class="col-12 text-center tm-section-title">List of Your Articles</h2>
+                <div class="col-12 text-center tm-section-title">
+                    <button type="button" class="btn btn-success" onclick="window.location='/users/student/add_image';">
+                        Add more article
+                    </button>
+                </div>
             </header>
-
-            <div style="padding-top: 20px; padding-right: 20px">
-                <button type="button" class="btn btn-success" onclick="window.location='/users/student/add_image';">
-                    Add more article
-                </button>
+            <div class="border rounded" style="width: auto;">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <td colspan="5">
+                                    <h2>Uploaded Images</h2>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Article Image</th>
+                                <th scope="col">Article Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Created date</th>
+                                <th scope="col">Option</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each items}}
+                            <tr>
+                                <th scope="row">{{@index}}</th>
+                                <td> <img src="/uploads/{{this.articleImage}}" alt="Image" class="reSize" /></td>
+                                <td>{{name}}</td>
+                                <td>{{desc}}</td>
+                                <td>{{timeCreated}}</td>
+                                <td class="d-flex flex-row">
+                                    <form action="#" method="POST">
+                                        <input type="hidden" name="_id" value={{_id}}>
+                                        <button type="submit" class="btn btn-primary">Detailed</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <h1>Uploaded Images</h1>
-
-            <!-- Gallery -->
-            <div class="row tm-gallery">
-                <!-- gallery page 1 -->
-                <div id="tm-gallery-page-pizza" class="tm-gallery-page">
-                    {{#each items}}
-                    <article class="col-lg-3 col-md-4 col-sm-6 col-12 tm-gallery-item">
-                        <figure>
-                            <img src="/uploads/{{this.articleImage}}" alt="Image" class="img-fluid tm-gallery-img" />
-                            <figcaption>
-                                <a href="/uploads/{{this.articleImage}}">
-                                    {{this.articleImage}}
-                                </a>
-                                <h4 class="tm-gallery-title">{{ this.name }}</h4>
-                                <p class="tm-gallery-description">{{ this.desc }}</p>
-                            </figcaption>
-                        </figure>
-                    </article>
-                    {{/each}}
-                </div> <!-- gallery page 1 -->
-            </div>
 
             {{!--
 

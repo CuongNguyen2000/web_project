@@ -90,8 +90,8 @@ const getListArticles_student = (req, res, next) => {
   Student.findOne({ account_id: req.session.userId })
     .exec()
     .then((info) => {
-      if (info.faculty_id) {
-        Articles.find({ faculty_id: info.faculty_id }).exec((err, items) => {
+      if (info.posts) {
+        Articles.find({ _id: info.posts }).exec((err, items) => {
           if (err) {
             console.log(err);
             res.status(500).send("An error occurred", err);
