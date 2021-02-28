@@ -19,29 +19,6 @@ const GetGuestHome = (req, res, next) => {
         });
       }
     });
-
-  // let info = {};
-  // Guest.findOne({ account_id: req.session.userId })
-  //   .exec()
-  //   .then((value) => {
-  //     info = {
-  //       name: value.name,
-  //       email: value.email,
-  //     };
-  //     if (value.faculty_id) {
-  //       Articles.find({ faculty_id: value.faculty_id }, { status: true })
-  //         .exec()
-  //         .then((items) => {
-  //           console.log(items);
-  //           res.render("guestViews/guest_home", {
-  //             data: {
-  //               items: items,
-  //               info: info,
-  //             },
-  //           });
-  //         });
-  //     }
-  //   });
 };
 
 module.exports = { GetGuestHome };
