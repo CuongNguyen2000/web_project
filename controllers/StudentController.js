@@ -105,22 +105,27 @@ const getListArticles_student = (req, res, next) => {
 };
 
 const deleteArticle_student = async (req, res, next) => {
-  const { _id } = req.body;
+  const { name, email, _id } = req.body;
   await Articles.findOneAndRemove({ _id: _id }, (err) => {
     if (err) {
       console.log(err);
       return res.redirect("/users/student/list_articles");
     } else {
       console.log("Ok");
-      Student.findOneAndRemove({ post: _id })
-        .then((result) => {
+      Student.findOneAndUpdate({}, { $pull: { posts: _id } }, (err, data) => {
+        if (err) {
+          res.render("error", {
+            message: "Sorry failed to delete post id in students",
+            error: {
+              status: err,
+              stacks: "failed to delete post id in students",
+            },
+          });
+        } else {
           console.log("OK");
           return res.redirect("/users/student/list_articles");
-        })
-        .catch((err) => {
-          console.log(err);
-          return res.redirect("/users/student/list_articles");
-        });
+        }
+      });
     }
   });
 };

@@ -94,6 +94,7 @@ https://templatemo.com/tm-539-simple-house
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">Article Image</th>
+                                <th scope="col">File Name</th>
                                 <th scope="col">Article Name</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Created date</th>
@@ -105,14 +106,13 @@ https://templatemo.com/tm-539-simple-house
                             <tr>
                                 <th scope="row">{{@index}}</th>
                                 <td> <img src="/uploads/{{this.articleImage}}" alt="Image" class="reSize" /></td>
+                                <td>{{this.articleImage}}</td>
                                 <td>{{name}}</td>
                                 <td>{{desc}}</td>
                                 <td>{{timeCreated}}</td>
                                 <td class="d-flex flex-row">
-                                    <form action="#" method="POST">
-                                        <input type="hidden" name="_id" value={{_id}}>
-                                        <button type="submit" class="btn btn-primary">Detailed</button>
-                                    </form>
+                                    <a href="/uploads/{{this.articleImage}}"><button type="submit"
+                                            class="btn btn-primary">Detailed</button></a>
                                     <form action="#" method="POST" enctype="application/x-www-form-urlencoded">
                                         <input type="hidden" name="_id" value={{_id}}>
                                         <button type="submit" class="btn btn-danger">Accept</button>

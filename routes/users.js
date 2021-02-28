@@ -77,7 +77,8 @@ const { route } = require(".");
 
 // Get login page
 router.get("/login", (req, res, next) => {
-  res.render("login");
+  const { msg } = req.query;
+  res.render("login", { err: msg });
 });
 
 // Get login / logout request

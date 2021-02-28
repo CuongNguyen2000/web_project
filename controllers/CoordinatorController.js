@@ -2,6 +2,7 @@ var AppUser = require("../models/AppUserModel");
 var Coordinator = require("../models/CoordinatorModel");
 var Faculty = require("../models/FacultyModel");
 var Articles = require("../models/ArticlesModel");
+const Student = require("../models/StudentModel");
 
 const GetCoordinatorHome = (req, res, next) => {
   let user = {};
@@ -70,6 +71,19 @@ const getListArticles_coordinator = (req, res, next) => {
             res.render("coordinatorViews/coordinator_list_articles", {
               items: items,
             });
+            Student.find({ faculty_id: info.faculty_id }).exec(
+              (err, infoStu) => {
+                if (err) {
+                  console.log(err);
+                  res.status(500).send("An error occurred", err);
+                } else {
+                  console.log(infoStu);
+                  res.render("coordinatorViews/coordinator_list_articles", {
+                    infoStu: infoStu,
+                  });
+                }
+              }
+            );
           }
         });
       }
