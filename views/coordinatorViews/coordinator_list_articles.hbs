@@ -98,6 +98,7 @@ https://templatemo.com/tm-539-simple-house
                                 <th scope="col">Article Name</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Created date</th>
+                                <th scope="col">status</th>
                                 <th scope="col">Option</th>
                             </tr>
                         </thead>
@@ -110,11 +111,14 @@ https://templatemo.com/tm-539-simple-house
                                 <td>{{name}}</td>
                                 <td>{{desc}}</td>
                                 <td>{{timeCreated}}</td>
+                                <td>{{status}}</td>
                                 <td class="d-flex flex-row">
                                     <a href="/uploads/{{this.articleImage}}"><button type="submit"
                                             class="btn btn-primary">Detailed</button></a>
-                                    <form action="#" method="POST" enctype="application/x-www-form-urlencoded">
+                                    <form action="/users/coordinator/accept_article" method="POST"
+                                        enctype="application/x-www-form-urlencoded">
                                         <input type="hidden" name="_id" value={{_id}}>
+                                        <input type="hidden" name="_method" value="PUT">
                                         <button type="submit" class="btn btn-danger">Accept</button>
                                     </form>
                                 </td>

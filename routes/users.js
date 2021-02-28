@@ -23,6 +23,7 @@ var {
 var {
   GetCoordinatorHome,
   getListArticles_coordinator,
+  acceptArticle_coordinator,
 } = require("../controllers/CoordinatorController");
 
 var {
@@ -213,6 +214,13 @@ router.get(
   "/coordinator/list_articles",
   isCoordinator,
   getListArticles_coordinator
+);
+
+// accept article for publication
+router.put(
+  "/coordinator/accept_article",
+  isCoordinator,
+  acceptArticle_coordinator
 );
 
 /* ================================================================

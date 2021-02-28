@@ -74,7 +74,7 @@
         <div id="pageintro" class="hoc clear">
             <!-- ################################################################################################ -->
             <article>
-                <p>Welcome Guest: {{data.info.name}}</p>
+                <p>Welcome Guest</p>
                 <h3 class="heading">Welcome to Simple House</h3>
                 <p>This is a project of Group 6 for Enterprise Website Subject</p>
             </article>
@@ -92,11 +92,11 @@
             <!-- ################################################################################################ -->
             <section id="introblocks">
                 <ul class="nospace group">
-                    {{#each data.items}}
+                    {{#each items}}
                     <li class="one_third">
                         <figure>
-                            <a class="imgover" href="#">
-                                <img src="/uploads/{{articleImage}}" alt="Article image">
+                            <a class="imgover" href="/uploads/{{this.articleImage}}">
+                                <img src="/uploads/{{this.articleImage}}" alt="Article image">
                             </a>
                             <figcaption>
                                 <h6 class="heading">{{name}}</h6>

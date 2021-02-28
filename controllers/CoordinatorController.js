@@ -90,4 +90,26 @@ const getListArticles_coordinator = (req, res, next) => {
     });
 };
 
-module.exports = { GetCoordinatorHome, getListArticles_coordinator };
+const acceptArticle_coordinator = (req, res, next) => {
+  const { _id } = req.body;
+  Articles.findByIdAndUpdate(
+    { _id: _id },
+    { $set: { status: true } },
+    { new: true, useFindAndModify: false }
+  )
+    .exec()
+    .then((value) => {
+      console.log(value);
+      res.redirect("/users/coordinator/list_articles");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
+};
+
+module.exports = {
+  GetCoordinatorHome,
+  getListArticles_coordinator,
+  acceptArticle_coordinator,
+};

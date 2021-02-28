@@ -3,6 +3,10 @@ var mongoose = require("mongoose");
 const ArticlesSchema = new mongoose.Schema({
   name: String,
   desc: String,
+  status: {
+    type: Boolean,
+    default: false,
+  },
   articleImage: {
     type: String,
   },
