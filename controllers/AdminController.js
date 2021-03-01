@@ -4,6 +4,7 @@ var Coordinator = require("../models/CoordinatorModel");
 var Manager = require("../models/ManagerModel");
 var Faculty = require("../models/FacultyModel");
 const Guest = require("../models/GuestModel");
+const Topic = require("../models/TopicModel");
 
 // The processing section for a student's account is below
 // showing list of student
@@ -668,6 +669,99 @@ const deleteFaculty_admin = (req, res, next) => {
 ===================================================================
 =================================================================== */
 
+// Get list of Topic
+const listTopic_admin = (req, res, next) => {
+  Topic.find({})
+    .exec()
+    .then((topic) => {
+      res.render("adminViews/admin_list_topic", { topic: topic });
+    })
+    .catch((err) => console.log(err));
+};
+
+// adding new Topic
+const addTopic_admin = (req, res, next) => {
+  const { name, desc } = req.body;
+  Topic.findOne({ name: name })
+    .exec()
+    .then((value) => {
+      const msg = "This Topic is already exist !!! Please Try again";
+      res.redirect(`/users/admin/add_topic?msg=${msg}`);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+
+  const newTopic = new Topic({
+    name: name,
+    description: desc,
+  });
+
+  newTopic.save();
+
+  return res.redirect("/users/admin/list_all_topic");
+};
+
+// update topic
+// get update topic page
+const updatePageTopic_admin = (req, res, next) => {
+  const { _id } = req.body;
+  // console.log(_id);
+  Topic.findOne({ _id: _id })
+    .exec()
+    .then((value) => {
+      console.log(value);
+      res.render("adminViews/admin_update_topic", {
+        data: {
+          name: value.name,
+          desc: value.description,
+          _id: value._id,
+        },
+      });
+    })
+    .catch((err) => {
+      res.render("adminViews/admin_update_topic", { err: err });
+    });
+};
+
+const updateTopic_admin = (req, res, next) => {
+  const { name, desc, _id } = req.body;
+  const newValue = {};
+  if (name) newValue.name = name;
+  if (desc) newValue.description = desc;
+
+  Faculty.findByIdAndUpdate({ _id: _id }, { $set: newValue }, { new: true })
+    .exec()
+    .then((value) => {
+      console.log(value);
+      res.redirect("/users/admin/list_all_topic");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
+};
+
+// Delete Topic
+const deleteTopic_admin = (req, res, next) => {
+  const { _id } = req.body;
+  Faculty.findByIdAndRemove({ _id: _id })
+    .exec()
+    .then((value) => {
+      console.log(value);
+      res.redirect("/users/admin/list_all_topic");
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
+/* ================================================================
+===================================================================
+===================================================================
+===================================================================
+=================================================================== */
+
 // The processing section for a Guest's account is below
 // Displaying list of Guest acc
 const listGuest_admin = (req, res, next) => {
@@ -872,11 +966,13 @@ module.exports = {
   listCoordinator_Admin,
   listManager_Admin,
   listFaculty_admin,
+  listTopic_admin,
   listGuest_admin,
   addStudent_admin,
   addCoordinator_admin,
   addManager_admin,
   addFaculty_admin,
+  addTopic_admin,
   addGuest_admin,
   updateStudent_admin,
   updateStudentAcc_admin,
@@ -892,11 +988,14 @@ module.exports = {
   updateGuestInfo_admin,
   updatePageFaculty_admin,
   updateFaculty_admin,
+  updatePageTopic_admin,
+  updateTopic_admin,
   deleteStudent_Admin,
   deleteCoordinator_Admin,
   deleteManager_Admin,
   deleteGuest_Admin,
   deleteFaculty_admin,
+  deleteTopic_admin,
   assignFacultyForStudent_admin,
   assignFacultyForCoordinator_admin,
   assignFacultyForGuest_admin,

@@ -38,11 +38,13 @@ var {
   listCoordinator_Admin,
   listManager_Admin,
   listFaculty_admin,
+  listTopic_admin,
   listGuest_admin,
   addStudent_admin,
   addCoordinator_admin,
   addManager_admin,
   addFaculty_admin,
+  addTopic_admin,
   addGuest_admin,
   updateStudent_admin,
   updateStudentAcc_admin,
@@ -53,16 +55,19 @@ var {
   updateManager_admin,
   updateManagerAcc_admin,
   updateManagerInfo_admin,
-  updatePageFaculty_admin,
-  updateFaculty_admin,
   updateGuest_admin,
   updateGuestAcc_admin,
   updateGuestInfo_admin,
+  updatePageFaculty_admin,
+  updateFaculty_admin,
+  updatePageTopic_admin,
+  updateTopic_admin,
   deleteStudent_Admin,
   deleteCoordinator_Admin,
   deleteManager_Admin,
   deleteGuest_Admin,
   deleteFaculty_admin,
+  deleteTopic_admin,
   assignFacultyForStudent_admin,
   assignFacultyForCoordinator_admin,
   assignFacultyForGuest_admin,
@@ -107,33 +112,46 @@ router.get("/admin/list_all_coordinators", isAdmin, listCoordinator_Admin);
 router.get("/admin/list_all_managers", isAdmin, listManager_Admin);
 router.get("/admin/list_all_guests", isAdmin, listGuest_admin);
 router.get("/admin/list_all_faculty", isAdmin, listFaculty_admin);
+router.get("/admin/list_all_topic", isAdmin, listTopic_admin);
 
 // Adding new user account
 router.get("/admin/add_student", isAdmin, (req, res, next) => {
-  res.render("adminViews/admin_add_student");
+  const { msg } = req.query;
+  res.render("adminViews/admin_add_student", { err: msg });
 });
 router.post("/admin/add_student", isAdmin, addStudent_admin);
 
 router.get("/admin/add_coordinator", isAdmin, (req, res, next) => {
-  res.render("adminViews/admin_add_coordinator");
+  const { msg } = req.query;
+  res.render("adminViews/admin_add_coordinator", { err: msg });
 });
 router.post("/admin/add_coordinator", isAdmin, addCoordinator_admin);
 
 router.get("/admin/add_manager", isAdmin, (req, res, next) => {
-  res.render("adminViews/admin_add_manager");
+  const { msg } = req.query;
+  res.render("adminViews/admin_add_manager", { err: msg });
 });
 router.post("/admin/add_manager", isAdmin, addManager_admin);
 
 router.get("/admin/add_guest", isAdmin, (req, res, next) => {
-  res.render("adminViews/admin_add_guest");
+  const { msg } = req.query;
+  res.render("adminViews/admin_add_guest", { err: msg });
 });
 router.post("/admin/add_guest", isAdmin, addGuest_admin);
 
 // Adding new Faculty
 router.get("/admin/add_faculty", isAdmin, (req, res, next) => {
-  res.render("adminViews/admin_add_faculty");
+  const { msg } = req.query;
+  res.render("adminViews/admin_add_faculty", { err: msg });
 });
 router.post("/admin/add_faculty", isAdmin, addFaculty_admin);
+
+// Adding new Topic
+router.get("/admin/add_topic", isAdmin, (req, res, next) => {
+  const { msg } = req.query;
+  res.render("adminViews/admin_add_topic", { err: msg });
+});
+router.post("/admin/add_topic", isAdmin, addTopic_admin);
 
 // Update student
 router.put("/admin/update_student_account", isAdmin, updateStudentAcc_admin);
@@ -175,6 +193,10 @@ router.post("/admin/update_guest", isAdmin, updateGuest_admin);
 router.put("/admin/update_faculty_information", isAdmin, updateFaculty_admin);
 router.post("/admin/update_faculty", isAdmin, updatePageFaculty_admin);
 
+// Update Topic
+router.put("/admin/update_topic_information", isAdmin, updateTopic_admin);
+router.post("/admin/update_topic", isAdmin, updatePageTopic_admin);
+
 // assign faculty for student / coordinator
 router.put(
   "/admin/assign_faculty_student",
@@ -196,6 +218,7 @@ router.delete("/admin/delete_coordinator", isAdmin, deleteCoordinator_Admin);
 router.delete("/admin/delete_manager", isAdmin, deleteManager_Admin);
 router.delete("/admin/delete_guest", isAdmin, deleteGuest_Admin);
 router.delete("/admin/delete_faculty", isAdmin, deleteFaculty_admin);
+router.delete("/admin/delete_topic", isAdmin, deleteTopic_admin);
 
 /* ================================================================
 ===================================================================

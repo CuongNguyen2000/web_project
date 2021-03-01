@@ -5,17 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Student Account</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+    <title>Adding new Topic</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="/stylesheets/templatemo-style.css">
-    <style>
-        .changeStyle {
-            font-weight: bold;
-        }
-    </style>
 </head>
 
 <body>
@@ -91,83 +85,21 @@
                 </div>
             </div>
         </div>
-        <br>
 
         <main>
+            <br>
             <div class="border rounded" style="width: auto;">
                 <div style="padding: 20px;">
-                    <h1>Update Student Account</h1>
-                    <hr>
-                    <form action="/users/admin/update_student_account" method="POST"
-                        enctype="application/x-www-form-urlencoded">
-                        <div class="form-group">
-                            <label for="usr">Username: <span class="changeStyle">{{data.user.username}}</span></label>
-                            <input type="text" class="form-control" id="usr" name="usr">
+                    <form action="/users/admin/add_topic" method="POST">
+                        <div class="form-group"><label for="name">Topic Name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Faculty Name"
+                                required>
                         </div>
-                        <div class="form-group">
-                            <label for="pwd">Password</label>
-                            <div class="input-group mb-3">
-                                <input type="password" class="form-control" id="pwd" name="pwd" onkeyup="check();">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" id="btnPassword">
-                                        <span class="fas fa-eye"></span>
-                                    </button>
-                                </div>
-                            </div>
+                        <div class="form-group"><label for="inputDesc">Description</label>
+                            <textarea class="form-control" id="desc" name="desc" value="" rows="2"
+                                placeholder="Description" required></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="repwd">Re-enter Password</label>
-                            <div class="input-group mb-3">
-                                <input type="password" class="form-control" id="repwd" name="repwd" onkeyup="check();">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" id="btnRePassword">
-                                        <span class="fas fa-eye"></span>
-                                    </button>
-                                </div>
-                            </div>
-                            <span id="message"></span>
-                        </div>
-                        <input type="hidden" name="_method" value="PUT">
-                        <input type="hidden" name="_id" value="{{data.user._id}}">
-                        <button type="submit" class="btn btn-primary" id="submit_acc">Update</button>
-                    </form>
-                    <hr>
-                    <h1>Change Student Information</h1>
-                    <hr>
-                    <form action="/users/admin/update_student_information" method="POST"
-                        enctype="application/x-www-form-urlencoded">
-                        <div class="form-group">
-                            <label for="name">Name: <span class="changeStyle">{{data.info.name}}</span> </label>
-                            <input type="text" class="form-control" id="name" name="name">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email: <span class="changeStyle">{{data.info.email}}</span> </label>
-                            <input type="email" class="form-control" id="email" name="email">
-                        </div>
-                        <input type="hidden" name="_method" value="PUT">
-                        <input type="hidden" name="_id" value="{{data.user._id}}">
-                        <button type="submit" class="btn btn-primary" id="submit_info">Update</button>
-                    </form>
-                    <hr>
-                    <h1>Assign Faculty</h1>
-                    <hr>
-                    Curently Faculty
-                    <ol>
-                        <li>{{data.assign}}</li>
-                    </ol>
-                    <form action="/users/admin/assign_faculty_student" method="post"
-                        enctype="application/x-www-form-urlencoded">
-                        <div class="form-group">
-                            <label for="type">List of faculties</label>
-                            <select class="form-control" id="faculty" name="faculty">
-                                {{#each data.faculty}}
-                                <option value="{{_id}}">{{name}}</option>
-                                {{/each}}
-                            </select>
-                        </div>
-                        <input type="hidden" name="_id" value="{{data._id}}">
-                        <input type="hidden" name="_method" value="PUT">
-                        <button type="submit" class="btn btn-primary" id="submit_info">Assign</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                     <br><br>
                     {{#if err}}
@@ -186,10 +118,6 @@
         </footer>
     </div>
 
-    <!--===============================================================================================-->
-    <script src="/js/hideShowPwd.js"></script>
-    <!--===============================================================================================-->
-    <script src="/js/checkRetypePwd.js"></script>
     <!--===============================================================================================-->
     <script src="/js/jquery.min.js"></script>
     <!--===============================================================================================-->

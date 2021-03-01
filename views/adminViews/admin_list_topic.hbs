@@ -5,17 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Student Account</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+    <title>List of Topics</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="/stylesheets/templatemo-style.css">
-    <style>
-        .changeStyle {
-            font-weight: bold;
-        }
-    </style>
 </head>
 
 <body>
@@ -91,90 +85,57 @@
                 </div>
             </div>
         </div>
-        <br>
 
         <main>
+
+            <header class="row tm-welcome-section">
+                <h2 class="col-12 text-center tm-section-title">List of Topics</h2>
+            </header>
+
             <div class="border rounded" style="width: auto;">
-                <div style="padding: 20px;">
-                    <h1>Update Student Account</h1>
-                    <hr>
-                    <form action="/users/admin/update_student_account" method="POST"
-                        enctype="application/x-www-form-urlencoded">
-                        <div class="form-group">
-                            <label for="usr">Username: <span class="changeStyle">{{data.user.username}}</span></label>
-                            <input type="text" class="form-control" id="usr" name="usr">
-                        </div>
-                        <div class="form-group">
-                            <label for="pwd">Password</label>
-                            <div class="input-group mb-3">
-                                <input type="password" class="form-control" id="pwd" name="pwd" onkeyup="check();">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" id="btnPassword">
-                                        <span class="fas fa-eye"></span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="repwd">Re-enter Password</label>
-                            <div class="input-group mb-3">
-                                <input type="password" class="form-control" id="repwd" name="repwd" onkeyup="check();">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" id="btnRePassword">
-                                        <span class="fas fa-eye"></span>
-                                    </button>
-                                </div>
-                            </div>
-                            <span id="message"></span>
-                        </div>
-                        <input type="hidden" name="_method" value="PUT">
-                        <input type="hidden" name="_id" value="{{data.user._id}}">
-                        <button type="submit" class="btn btn-primary" id="submit_acc">Update</button>
-                    </form>
-                    <hr>
-                    <h1>Change Student Information</h1>
-                    <hr>
-                    <form action="/users/admin/update_student_information" method="POST"
-                        enctype="application/x-www-form-urlencoded">
-                        <div class="form-group">
-                            <label for="name">Name: <span class="changeStyle">{{data.info.name}}</span> </label>
-                            <input type="text" class="form-control" id="name" name="name">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email: <span class="changeStyle">{{data.info.email}}</span> </label>
-                            <input type="email" class="form-control" id="email" name="email">
-                        </div>
-                        <input type="hidden" name="_method" value="PUT">
-                        <input type="hidden" name="_id" value="{{data.user._id}}">
-                        <button type="submit" class="btn btn-primary" id="submit_info">Update</button>
-                    </form>
-                    <hr>
-                    <h1>Assign Faculty</h1>
-                    <hr>
-                    Curently Faculty
-                    <ol>
-                        <li>{{data.assign}}</li>
-                    </ol>
-                    <form action="/users/admin/assign_faculty_student" method="post"
-                        enctype="application/x-www-form-urlencoded">
-                        <div class="form-group">
-                            <label for="type">List of faculties</label>
-                            <select class="form-control" id="faculty" name="faculty">
-                                {{#each data.faculty}}
-                                <option value="{{_id}}">{{name}}</option>
-                                {{/each}}
-                            </select>
-                        </div>
-                        <input type="hidden" name="_id" value="{{data._id}}">
-                        <input type="hidden" name="_method" value="PUT">
-                        <button type="submit" class="btn btn-primary" id="submit_info">Assign</button>
-                    </form>
-                    <br><br>
-                    {{#if err}}
-                    <div class="alert alert-danger" role="alert">
-                        {{err}}
+                <div class="d-flex flex-row-reverse">
+                    <div style="padding-top: 20px; padding-right: 20px">
+                        <button type="button" class="btn btn-success"
+                            onclick="window.location='/users/admin/add_topic';">
+                            Adding new Topic
+                        </button>
                     </div>
-                    {{/if}}
+                </div>
+                <br>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Topic Name</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Created date</th>
+                                <th scope="col">Option</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each topic}}
+                            <tr>
+                                <th scope="row">{{@index}}</th>
+                                <td>{{name}}</td>
+                                <td>{{description}}</td>
+                                <td>{{timeCreated}}</td>
+                                <td class="d-flex flex-row">
+                                    <form action="/users/admin/update_topic" method="POST">
+                                        <input type="hidden" name="_id" value={{_id}}>
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </form>
+                                    <form action="/users/admin/delete_topic" method="POST"
+                                        enctype="application/x-www-form-urlencoded">
+                                        <input type="hidden" name="_id" value={{_id}}>
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </main>
@@ -186,10 +147,6 @@
         </footer>
     </div>
 
-    <!--===============================================================================================-->
-    <script src="/js/hideShowPwd.js"></script>
-    <!--===============================================================================================-->
-    <script src="/js/checkRetypePwd.js"></script>
     <!--===============================================================================================-->
     <script src="/js/jquery.min.js"></script>
     <!--===============================================================================================-->
