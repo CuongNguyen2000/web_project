@@ -54,28 +54,6 @@ app.use(
   })
 );
 
-// app.use((req, res, next) => {
-//   if (!req.session.userId) {
-//     return next();
-//   }
-//   if (req.session.isStudent) {
-//     Student.findOne({ account_id: req.session.userId })
-//       .exec()
-//       .then((value) => {
-//         req.user = value;
-//         if (value.faculty_id) {
-//           Faculty.findOne({ _id: value.faculty_id })
-//             .exec()
-//             .then((faculty) => {
-//               req.faculty = faculty;
-//             });
-//         }
-//       });
-//     return next();
-//   }
-//   return next();
-// });
-
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
