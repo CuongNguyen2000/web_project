@@ -3,6 +3,7 @@ var Coordinator = require("../models/CoordinatorModel");
 var Faculty = require("../models/FacultyModel");
 var Articles = require("../models/ArticlesModel");
 const Student = require("../models/StudentModel");
+const Topic = require("../models/TopicModel");
 
 const GetCoordinatorHome = (req, res, next) => {
   let user = {};
@@ -68,22 +69,20 @@ const getListArticles_coordinator = (req, res, next) => {
             res.status(500).send("An error occurred", err);
           } else {
             console.log(items);
+            Student.find({ post: items._id }).exec((err, infoStu) => {
+              if (err) {
+                console.log(err);
+                res.status(500).send("An error occurred", err);
+              } else {
+                // console.log(infoStu);
+                res.render("coordinatorViews/coordinator_list_articles", {
+                  infoStu: infoStu,
+                });
+              }
+            });
             res.render("coordinatorViews/coordinator_list_articles", {
               items: items,
             });
-            Student.find({ faculty_id: info.faculty_id }).exec(
-              (err, infoStu) => {
-                if (err) {
-                  console.log(err);
-                  res.status(500).send("An error occurred", err);
-                } else {
-                  console.log(infoStu);
-                  res.render("coordinatorViews/coordinator_list_articles", {
-                    infoStu: infoStu,
-                  });
-                }
-              }
-            );
           }
         });
       }
@@ -108,8 +107,46 @@ const acceptArticle_coordinator = (req, res, next) => {
     });
 };
 
+const getListByTechnology_coordinator = (req, res, next) => {
+  Topic.findOne({ _id: "603c9e857c128717dc409c51" })
+    .exec()
+    .then((topic) => {
+      Articles.find({ topic_id: topic._id }, (err, items) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send("An error occurred", err);
+        } else {
+          console.log(items);
+          res.render("coordinatorViews/list_technologies_articles", {
+            items: items,
+          });
+        }
+      });
+    });
+};
+
+const getListByFC_coordinator = (req, res, next) => {
+  Topic.findOne({ _id: "603c9ec87c128717dc409c52" })
+    .exec()
+    .then((topic) => {
+      Articles.find({ topic_id: topic._id }, (err, items) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send("An error occurred", err);
+        } else {
+          console.log(items);
+          res.render("coordinatorViews/list_F&C_articles", {
+            items: items,
+          });
+        }
+      });
+    });
+};
+
 module.exports = {
   GetCoordinatorHome,
   getListArticles_coordinator,
   acceptArticle_coordinator,
+  getListByTechnology_coordinator,
+  getListByFC_coordinator,
 };

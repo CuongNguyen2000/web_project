@@ -12,6 +12,7 @@ const listStudent_Admin = (req, res, next) => {
   AppUser.find({ role: "student" })
     .exec()
     .then((user) => {
+      console.log(user);
       res.render("adminViews/admin_list_student", { user: user });
     })
     .catch((err) => console.log(err));

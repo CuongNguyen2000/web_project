@@ -8,15 +8,18 @@ const GetGuestHome = (req, res, next) => {
     .exec()
     .then((value) => {
       if (value.faculty_id) {
-        Articles.find({ status: true }, (err, items) => {
-          if (err) {
-            console.log(err);
-            res.status(500).send("An error occurred", err);
-          } else {
-            console.log(items);
-            res.render("guestViews/guest_home", { items: items });
+        Articles.find(
+          { faculty_id: value.faculty_id, status: true },
+          (err, items) => {
+            if (err) {
+              console.log(err);
+              res.status(500).send("An error occurred", err);
+            } else {
+              console.log(items);
+              res.render("guestViews/guest_home", { items: items });
+            }
           }
-        });
+        );
       }
     });
 };

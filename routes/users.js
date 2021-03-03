@@ -17,13 +17,17 @@ var {
   GetStudentHome,
   addArticle_student,
   getListArticles_student,
+  getUpdateArticle_student,
   deleteArticle_student,
+  assignTopicForArticle_student,
 } = require("../controllers/StudentController");
 
 var {
   GetCoordinatorHome,
   getListArticles_coordinator,
   acceptArticle_coordinator,
+  getListByTechnology_coordinator,
+  getListByFC_coordinator,
 } = require("../controllers/CoordinatorController");
 
 var {
@@ -246,6 +250,18 @@ router.put(
   acceptArticle_coordinator
 );
 
+router.get(
+  "/coordinator/list_technologies_articles",
+  isCoordinator,
+  getListByTechnology_coordinator
+);
+
+router.get(
+  "/coordinator/list_F&C_articles",
+  isCoordinator,
+  getListByFC_coordinator
+);
+
 /* ================================================================
 ===================================================================
 ===================================================================
@@ -272,6 +288,13 @@ router.post(
 );
 
 router.delete("/student/delete_article", isStudent, deleteArticle_student);
+
+router.put(
+  "/student/assign_topic_article",
+  isStudent,
+  assignTopicForArticle_student
+);
+router.post("/student/update_article", isStudent, getUpdateArticle_student);
 
 router.get("/student/term_and_conditions", isStudent, (req, res, next) => {
   res.render("term_conditions");

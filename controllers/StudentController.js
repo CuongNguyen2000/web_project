@@ -2,6 +2,7 @@ var AppUser = require("../models/AppUserModel");
 var Student = require("../models/StudentModel");
 var Articles = require("../models/ArticlesModel");
 var Faculty = require("../models/FacultyModel");
+var Topic = require("../models/TopicModel");
 
 const GetStudentHome = (req, res, next) => {
   let user = {};
@@ -104,6 +105,74 @@ const getListArticles_student = (req, res, next) => {
     });
 };
 
+const getUpdateArticle_student = (req, res, next) => {
+  let post = {};
+  const { _id } = req.body;
+  Articles.findOne({ _id: _id })
+    .exec()
+    .then((value) => {
+      post = {
+        _id: value._id,
+        name: value.name,
+        desc: value.desc,
+        articleImage: value.articleImage,
+      };
+      Topic.find({})
+        .exec()
+        .then((topic) => {
+          if (value.topic_id) {
+            Topic.findOne({ _id: value.topic_id })
+              .exec()
+              .then((assign) => {
+                console.log(assign);
+                res.render("studentViews/student_update_article", {
+                  data: {
+                    _id: value._id,
+                    assign: assign.name,
+                    topic: topic,
+                  },
+                });
+              })
+              .catch();
+          } else {
+            res.render("studentViews/student_update_article", {
+              data: {
+                _id: value._id,
+                topic: topic,
+              },
+            });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect("/users/student/list_articles");
+    });
+};
+
+// Assign article to Topic
+const assignTopicForArticle_student = (req, res, next) => {
+  const { _id, topic } = req.body;
+  console.log(topic, _id);
+  Articles.findOneAndUpdate(
+    { _id: _id },
+    { $set: { topic_id: topic } },
+    { new: true, useFindAndModify: false }
+  )
+    .exec()
+    .then((value) => {
+      console.log(value);
+      res.redirect("/users/student/list_articles");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
+};
+
 const deleteArticle_student = async (req, res, next) => {
   const { name, email, _id } = req.body;
   await Articles.findOneAndRemove({ _id: _id }, (err) => {
@@ -112,7 +181,7 @@ const deleteArticle_student = async (req, res, next) => {
       return res.redirect("/users/student/list_articles");
     } else {
       console.log("Ok");
-      Student.findOneAndUpdate({}, { $pull: { posts: _id } }, (err, data) => {
+      Student.findOneAndUpdate({}, { $pull: { post: _id } }, (err, data) => {
         if (err) {
           res.render("error", {
             message: "Sorry failed to delete post id in students",
@@ -134,5 +203,7 @@ module.exports = {
   GetStudentHome,
   addArticle_student,
   getListArticles_student,
+  getUpdateArticle_student,
   deleteArticle_student,
+  assignTopicForArticle_student,
 };

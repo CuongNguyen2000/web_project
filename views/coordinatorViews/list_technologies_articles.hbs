@@ -39,13 +39,13 @@ https://templatemo.com/tm-539-simple-house
                             <div class="tm-site-text-box">
                                 <h1 class="tm-site-title">Simple House</h1>
                                 <h6 class="tm-site-description">
-                                    Welcome Student
+                                    Welcome Marketing Coordinator
                                 </h6>
                             </div>
                         </div>
                     </div>
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <a class="navbar-brand" href="/users/student/home">Simple House</a>
+                        <a class="navbar-brand" href="/users/coordinator/home">Simple House</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -55,13 +55,13 @@ https://templatemo.com/tm-539-simple-house
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="/users/student/home">
+                                    <a class="nav-link" href="/users/coordinator/home">
                                         Home
                                         <span class="sr-only">(current)</span>
                                     </a>
                                 </li>
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="/users/student/list_articles">
+                                    <a class="nav-link" href="/users/coordinator/list_articles">
                                         list Articles
                                         <span class="sr-only">(current)</span>
                                     </a>
@@ -84,31 +84,30 @@ https://templatemo.com/tm-539-simple-house
 
         <main>
             <header class="row tm-welcome-section">
-                <h2 class="col-12 text-center tm-section-title">List of Your Articles</h2>
-                <div class="col-12 text-center tm-section-title">
-                    <button type="button" class="btn btn-success"
-                        onclick="window.location='/users/student/add_article';">
-                        Add more article
-                    </button>
-                </div>
+                <h2 class="col-12 text-center tm-section-title">Articles of Technology</h2>
             </header>
+
+            <div class="form-group">
+                <select class="form-control" onchange="window.location = this.value">
+                    <option selected>Open this select Topic</option>
+                    <option value="/users/coordinator/list_technologies_articles">Technologies
+                    </option>
+                    <option value="/users/coordinator/list_F&C_articles">Foods and Cookings</option>
+                </select>
+            </div>
+
             <div class="border rounded" style="width: auto;">
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <td colspan="5">
-                                    <h2>Uploaded Articles</h2>
-                                </td>
-                            </tr>
-                            <tr>
                                 <th scope="col">#</th>
-
                                 <th scope="col">Article Image</th>
                                 <th scope="col">File Name</th>
                                 <th scope="col">Article Name</th>
                                 <th scope="col">Description</th>
                                 <th scope="col">Created date</th>
+                                <th scope="col">status</th>
                                 <th scope="col">Option</th>
                             </tr>
                         </thead>
@@ -116,27 +115,20 @@ https://templatemo.com/tm-539-simple-house
                             {{#each items}}
                             <tr>
                                 <th scope="row">{{@index}}</th>
-                                <td scope="row"> <img src="/uploads/{{this.articleImage}}" alt="Image" class="reSize" />
-                                </td>
-                                <td scope="row"><span>{{this.articleImage}}</span></td>
-                                <td scope="row">{{name}}</td>
-                                <td scope="row">{{desc}}</td>
-                                <td scope="row">{{timeCreated}}</td>
-                                <td class="d-flex flex-row" scope="row">
-                                    <a href="/uploads/{{this.articleImage}}">
-                                        <button type="submit" class="btn btn-info">
-                                            Detailed
-                                        </button>
-                                    </a>
-                                    <form action="/users/student/update_article" method="POST">
-                                        <input type="hidden" name="_id" value={{_id}}>
-                                        <button type="submit" class="btn btn-primary">Update</button>
-                                    </form>
-                                    <form action="/users/student/delete_article" method="POST"
+                                <td> <img src="/uploads/{{this.articleImage}}" alt="Image" class="reSize" /></td>
+                                <td>{{this.articleImage}}</td>
+                                <td>{{name}}</td>
+                                <td>{{desc}}</td>
+                                <td>{{timeCreated}}</td>
+                                <td>{{status}}</td>
+                                <td class="d-flex flex-row">
+                                    <a href="/uploads/{{this.articleImage}}"><button type="submit"
+                                            class="btn btn-primary">Detailed</button></a>
+                                    <form action="/users/coordinator/accept_article" method="POST"
                                         enctype="application/x-www-form-urlencoded">
                                         <input type="hidden" name="_id" value={{_id}}>
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                        <input type="hidden" name="_method" value="PUT">
+                                        <button type="submit" class="btn btn-danger">Accept</button>
                                     </form>
                                 </td>
                             </tr>
@@ -145,29 +137,6 @@ https://templatemo.com/tm-539-simple-house
                     </table>
                 </div>
             </div>
-
-
-            {{!--
-
-            <div class="tm-section tm-container-inner">
-                <div class="row">
-                    <div class="col-md-6">
-                        <figure class="tm-description-figure">
-                            <img src="/images/img-01.jpg" alt="Image" class="img-fluid" />
-                        </figure>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="tm-description-box">
-                            <h4 class="tm-gallery-title">Maecenas nulla neque</h4>
-                            <p class="tm-mb-45">Redistributing this template as a downloadable ZIP file on any template
-                                collection site is strictly prohibited. You will need to <a rel="nofollow"
-                                    href="https://templatemo.com/contact">talk to us</a> for additional permissions
-                                about our templates. Thank you.</p>
-                            <a href="about.html" class="tm-btn tm-btn-default tm-right">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
         </main>
 
         <footer class="tm-footer text-center">

@@ -5,6 +5,9 @@ const MIME_TYPES = {
   "image/jpeg": "jpeg",
   "image/png": "png",
   "application/pdf": "pdf",
+  "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
+    "docx",
+  "application/zip": "zip",
 };
 
 var storage = multer.diskStorage({

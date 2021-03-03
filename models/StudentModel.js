@@ -12,13 +12,21 @@ const StudentSchema = new mongoose.Schema({
   posts: [
     {
       post: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Articles",
+        file: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Articles",
+        },
       },
     },
   ],
-  account_id: mongoose.Schema.Types.ObjectId,
-  faculty_id: mongoose.Schema.Types.ObjectId,
+  account_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "AppUser",
+  },
+  faculty_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Faculty",
+  },
 });
 
 const Student = mongoose.model("Student", StudentSchema);

@@ -14,8 +14,14 @@ const ArticlesSchema = new mongoose.Schema({
     type: Date,
     default: () => Date.now(),
   },
-  faculty_id: mongoose.Schema.Types.ObjectId,
-  topic_id: mongoose.Schema.Types.ObjectId,
+  faculty_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Faculty",
+  },
+  topic_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Topic",
+  },
 });
 
 ArticlesSchema.virtual("student", {
