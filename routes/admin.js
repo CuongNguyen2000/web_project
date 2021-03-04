@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-var { isAdmin } = require("../middlewares/RequiresLogin");
+var { isAdmin } = require("../middleware/RequiresLogin");
 
 var {
   listStudent_Admin,

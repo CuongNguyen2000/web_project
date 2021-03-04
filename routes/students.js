@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-var { isStudent } = require("../middlewares/RequiresLogin");
+var { isStudent } = require("../middleware/RequiresLogin");
 
 var {
   GetStudentHome,
@@ -12,7 +12,7 @@ var {
   assignTopicForArticle_student,
 } = require("../controllers/StudentController");
 
-var multerInstance = require("../middlewares/uploadImage");
+var multerInstance = require("../middleware/uploadImage");
 
 // The processing section for Student is below
 // Student request

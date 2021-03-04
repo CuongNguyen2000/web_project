@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-var { isCoordinator } = require("../middlewares/RequiresLogin");
+var { isCoordinator } = require("../middleware/RequiresLogin");
 
 var {
   GetCoordinatorHome,

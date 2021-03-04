@@ -3,7 +3,7 @@ var router = express.Router();
 
 var { GetGuestHome } = require("../controllers/guestController");
 
-var { isGuest } = require("../middlewares/RequiresLogin");
+var { isGuest } = require("../middleware/RequiresLogin");
 
 // The processing section for guest is below
 // Guest request

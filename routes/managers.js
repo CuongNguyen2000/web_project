@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-var { isManager } = require("../middlewares/RequiresLogin");
+var { isManager } = require("../middleware/RequiresLogin");
 
 var {
   GetManagerHome,
