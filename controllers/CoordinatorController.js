@@ -49,12 +49,12 @@ const GetCoordinatorHome = (req, res, next) => {
         })
         .catch((err) => {
           console.log(err);
-          res.redirect("/users/coordinator/home");
+          res.redirect("/coordinator/home");
         });
     })
     .catch((err) => {
       console.log(err);
-      res.redirect("/users/coordinator/home");
+      res.redirect("/coordinators/home");
     });
 };
 
@@ -88,7 +88,7 @@ const acceptArticle_coordinator = (req, res, next) => {
     .exec()
     .then((value) => {
       console.log(value);
-      res.redirect("/users/coordinator/list_articles");
+      res.redirect("/coordinators/list_articles");
     })
     .catch((err) => {
       console.log(err);

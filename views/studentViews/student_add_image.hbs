@@ -31,7 +31,7 @@
                         </div>
                     </div>
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <a class="navbar-brand" href="/users/student/home">Simple House</a>
+                        <a class="navbar-brand" href="/students/home">Simple House</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -41,13 +41,13 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="/users/student/home">
+                                    <a class="nav-link" href="/students/home">
                                         Home
                                         <span class="sr-only">(current)</span>
                                     </a>
                                 </li>
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="/users/student/list_articles">
+                                    <a class="nav-link" href="/students/list_articles">
                                         list Articles
                                         <span class="sr-only">(current)</span>
                                     </a>
@@ -72,7 +72,7 @@
             <br>
             <h1>To Upload Image on mongoDB</h1>
             <hr>
-            <form id="uploadForm" action="/users/student/add_article" method="POST" enctype="multipart/form-data">
+            <form id="uploadForm" action="/students/add_article" method="POST" enctype="multipart/form-data">
                 <div class="from-group">
                     <label for="name">Image Title</label>
                     <input class="form-control" type="text" id="name" placeholder="Name" value="" name="name" required>
@@ -88,7 +88,7 @@
                 </div>
                 <br>
                 <input type="checkbox" name="myCheck" id="myCheck" onclick="disableSubmit()"> I have read and
-                agree to the <a href="/users/student/term_and_conditions" style="text-decoration: none;">Terms and
+                agree to the <a href="/students/term_and_conditions" style="text-decoration: none;">Terms and
                     Conditions</a>
                 <br><br>
                 <input type="submit" class="btn btn-primary" id="submit" value="Submit" disabled></input>

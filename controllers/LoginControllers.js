@@ -36,15 +36,15 @@ const Login = (req, res, next) => {
         req.session.isGuest = user.role === "guest" ? true : false;
 
         if (user.role === "admin") {
-          return res.redirect(`/users/admin/home`);
+          return res.redirect(`/admin/home`);
         } else if (user.role === "student") {
-          return res.redirect(`/users/student/home`);
+          return res.redirect(`/students/home`);
         } else if (user.role === "manager") {
-          return res.redirect(`/users/manager/home`);
+          return res.redirect(`managers/home`);
         } else if (user.role === "coordinator") {
-          return res.redirect(`/users/coordinator/home`);
+          return res.redirect(`coordinators/home`);
         } else {
-          return res.redirect(`/users/guest/home`);
+          return res.redirect(`/guests/home`);
         }
       } else {
         const msg = "Username or Password is incorrect !!!";

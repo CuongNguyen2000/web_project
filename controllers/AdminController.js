@@ -50,7 +50,7 @@ const addStudent_admin = async (req, res, next) => {
 
       await newStudent.save();
 
-      return res.redirect("/users/admin/list_all_students");
+      return res.redirect("/admin/list_all_students");
     }
   });
 };
@@ -113,12 +113,12 @@ const updateStudent_admin = (req, res, next) => {
         })
         .catch((err) => {
           console.log(err);
-          res.redirect("/users/admin/list_all_students");
+          res.redirect("/admin/list_all_students");
         });
     })
     .catch((err) => {
       console.log(err);
-      res.redirect("/users/admin/list_all_students");
+      res.redirect("/admin/list_all_students");
     });
 };
 
@@ -137,7 +137,7 @@ const updateStudentInfo_admin = (req, res, next) => {
         return res.render("adminViews/admin_update_studentAcc");
       } else {
         console.log(data);
-        return res.redirect("/users/admin/list_all_students");
+        return res.redirect("/admin/list_all_students");
       }
     }
   );
@@ -159,7 +159,7 @@ const updateStudentAcc_admin = (req, res, next) => {
         return res.render("adminViews/admin_update_studentAcc");
       } else {
         console.log(data);
-        return res.redirect("/users/admin/list_all_students");
+        return res.redirect("/admin/list_all_students");
       }
     }
   );
@@ -171,17 +171,17 @@ const deleteStudent_Admin = async (req, res, next) => {
   await AppUser.findOneAndRemove({ _id: _id }, (err) => {
     if (err) {
       console.log(err);
-      return res.redirect("/users/admin/list_all_students");
+      return res.redirect("/admin/list_all_students");
     } else {
       console.log("Ok");
       Student.findOneAndRemove({ account_id: _id })
         .then((result) => {
           console.log("OK");
-          return res.redirect("/users/admin/list_all_students");
+          return res.redirect("/admin/list_all_students");
         })
         .catch((err) => {
           console.log(err);
-          return res.redirect("/users/admin/list_all_students");
+          return res.redirect("/admin/list_all_students");
         });
     }
   });
@@ -256,7 +256,7 @@ const addCoordinator_admin = async (req, res, next) => {
 
       await newCoordinator.save();
 
-      return res.redirect("/users/admin/list_all_coordinators");
+      return res.redirect("/admin/list_all_coordinators");
     }
   });
 };
@@ -318,12 +318,12 @@ const updateCoordinator_admin = (req, res, next) => {
         })
         .catch((err) => {
           console.log(err);
-          res.redirect("/users/admin/list_all_coordinators");
+          res.redirect("/admin/list_all_coordinators");
         });
     })
     .catch((err) => {
       console.log(err);
-      res.redirect("/users/admin/list_all_coordinators");
+      res.redirect("/admin/list_all_coordinators");
     });
 };
 
@@ -342,7 +342,7 @@ const updateCoordinatorInfo_admin = (req, res, next) => {
         return res.render("adminViews/admin_update_coordinatorAcc");
       } else {
         console.log(data);
-        return res.redirect("/users/admin/list_all_coordinators");
+        return res.redirect("/admin/list_all_coordinators");
       }
     }
   );
@@ -364,7 +364,7 @@ const updateCoordinatorAcc_admin = (req, res, next) => {
         return res.render("adminViews/admin_update_coordinatorAcc");
       } else {
         console.log(data);
-        return res.redirect("/users/admin/list_all_coordinators");
+        return res.redirect("/admin/list_all_coordinators");
       }
     }
   );
@@ -376,17 +376,17 @@ const deleteCoordinator_Admin = async (req, res, next) => {
   await AppUser.findOneAndRemove({ _id: _id }, (err) => {
     if (err) {
       console.log(err);
-      return res.redirect("/users/admin/list_all_coordinators");
+      return res.redirect("/admin/list_all_coordinators");
     } else {
       console.log("Ok");
       Coordinator.findOneAndRemove({ account_id: _id })
         .then((result) => {
           console.log("OK");
-          return res.redirect("/users/admin/list_all_coordinators");
+          return res.redirect("/admin/list_all_coordinators");
         })
         .catch((err) => {
           console.log(err);
-          return res.redirect("/users/admin/list_all_coordinators");
+          return res.redirect("/admin/list_all_coordinators");
         });
     }
   });
@@ -404,7 +404,7 @@ const assignFacultyForCoordinator_admin = (req, res, next) => {
     .exec()
     .then((value) => {
       console.log(value);
-      res.redirect("/users/admin/list_all_coordinators");
+      res.redirect("/admin/list_all_coordinators");
     })
     .catch((err) => {
       console.log(err);
@@ -461,7 +461,7 @@ const addManager_admin = async (req, res, next) => {
 
       await newManager.save();
 
-      return res.redirect("/users/admin/list_all_managers");
+      return res.redirect("/admin/list_all_managers");
     }
   });
 };
@@ -497,12 +497,12 @@ const updateManager_admin = (req, res, next) => {
         })
         .catch((err) => {
           console.log(err);
-          res.redirect("/users/admin/list_all_managers");
+          res.redirect("/admin/list_all_managers");
         });
     })
     .catch((err) => {
       console.log(err);
-      res.redirect("/users/admin/list_all_managers");
+      res.redirect("/admin/list_all_managers");
     });
 };
 
@@ -521,7 +521,7 @@ const updateManagerInfo_admin = (req, res, next) => {
         return res.render("adminViews/admin_update_managerAcc");
       } else {
         console.log(data);
-        return res.redirect("/users/admin/list_all_managers");
+        return res.redirect("/admin/list_all_managers");
       }
     }
   );
@@ -543,7 +543,7 @@ const updateManagerAcc_admin = (req, res, next) => {
         return res.render("adminViews/admin_update_managerAcc");
       } else {
         console.log(data);
-        return res.redirect("/users/admin/list_all_managers");
+        return res.redirect("/admin/list_all_managers");
       }
     }
   );
@@ -555,17 +555,17 @@ const deleteManager_Admin = async (req, res, next) => {
   await AppUser.findOneAndRemove({ _id: _id }, (err) => {
     if (err) {
       console.log(err);
-      return res.redirect("/users/admin/list_all_managers");
+      return res.redirect("/admin/list_all_managers");
     } else {
       console.log("Ok");
       Manager.findOneAndRemove({ account_id: _id })
         .then((result) => {
           console.log("OK");
-          return res.redirect("/users/admin/list_all_managers");
+          return res.redirect("/admin/list_all_managers");
         })
         .catch((err) => {
           console.log(err);
-          return res.redirect("/users/admin/list_all_managers");
+          return res.redirect("/admin/list_all_managers");
         });
     }
   });
@@ -594,7 +594,7 @@ const addFaculty_admin = (req, res, next) => {
     .exec()
     .then((value) => {
       const msg = "This faculty is already exist !!! Please Try again";
-      res.redirect(`/users/admin/add_faculty?msg=${msg}`);
+      res.redirect(`/admin/add_faculty?msg=${msg}`);
     })
     .catch((err) => {
       res.send(err);
@@ -607,7 +607,7 @@ const addFaculty_admin = (req, res, next) => {
 
   newFaculty.save();
 
-  return res.redirect("/users/admin/list_all_faculty");
+  return res.redirect("/admin/list_all_faculty");
 };
 
 // update faculty
@@ -642,7 +642,7 @@ const updateFaculty_admin = (req, res, next) => {
     .exec()
     .then((value) => {
       console.log(value);
-      res.redirect("/users/admin/list_all_faculty");
+      res.redirect("/admin/list_all_faculty");
     })
     .catch((err) => {
       console.log(err);
@@ -657,7 +657,7 @@ const deleteFaculty_admin = (req, res, next) => {
     .exec()
     .then((value) => {
       console.log(value);
-      res.redirect("/users/admin/list_all_faculty");
+      res.redirect("/admin/list_all_faculty");
     })
     .catch((err) => {
       res.send(err);
@@ -687,7 +687,7 @@ const addTopic_admin = (req, res, next) => {
     .exec()
     .then((value) => {
       const msg = "This Topic is already exist !!! Please Try again";
-      res.redirect(`/users/admin/add_topic?msg=${msg}`);
+      res.redirect(`/admin/add_topic?msg=${msg}`);
     })
     .catch((err) => {
       res.send(err);
@@ -700,7 +700,7 @@ const addTopic_admin = (req, res, next) => {
 
   newTopic.save();
 
-  return res.redirect("/users/admin/list_all_topic");
+  return res.redirect("/admin/list_all_topic");
 };
 
 // update topic
@@ -735,7 +735,7 @@ const updateTopic_admin = (req, res, next) => {
     .exec()
     .then((value) => {
       console.log(value);
-      res.redirect("/users/admin/list_all_topic");
+      res.redirect("/admin/list_all_topic");
     })
     .catch((err) => {
       console.log(err);
@@ -750,7 +750,7 @@ const deleteTopic_admin = (req, res, next) => {
     .exec()
     .then((value) => {
       console.log(value);
-      res.redirect("/users/admin/list_all_topic");
+      res.redirect("/admin/list_all_topic");
     })
     .catch((err) => {
       res.send(err);
@@ -806,7 +806,7 @@ const addGuest_admin = async (req, res, next) => {
 
       await newGuest.save();
 
-      return res.redirect("/users/admin/list_all_guests");
+      return res.redirect("/admin/list_all_guests");
     }
   });
 };
@@ -868,12 +868,12 @@ const updateGuest_admin = (req, res, next) => {
         })
         .catch((err) => {
           console.log(err);
-          res.redirect("/users/admin/list_all_guests");
+          res.redirect("/admin/list_all_guests");
         });
     })
     .catch((err) => {
       console.log(err);
-      res.redirect("/users/admin/list_all_guests");
+      res.redirect("/admin/list_all_guests");
     });
 };
 
@@ -892,7 +892,7 @@ const updateGuestInfo_admin = (req, res, next) => {
         return res.render("adminViews/admin_update_guestAcc");
       } else {
         console.log(data);
-        return res.redirect("/users/admin/list_all_guests");
+        return res.redirect("/admin/list_all_guests");
       }
     }
   );
@@ -914,7 +914,7 @@ const updateGuestAcc_admin = (req, res, next) => {
         return res.render("adminViews/admin_update_guestAcc");
       } else {
         console.log(data);
-        return res.redirect("/users/admin/list_all_guests");
+        return res.redirect("/admin/list_all_guests");
       }
     }
   );
@@ -932,7 +932,7 @@ const assignFacultyForGuest_admin = (req, res, next) => {
     .exec()
     .then((value) => {
       console.log(value);
-      res.redirect("/users/admin/list_all_guests");
+      res.redirect("/admin/list_all_guests");
     })
     .catch((err) => {
       console.log(err);
@@ -946,17 +946,17 @@ const deleteGuest_Admin = async (req, res, next) => {
   await AppUser.findOneAndRemove({ _id: _id }, (err) => {
     if (err) {
       console.log(err);
-      return res.redirect("/users/admin/list_all_guests");
+      return res.redirect("/admin/list_all_guests");
     } else {
       console.log("Ok");
       Guest.findOneAndRemove({ account_id: _id })
         .then((result) => {
           console.log("OK");
-          return res.redirect("/users/admin/list_all_guests");
+          return res.redirect("/admin/list_all_guests");
         })
         .catch((err) => {
           console.log(err);
-          return res.redirect("/users/admin/list_all_guests");
+          return res.redirect("/admin/list_all_guests");
         });
     }
   });

@@ -45,7 +45,7 @@ https://templatemo.com/tm-539-simple-house
                         </div>
                     </div>
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <a class="navbar-brand" href="/users/coordinator/home">Simple House</a>
+                        <a class="navbar-brand" href="/coordinators/home">Simple House</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -55,13 +55,13 @@ https://templatemo.com/tm-539-simple-house
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="/users/coordinator/home">
+                                    <a class="nav-link" href="/coordinators/home">
                                         Home
                                         <span class="sr-only">(current)</span>
                                     </a>
                                 </li>
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="/users/coordinator/list_articles">
+                                    <a class="nav-link" href="/coordinators/list_articles">
                                         list Articles
                                         <span class="sr-only">(current)</span>
                                     </a>
@@ -90,9 +90,9 @@ https://templatemo.com/tm-539-simple-house
             <div class="form-group">
                 <select class="form-control" onchange="window.location = this.value">
                     <option selected>Open this select Topic</option>
-                    <option value="/users/coordinator/list_technologies_articles">Technologies
+                    <option value="/coordinators/list_technologies_articles">Technologies
                     </option>
-                    <option value="/users/coordinator/list_F&C_articles">Foods and Cookings</option>
+                    <option value="/coordinators/list_F&C_articles">Foods and Cookings</option>
                 </select>
             </div>
 
@@ -124,7 +124,7 @@ https://templatemo.com/tm-539-simple-house
                                 <td class="d-flex flex-row">
                                     <a href="/uploads/{{this.articleImage}}"><button type="submit"
                                             class="btn btn-primary">Detailed</button></a>
-                                    <form action="/users/coordinator/accept_article" method="POST"
+                                    <form action="/coordinators/accept_article" method="POST"
                                         enctype="application/x-www-form-urlencoded">
                                         <input type="hidden" name="_id" value={{_id}}>
                                         <input type="hidden" name="_method" value="PUT">

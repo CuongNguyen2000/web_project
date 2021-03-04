@@ -35,7 +35,7 @@
                         </div>
                     </div>
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <a class="navbar-brand" href="/users/admin/home">Simple House</a>
+                        <a class="navbar-brand" href="/admin/home">Simple House</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -45,7 +45,7 @@
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="/users/admin/home">Home <span
+                                    <a class="nav-link" href="/admin/home">Home <span
                                             class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item dropdown">
@@ -54,26 +54,26 @@
                                         User Account
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="/users/admin/list_all_students">
+                                        <a class="dropdown-item" href="/admin/list_all_students">
                                             Student Account
                                         </a>
-                                        <a class="dropdown-item" href="/users/admin/list_all_coordinators">
+                                        <a class="dropdown-item" href="/admin/list_all_coordinators">
                                             Marketing Coordinator Account
                                         </a>
-                                        <a class="dropdown-item" href="/users/admin/list_all_managers">
+                                        <a class="dropdown-item" href="/admin/list_all_managers">
                                             Marketing Manager Account
                                         </a>
-                                        <a class="dropdown-item" href="/users/admin/list_all_guests">
+                                        <a class="dropdown-item" href="/admin/list_all_guests">
                                             Guest Account
                                         </a>
                                     </div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/users/admin/list_all_faculty">List of Faculty <span
+                                    <a class="nav-link" href="/admin/list_all_faculty">List of Faculty <span
                                             class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/users/admin/list_all_topic">List of Topic <span
+                                    <a class="nav-link" href="/admin/list_all_topic">List of Topic <span
                                             class="sr-only">(current)</span></a>
                                 </li>
                             </ul>
@@ -98,7 +98,7 @@
                 <div style="padding: 20px;">
                     <h1>Update Faculty Information</h1>
                     <hr>
-                    <form action="/users/admin/update_faculty_information" method="POST"
+                    <form action="/admin/update_faculty_information" method="POST"
                         enctype="application/x-www-form-urlencoded">
                         <div class="form-group">
                             <label for="name">Name: <span class="changeStyle">{{ data.name }}</span> </label>

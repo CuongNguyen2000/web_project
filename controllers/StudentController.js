@@ -48,12 +48,12 @@ const GetStudentHome = (req, res, next) => {
         })
         .catch((err) => {
           console.log(err);
-          res.redirect("/users/student/home");
+          res.redirect("/students/home");
         });
     })
     .catch((err) => {
       console.log(err);
-      res.redirect("/users/student/home");
+      res.redirect("/students/home");
     });
 };
 
@@ -79,7 +79,7 @@ const addArticle_student = async (req, res, next) => {
                 item.save();
                 info.posts.push(item);
                 info.save();
-                res.redirect("/users/student/list_articles");
+                res.redirect("/students/list_articles");
               }
             });
           });
@@ -142,7 +142,7 @@ const getUpdateArticle_student = (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
-      res.redirect("/users/student/list_articles");
+      res.redirect("/students/list_articles");
     });
 };
 
@@ -158,7 +158,7 @@ const assignTopicForArticle_student = (req, res, next) => {
     .exec()
     .then((value) => {
       console.log(value);
-      res.redirect("/users/student/list_articles");
+      res.redirect("/students/list_articles");
     })
     .catch((err) => {
       console.log(err);
@@ -171,7 +171,7 @@ const deleteArticle_student = async (req, res, next) => {
   await Articles.findOneAndRemove({ _id: _id }, (err) => {
     if (err) {
       console.log(err);
-      return res.redirect("/users/student/list_articles");
+      return res.redirect("/students/list_articles");
     } else {
       console.log("Ok");
       Student.findOneAndUpdate(
@@ -188,7 +188,7 @@ const deleteArticle_student = async (req, res, next) => {
             });
           } else {
             console.log("OK");
-            return res.redirect("/users/student/list_articles");
+            return res.redirect("/students/list_articles");
           }
         }
       );

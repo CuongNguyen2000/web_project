@@ -45,7 +45,7 @@ https://templatemo.com/tm-539-simple-house
                         </div>
                     </div>
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <a class="navbar-brand" href="/users/student/home">Simple House</a>
+                        <a class="navbar-brand" href="/students/home">Simple House</a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                             data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
@@ -55,13 +55,13 @@ https://templatemo.com/tm-539-simple-house
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul class="navbar-nav mr-auto">
                                 <li class="nav-item active">
-                                    <a class="nav-link" href="/users/student/home">
+                                    <a class="nav-link" href="/students/home">
                                         Home
                                         <span class="sr-only">(current)</span>
                                     </a>
                                 </li>
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="/users/student/list_articles">
+                                    <a class="nav-link" href="/students/list_articles">
                                         list Articles
                                         <span class="sr-only">(current)</span>
                                     </a>
@@ -86,8 +86,7 @@ https://templatemo.com/tm-539-simple-house
             <header class="row tm-welcome-section">
                 <h2 class="col-12 text-center tm-section-title">List of Your Articles</h2>
                 <div class="col-12 text-center tm-section-title">
-                    <button type="button" class="btn btn-success"
-                        onclick="window.location='/users/student/add_article';">
+                    <button type="button" class="btn btn-success" onclick="window.location='/students/add_article';">
                         Add more article
                     </button>
                 </div>
@@ -129,11 +128,11 @@ https://templatemo.com/tm-539-simple-house
                                             Detailed
                                         </button>
                                     </a>
-                                    <form action="/users/student/update_article" method="POST">
+                                    <form action="/students/update_article" method="POST">
                                         <input type="hidden" name="_id" value={{_id}}>
                                         <button type="submit" class="btn btn-primary">Update</button>
                                     </form>
-                                    <form action="/users/student/delete_article" method="POST"
+                                    <form action="students/delete_article" method="POST"
                                         enctype="application/x-www-form-urlencoded">
                                         <input type="hidden" name="_id" value={{_id}}>
                                         <input type="hidden" name="_method" value="DELETE">
