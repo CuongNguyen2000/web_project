@@ -115,9 +115,9 @@ https://templatemo.com/tm-539-simple-house
                             {{#each items}}
                             <tr>
                                 <th scope="row">{{@index}}</th>
-                                <td> <img src="/uploads/{{this.articleImage}}" alt="Image" class="reSize" /></td>
-                                <td>{{this.articleImage}}</td>
+                                <td> <img src="/uploads/{{articleImage}}" alt="Image" class="reSize" /></td>
                                 <td>{{name}}</td>
+                                <td>{{articleImage}}</td>
                                 <td>{{desc}}</td>
                                 <td>{{timeCreated}}</td>
                                 <td>{{status}}</td>
@@ -130,6 +130,12 @@ https://templatemo.com/tm-539-simple-house
                                         <input type="hidden" name="_method" value="PUT">
                                         <button type="submit" class="btn btn-danger">Accept</button>
                                     </form>
+                                </td>
+                                {{else}}
+                                <td colspan="7">
+                                    <div class="alert alert-primary" role="alert">
+                                        There isn't any content !!!
+                                    </div>
                                 </td>
                             </tr>
                             {{/each}}
@@ -162,21 +168,6 @@ https://templatemo.com/tm-539-simple-house
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    <!--===============================================================================================-->
-    <script>
-        $(document).ready(function () {
-            // Handle click on paging links
-            $('.tm-paging-link').click(function (e) {
-                e.preventDefault();
-
-                var page = $(this).text().toLowerCase();
-                $('.tm-gallery-page').addClass('hidden');
-                $('#tm-gallery-page-' + page).removeClass('hidden');
-                $('.tm-paging-link').removeClass('active');
-                $(this).addClass("active");
-            });
-        });
-    </script>
     <!--===============================================================================================-->
 
 </body>

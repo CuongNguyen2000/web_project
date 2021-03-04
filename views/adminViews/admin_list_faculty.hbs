@@ -132,6 +132,12 @@
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </td>
+                                {{else}}
+                                <td colspan="5">
+                                    <div class="alert alert-primary" role="alert">
+                                        There isn't any Faculty --- Let's add an Faculty !!!
+                                    </div>
+                                </td>
                             </tr>
                             {{/each}}
                         </tbody>

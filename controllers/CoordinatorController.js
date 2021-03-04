@@ -3,7 +3,7 @@ var Coordinator = require("../models/CoordinatorModel");
 var Faculty = require("../models/FacultyModel");
 var Articles = require("../models/ArticlesModel");
 const Student = require("../models/StudentModel");
-const Topic = require("../models/TopicModel");
+var Topic = require("../models/TopicModel");
 
 const GetCoordinatorHome = (req, res, next) => {
   let user = {};
@@ -69,17 +69,6 @@ const getListArticles_coordinator = (req, res, next) => {
             res.status(500).send("An error occurred", err);
           } else {
             console.log(items);
-            Student.find({ post: items._id }).exec((err, infoStu) => {
-              if (err) {
-                console.log(err);
-                res.status(500).send("An error occurred", err);
-              } else {
-                // console.log(infoStu);
-                res.render("coordinatorViews/coordinator_list_articles", {
-                  infoStu: infoStu,
-                });
-              }
-            });
             res.render("coordinatorViews/coordinator_list_articles", {
               items: items,
             });
@@ -107,7 +96,21 @@ const acceptArticle_coordinator = (req, res, next) => {
     });
 };
 
-const getListByTechnology_coordinator = (req, res, next) => {
+const getListByTechnology_coordinator = async (req, res, next) => {
+  // try {
+  //   const topic = await Topic.findOne({ name: "Technologies" });
+  //   if (topic) {
+  //     const articles = await Articles.find({ topic_id: topic._id }).limit(100);
+
+  //     if (articles) {
+  //       res.render("coordinatorViews/list_technologies_articles", {
+  //         articles,
+  //         topic,
+  //       });
+  //     }
+  //   }
+  // } catch (error) {}
+
   Topic.findOne({ _id: "603c9e857c128717dc409c51" })
     .exec()
     .then((topic) => {

@@ -12,10 +12,8 @@ const StudentSchema = new mongoose.Schema({
   posts: [
     {
       post: {
-        file: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "Articles",
-        },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Articles",
       },
     },
   ],

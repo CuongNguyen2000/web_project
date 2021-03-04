@@ -134,6 +134,12 @@
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </td>
+                                {{else}}
+                                <td colspan="6">
+                                    <div class="alert alert-primary" role="alert">
+                                        There isn't any Guest Account --- Let's add an Guest !!!
+                                    </div>
+                                </td>
                             </tr>
                             {{/each}}
                         </tbody>

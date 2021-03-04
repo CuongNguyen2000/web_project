@@ -106,6 +106,12 @@
                                         <button type="submit" class="btn btn-danger">Download</button>
                                     </form>
                                 </td>
+                                {{else}}
+                                <td colspan="6">
+                                    <div class="alert alert-primary" role="alert">
+                                        There isn't any content !!!
+                                    </div>
+                                </td>
                             </tr>
                             {{/each}}
                         </tbody>

@@ -106,17 +106,10 @@ const getListArticles_student = (req, res, next) => {
 };
 
 const getUpdateArticle_student = (req, res, next) => {
-  let post = {};
   const { _id } = req.body;
   Articles.findOne({ _id: _id })
     .exec()
     .then((value) => {
-      post = {
-        _id: value._id,
-        name: value.name,
-        desc: value.desc,
-        articleImage: value.articleImage,
-      };
       Topic.find({})
         .exec()
         .then((topic) => {
@@ -181,20 +174,24 @@ const deleteArticle_student = async (req, res, next) => {
       return res.redirect("/users/student/list_articles");
     } else {
       console.log("Ok");
-      Student.findOneAndUpdate({}, { $pull: { post: _id } }, (err, data) => {
-        if (err) {
-          res.render("error", {
-            message: "Sorry failed to delete post id in students",
-            error: {
-              status: err,
-              stacks: "failed to delete post id in students",
-            },
-          });
-        } else {
-          console.log("OK");
-          return res.redirect("/users/student/list_articles");
+      Student.findOneAndUpdate(
+        { posts: _id },
+        { $pull: { posts: _id } },
+        (err, data) => {
+          if (err) {
+            res.render("error", {
+              message: "Sorry failed to delete post id in students",
+              error: {
+                status: err,
+                stacks: "failed to delete post id in students",
+              },
+            });
+          } else {
+            console.log("OK");
+            return res.redirect("/users/student/list_articles");
+          }
         }
-      });
+      );
     }
   });
 };
