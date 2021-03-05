@@ -275,69 +275,69 @@
                                                 <!-- Tab variant tab card start -->
                                                 <div class="card">
                                                     <div class="card-block table-border-style">
-                                                        <div class="border rounded" style="width: auto;">
-                                                            <div class="d-flex flex-row-reverse">
-                                                                <div style="padding-top: 20px; padding-right: 20px">
-                                                                    <button type="button" class="btn btn-success"
-                                                                        onclick="window.location='/admin/add_guest';">
-                                                                        Adding more user
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <br>
-                                                            <div class="table-responsive">
-                                                                <table class="table table-hover">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th scope="col">#</th>
-                                                                            <th scope="col">User_id</th>
-                                                                            <th scope="col">Username</th>
-                                                                            <th scope="col">Password</th>
-                                                                            <th scope="col">Created date</th>
-                                                                            <th scope="col">Option</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        {{#each user}}
-                                                                        <tr>
-                                                                            <th scope="row">{{@index}}</th>
-                                                                            <td>{{_id}}</td>
-                                                                            <td>{{username}}</td>
-                                                                            <td>Hidden</td>
-                                                                            <td>{{timeCreated}}</td>
-                                                                            <td class="d-flex flex-row">
-                                                                                <form action="/admin/update_guest"
-                                                                                    method="POST">
-                                                                                    <input type="hidden" name="_id"
-                                                                                        value={{_id}}>
-                                                                                    <button type="submit"
-                                                                                        class="btn btn-primary">Update</button>
-                                                                                </form>
-                                                                                <form action="/admin/delete_guest"
-                                                                                    method="POST"
-                                                                                    enctype="application/x-www-form-urlencoded">
-                                                                                    <input type="hidden" name="_id"
-                                                                                        value={{_id}}>
-                                                                                    <input type="hidden" name="_method"
-                                                                                        value="DELETE">
-                                                                                    <button type="submit"
-                                                                                        class="btn btn-danger">Delete</button>
-                                                                                </form>
-                                                                            </td>
-                                                                            {{else}}
-                                                                            <td colspan="6">
-                                                                                <div class="alert alert-primary"
-                                                                                    role="alert">
-                                                                                    There isn't any Guest Account ---
-                                                                                    Let's add an M.C !!!
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                        {{/each}}
-                                                                    </tbody>
-                                                                </table>
+
+                                                        <div class="d-flex flex-row-reverse">
+                                                            <div style="padding-top: 20px; padding-right: 20px">
+                                                                <button type="button" class="btn btn-success"
+                                                                    onclick="window.location='/admin/add_guest';">
+                                                                    Adding more user
+                                                                </button>
                                                             </div>
                                                         </div>
+                                                        <br>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">#</th>
+                                                                        <th scope="col">User_id</th>
+                                                                        <th scope="col">Username</th>
+                                                                        <th scope="col">Password</th>
+                                                                        <th scope="col">Created date</th>
+                                                                        <th scope="col">Option</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {{#each user}}
+                                                                    <tr>
+                                                                        <th scope="row">{{@index}}</th>
+                                                                        <td>{{_id}}</td>
+                                                                        <td>{{username}}</td>
+                                                                        <td>Hidden</td>
+                                                                        <td>{{timeCreated}}</td>
+                                                                        <td class="d-flex flex-row">
+                                                                            <form action="/admin/update_guest"
+                                                                                method="POST">
+                                                                                <input type="hidden" name="_id"
+                                                                                    value={{_id}}>
+                                                                                <button type="submit"
+                                                                                    class="btn btn-primary">Update</button>
+                                                                            </form>
+                                                                            <form action="/admin/delete_guest"
+                                                                                method="POST"
+                                                                                enctype="application/x-www-form-urlencoded">
+                                                                                <input type="hidden" name="_id"
+                                                                                    value={{_id}}>
+                                                                                <input type="hidden" name="_method"
+                                                                                    value="DELETE">
+                                                                                <button type="submit"
+                                                                                    class="btn btn-danger">Delete</button>
+                                                                            </form>
+                                                                        </td>
+                                                                        {{else}}
+                                                                        <td colspan="6">
+                                                                            <div class="alert alert-primary"
+                                                                                role="alert">
+                                                                                There isn't any Guest Account ---
+                                                                                Let's add an M.C !!!
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    {{/each}}
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
                                                     </div>
 
                                                 </div>

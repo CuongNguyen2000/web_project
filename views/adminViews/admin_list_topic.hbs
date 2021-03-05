@@ -271,70 +271,66 @@
                                                 <!-- Tab variant tab card start -->
                                                 <div class="card">
                                                     <div class="card-block table-border-style">
-                                                        <div class="border rounded" style="width: auto;">
-                                                            <div class="d-flex flex-row-reverse">
-                                                                <div style="padding-top: 20px; padding-right: 20px">
-                                                                    <button type="button" class="btn btn-success"
-                                                                        onclick="window.location='/admin/add_topic';">
-                                                                        Adding more Topic
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <br>
-                                                            <div class="table-responsive">
-                                                                <table class="table table-hover">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th scope="col">#</th>
-                                                                            <th scope="col">Topic Name</th>
-                                                                            <th scope="col">Description</th>
-                                                                            <th scope="col">Created date</th>
-                                                                            <th scope="col">Option</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        {{#each topic}}
-                                                                        <tr>
-                                                                            <th scope="row">{{@index}}</th>
-                                                                            <td>{{name}}</td>
-                                                                            <td>{{description}}</td>
-                                                                            <td>{{timeCreated}}</td>
-                                                                            <td class="d-flex flex-row">
-                                                                                <form action="/admin/update_topic"
-                                                                                    method="POST">
-                                                                                    <input type="hidden" name="_id"
-                                                                                        value={{_id}}>
-                                                                                    <button type="submit"
-                                                                                        class="btn btn-primary">Update</button>
-                                                                                </form>
-                                                                                <form action="/admin/delete_topic"
-                                                                                    method="POST"
-                                                                                    enctype="application/x-www-form-urlencoded">
-                                                                                    <input type="hidden" name="_id"
-                                                                                        value={{_id}}>
-                                                                                    <input type="hidden" name="_method"
-                                                                                        value="DELETE">
-                                                                                    <button type="submit"
-                                                                                        class="btn btn-danger">Delete</button>
-                                                                                </form>
-                                                                            </td>
-                                                                            {{else}}
-                                                                            <td colspan="5">
-                                                                                <div class="alert alert-primary"
-                                                                                    role="alert">
-                                                                                    There isn't any Topic --- Let's add
-                                                                                    an Topic !!!
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                        {{/each}}
-                                                                    </tbody>
-                                                                </table>
+                                                        <div class="d-flex flex-row-reverse">
+                                                            <div style="padding-top: 20px; padding-right: 20px">
+                                                                <button type="button" class="btn btn-success"
+                                                                    onclick="window.location='/admin/add_topic';">
+                                                                    Adding more Topic
+                                                                </button>
                                                             </div>
                                                         </div>
-                                                        <!-- Border around end div -->
+                                                        <br>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th scope="col">#</th>
+                                                                        <th scope="col">Topic Name</th>
+                                                                        <th scope="col">Description</th>
+                                                                        <th scope="col">Created date</th>
+                                                                        <th scope="col">Option</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {{#each topic}}
+                                                                    <tr>
+                                                                        <th scope="row">{{@index}}</th>
+                                                                        <td>{{name}}</td>
+                                                                        <td>{{description}}</td>
+                                                                        <td>{{timeCreated}}</td>
+                                                                        <td class="d-flex flex-row">
+                                                                            <form action="/admin/update_topic"
+                                                                                method="POST">
+                                                                                <input type="hidden" name="_id"
+                                                                                    value={{_id}}>
+                                                                                <button type="submit"
+                                                                                    class="btn btn-primary">Update</button>
+                                                                            </form>
+                                                                            <form action="/admin/delete_topic"
+                                                                                method="POST"
+                                                                                enctype="application/x-www-form-urlencoded">
+                                                                                <input type="hidden" name="_id"
+                                                                                    value={{_id}}>
+                                                                                <input type="hidden" name="_method"
+                                                                                    value="DELETE">
+                                                                                <button type="submit"
+                                                                                    class="btn btn-danger">Delete</button>
+                                                                            </form>
+                                                                        </td>
+                                                                        {{else}}
+                                                                        <td colspan="5">
+                                                                            <div class="alert alert-primary"
+                                                                                role="alert">
+                                                                                There isn't any Topic --- Let's add
+                                                                                an Topic !!!
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    {{/each}}
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
-
                                                 </div>
                                                 <!-- Tab variant tab card start -->
                                             </div>
