@@ -40,9 +40,9 @@ const Login = (req, res, next) => {
         } else if (user.role === "student") {
           return res.redirect(`/students/home`);
         } else if (user.role === "manager") {
-          return res.redirect(`managers/home`);
+          return res.redirect(`/managers/home`);
         } else if (user.role === "coordinator") {
-          return res.redirect(`coordinators/home`);
+          return res.redirect(`/coordinators/home`);
         } else {
           return res.redirect(`/guests/home`);
         }

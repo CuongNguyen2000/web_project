@@ -49,7 +49,7 @@ const GetCoordinatorHome = (req, res, next) => {
         })
         .catch((err) => {
           console.log(err);
-          res.redirect("/coordinator/home");
+          res.redirect("/coordinators/home");
         });
     })
     .catch((err) => {
