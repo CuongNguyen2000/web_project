@@ -25,7 +25,7 @@ router.get("/list_articles", isStudent, getListArticles_student);
 
 // GET/POST adding new article
 router.get("/add_article", isStudent, (req, res, next) => {
-  res.render("studentViews/student_add_image");
+  res.render("studentViews/student_add_article");
 });
 router.post(
   "/add_article",
@@ -45,7 +45,7 @@ router.post("/update_article", isStudent, getUpdateArticle_student);
 
 // GET page term and conditions
 router.get("/term_and_conditions", isStudent, (req, res, next) => {
-  res.render("term_conditions");
+  res.render("studentViews/term_conditions");
 });
 
 module.exports = router;

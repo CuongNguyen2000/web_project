@@ -1,221 +1,374 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>View Articles</title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400" rel="stylesheet" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link href="/stylesheets/templatemo-style.css" rel="stylesheet" />
+    <title>Admin Homepage</title>
+    <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="CodedThemes">
+    <meta name="keywords"
+        content=" Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+    <meta name="author" content="CodedThemes">
+    <!-- Favicon icon -->
+    <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap/css/bootstrap.min.css">
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css" href="/assets/icon/themify-icons/themify-icons.css">
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" href="/assets/icon/icofont/css/icofont.css">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.css">
     <style>
+        .changeStyle {
+            font-weight: bold;
+            font-style: italic;
+        }
+
         .reSize {
-            width: 200px;
-            height: 200px;
+            width: 150px;
+            height: 150px;
         }
     </style>
 </head>
-<!--
-
-Simple House
-
-https://templatemo.com/tm-539-simple-house
-
--->
 
 <body>
-
-    <div class="container">
-        <!-- Top box -->
-        <!-- Logo & Site Name -->
-        <div class="placeholder">
-            <div class="parallax-window" data-parallax="scroll" data-image-src="/images/simple-house-01.jpg">
-                <div class="tm-header">
-                    <div class="row tm-header-inner">
-                        <div class="col-md-6 col-12">
-                            <img src="/images/simple-house-logo.png" alt="Logo" class="tm-site-logo" />
-                            <div class="tm-site-text-box">
-                                <h1 class="tm-site-title">Simple House</h1>
-                                <h6 class="tm-site-description">
-                                    Welcome Student
-                                </h6>
-                            </div>
-                        </div>
-                    </div>
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <a class="navbar-brand" href="/students/home">Simple House</a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                            aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="/students/home">
-                                        Home
-                                        <span class="sr-only">(current)</span>
-                                    </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="/students/list_articles">
-                                        list Articles
-                                        <span class="sr-only">(current)</span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
-                                onclick="window.location = '/users/logout'">
-                                Logout
-                            </button>
-                            {{!-- <form class="form-inline my-2 my-lg-0">
-                                <input class="form-control mr-sm-2" type="search" placeholder="Search"
-                                    aria-label="Search">
-                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                            </form> --}}
-                        </div>
-                    </nav>
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="ball-scale">
+            <div class='contain'>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
+                </div>
+                <div class="ring">
+                    <div class="frame"></div>
                 </div>
             </div>
         </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
 
-        <main>
-            <header class="row tm-welcome-section">
-                <h2 class="col-12 text-center tm-section-title">List of Your Articles</h2>
-                <div class="col-12 text-center tm-section-title">
-                    <button type="button" class="btn btn-success" onclick="window.location='/students/add_article';">
-                        Add more article
-                    </button>
-                </div>
-            </header>
-            <div class="border rounded" style="width: auto;">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <td colspan="5">
-                                    <h2>Uploaded Articles</h2>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Article Image</th>
-                                <th scope="col">File Name</th>
-                                <th scope="col">Topic</th>
-                                <th scope="col">Article Name</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Created date</th>
-                                <th scope="col">Option</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each items}}
-                            <tr>
-                                <th scope="row">{{@index}}</th>
-                                <td scope="row"> <img src="/uploads/{{this.articleImage}}" alt="Image" class="reSize" />
-                                </td>
-                                <td scope="row"><span>{{this.articleImage}}</span></td>
-                                <td>{{../topic}}</td>
-                                <td scope="row">{{name}}</td>
-                                <td scope="row">{{desc}}</td>
-                                <td scope="row">{{timeCreated}}</td>
-                                <td class="d-flex flex-row" scope="row">
-                                    <a href="/uploads/{{this.articleImage}}">
-                                        <button type="submit" class="btn btn-info">
-                                            Detailed
-                                        </button>
-                                    </a>
-                                    <form action="/students/update_article" method="POST">
-                                        <input type="hidden" name="_id" value={{_id}}>
-                                        <button type="submit" class="btn btn-primary">Update</button>
-                                    </form>
-                                    <form action="students/delete_article" method="POST"
-                                        enctype="application/x-www-form-urlencoded">
-                                        <input type="hidden" name="_id" value={{_id}}>
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
-                                </td>
-                                {{else}}
-                                <td colspan="7">
-                                    <div class="alert alert-primary" role="alert">
-                                        There isn't any content --- Let's add an article !!!
-                                    </div>
-                                </td>
-                            </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            <nav class="navbar header-navbar pcoded-header">
+                <div class="navbar-wrapper">
 
-
-            {{!--
-
-            <div class="tm-section tm-container-inner">
-                <div class="row">
-                    <div class="col-md-6">
-                        <figure class="tm-description-figure">
-                            <img src="/images/img-01.jpg" alt="Image" class="img-fluid" />
-                        </figure>
+                    <div class="navbar-logo">
+                        <a class="mobile-menu" id="mobile-collapse" href="#!">
+                            <i class="ti-menu"></i>
+                        </a>
+                        <a class="mobile-search morphsearch-search" href="#">
+                            <i class="ti-search"></i>
+                        </a>
+                        <a href="/students/home">
+                            <img class="img-fluid" src="/assets/images/logo.png" alt="Theme-Logo" />
+                        </a>
+                        <a class="mobile-options">
+                            <i class="ti-more"></i>
+                        </a>
                     </div>
-                    <div class="col-md-6">
-                        <div class="tm-description-box">
-                            <h4 class="tm-gallery-title">Maecenas nulla neque</h4>
-                            <p class="tm-mb-45">Redistributing this template as a downloadable ZIP file on any template
-                                collection site is strictly prohibited. You will need to <a rel="nofollow"
-                                    href="https://templatemo.com/contact">talk to us</a> for additional permissions
-                                about our templates. Thank you.</p>
-                            <a href="about.html" class="tm-btn tm-btn-default tm-right">Read More</a>
+
+                    <div class="navbar-container container-fluid">
+                        <ul class="nav-left">
+                            <li>
+                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a>
+                                </div>
+                            </li>
+
+                            <li>
+                                <a href="#!" onclick="javascript:toggleFullScreen()">
+                                    <i class="ti-fullscreen"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav-right">
+                            <li class="header-notification">
+
+
+                            </li>
+                            <li class="user-profile header-notification">
+                                <a href="#!">
+                                    <img src="/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
+                                    <span>{{data.info.name}}</span>
+                                    <i class="ti-angle-down"></i>
+                                </a>
+                                <ul class="show-notification profile-notification">
+                                    <li>
+                                        <a href="/users/logout">
+                                            <i class="ti-layout-sidebar-left"></i> Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                        <div class="pcoded-inner-navbar main-menu">
+                            <div class="">
+                                <div class="main-menu-header">
+                                    <img class="img-40 img-radius" src="/assets/images/avatar-4.jpg"
+                                        alt="User-Profile-Image">
+                                    <div class="user-details">
+                                        <span>{{data.info.name}}</span>
+                                        <span id="more-details">See More<i class="ti-angle-down"></i></span>
+                                    </div>
+                                </div>
+
+                                <div class="main-menu-content">
+                                    <ul>
+                                        <li class="more-details">
+
+                                            <a href="/users/logout">
+                                                <i class="ti-layout-sidebar-left"></i>Logout
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">Main</div>
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="">
+                                    <a href="/students/home">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="pcoded-navigatio-lavel" data-i18n="nav.category.form">Navigation</div>
+                            <ul class="pcoded-item pcoded-left-item">
+                                <li class="active">
+                                    <a href="/students/list_articles">
+                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">List of Article</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                    </nav>
+                    <div class="pcoded-content">
+                        <div class="pcoded-inner-content">
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <div class="page-body">
+                                        <!-- Page-header start -->
+                                        <div class="page-header card">
+                                            <div class="row align-items-end">
+                                                <div class="col-lg-8">
+                                                    <div class="page-header-title">
+                                                        <i
+                                                            class="icofont icofont icofont icofont-file-document bg-c-pink"></i>
+                                                        <div class="d-inline">
+                                                            <h4>Articles Page</h4>
+                                                            <span>List of Articles</span>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="page-header-breadcrumb">
+                                                        <ul class="breadcrumb-title">
+                                                            <li class="breadcrumb-item">
+                                                                <a href="/students/home">
+                                                                    <i class="icofont icofont-home"></i>
+                                                                </a>
+                                                            </li>
+                                                            <li class="breadcrumb-item">
+                                                                <a href="#!">List of Articles</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Page-header end -->
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <!-- Tab variant tab card start -->
+                                                <div class="card">
+                                                    <div class="card-block table-border-style">
+                                                        <div class="d-flex flex-row-reverse">
+                                                            <div style="padding-top: 20px; padding-right: 20px">
+                                                                <button type="button" class="btn btn-success"
+                                                                    onclick="window.location='/students/add_article';">
+                                                                    Adding more Article
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <td colspan="5">
+                                                                            <h2>Uploaded Articles</h2>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <th scope="col">#</th>
+                                                                        <th scope="col">Article Image</th>
+                                                                        <th scope="col">File Name</th>
+                                                                        <th scope="col">Topic</th>
+                                                                        <th scope="col">Article Name</th>
+                                                                        <th scope="col">Description</th>
+                                                                        <th scope="col">Created date</th>
+                                                                        <th scope="col">Option</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {{#each items}}
+                                                                    <tr>
+                                                                        <th scope="row">{{@index}}</th>
+                                                                        <td scope="row"> <img
+                                                                                src="/uploads/{{this.articleImage}}"
+                                                                                alt="Image" class="reSize" />
+                                                                        </td>
+                                                                        <td scope="row">
+                                                                            <span>{{this.articleImage}}</span>
+                                                                        </td>
+                                                                        <td>{{../topic}}</td>
+                                                                        <td scope="row">{{name}}</td>
+                                                                        <td scope="row">{{desc}}</td>
+                                                                        <td scope="row">{{timeCreated}}</td>
+                                                                        <td class="d-flex flex-row" scope="row">
+                                                                            <a href="/uploads/{{this.articleImage}}">
+                                                                                <button type="submit"
+                                                                                    class="btn btn-info">
+                                                                                    Detailed
+                                                                                </button>
+                                                                            </a>
+                                                                            <form action="/students/update_article"
+                                                                                method="POST">
+                                                                                <input type="hidden" name="_id"
+                                                                                    value={{_id}}>
+                                                                                <button type="submit"
+                                                                                    class="btn btn-primary">Update</button>
+                                                                            </form>
+                                                                            <form action="students/delete_article"
+                                                                                method="POST"
+                                                                                enctype="application/x-www-form-urlencoded">
+                                                                                <input type="hidden" name="_id"
+                                                                                    value={{_id}}>
+                                                                                <input type="hidden" name="_method"
+                                                                                    value="DELETE">
+                                                                                <button type="submit"
+                                                                                    class="btn btn-danger">Delete</button>
+                                                                            </form>
+                                                                        </td>
+                                                                        {{else}}
+                                                                        <td colspan="8">
+                                                                            <div class="alert alert-primary"
+                                                                                role="alert">
+                                                                                There isn't any content --- Let's add an
+                                                                                article !!!
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    {{/each}}
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        {{!-- table-responsive end --}}
+                                                    </div>
+                                                </div>
+                                                <!-- Tab variant tab card end -->
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div id="styleSelector">
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div> --}}
-        </main>
-
-        <footer class="tm-footer text-center">
-            <p>Copyright &copy; 2020 Simple House
-
-                | Design: <a rel="nofollow" href="https://templatemo.com">TemplateMo</a></p>
-        </footer>
+            </div>
+            <div class="fixed-button">
+                <a href="https://codedthemes.com/item/guru-able-admin-template/" target="_blank"
+                    class="btn btn-md btn-primary">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade To Pro
+                </a>
+            </div>
+        </div>
     </div>
 
-    <!--===============================================================================================-->
-    <script src="/js/jquery.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="/js/parallax.min.js"></script>
-    <!--===============================================================================================-->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <!--===============================================================================================-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <!--===============================================================================================-->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-    <!--===============================================================================================-->
+    <script type="text/javascript" src="/assets/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery-ui/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/assets/js/popper.js/popper.min.js"></script>
+    <script type="text/javascript" src="/assets/js/bootstrap/js/bootstrap.min.js"></script>
+    <!-- jquery slimscroll js -->
+    <script type="text/javascript" src="/assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <!-- modernizr js -->
+    <script type="text/javascript" src="/assets/js/modernizr/modernizr.js"></script>
+    <!-- am chart -->
+    <script src="/assets/pages/widget/amchart/amcharts.min.js"></script>
+    <script src="/assets/pages/widget/amchart/serial.min.js"></script>
+    <!-- Todo js -->
+    <script type="text/javascript " src="/assets/pages/todo/todo.js "></script>
+    <!-- Custom js -->
+    <script type="text/javascript" src="/assets/pages/dashboard/custom-dashboard.js"></script>
+    <script type="text/javascript" src="/assets/js/script.js"></script>
+    <script type="text/javascript " src="/assets/js/SmoothScroll.js"></script>
+    <script src="/assets/js/pcoded.min.js"></script>
+    <script src="/assets/js/demo-12.js"></script>
+    <script src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script>
-        $(document).ready(function () {
-            // Handle click on paging links
-            $('.tm-paging-link').click(function (e) {
-                e.preventDefault();
-
-                var page = $(this).text().toLowerCase();
-                $('.tm-gallery-page').addClass('hidden');
-                $('#tm-gallery-page-' + page).removeClass('hidden');
-                $('.tm-paging-link').removeClass('active');
-                $(this).addClass("active");
-            });
+        var $window = $(window);
+        var nav = $('.fixed-button');
+        $window.scroll(function () {
+            if ($window.scrollTop() >= 200) {
+                nav.addClass('active');
+            }
+            else {
+                nav.removeClass('active');
+            }
         });
     </script>
-    <!--===============================================================================================-->
-
 </body>
 
 </html>

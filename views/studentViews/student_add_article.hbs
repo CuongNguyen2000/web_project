@@ -30,6 +30,11 @@
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.css">
+    <style>
+        .changeStyle {
+            font-weight: bold;
+        }
+    </style>
 </head>
 
 <body>
@@ -85,7 +90,7 @@
                         <a class="mobile-search morphsearch-search" href="#">
                             <i class="ti-search"></i>
                         </a>
-                        <a href="/admin/home">
+                        <a href="/students/home">
                             <img class="img-fluid" src="/assets/images/logo.png" alt="Theme-Logo" />
                         </a>
                         <a class="mobile-options">
@@ -114,7 +119,7 @@
                             <li class="user-profile header-notification">
                                 <a href="#!">
                                     <img src="/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                    <span>Administrator</span>
+                                    <span>{{data.info.name}}</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
@@ -139,7 +144,7 @@
                                     <img class="img-40 img-radius" src="/assets/images/avatar-4.jpg"
                                         alt="User-Profile-Image">
                                     <div class="user-details">
-                                        <span>Administrator</span>
+                                        <span>{{data.info.name}}</span>
                                         <span id="more-details">See More<i class="ti-angle-down"></i></span>
                                     </div>
                                 </div>
@@ -158,74 +163,19 @@
                             <div class="pcoded-navigatio-lavel" data-i18n="nav.category.navigation">Main</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="">
-                                    <a href="/admin/home">
+                                    <a href="/Students/home">
                                         <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.dash.main">Dashboard</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
                             </ul>
-                            <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">List of Account</div>
+                            <div class="pcoded-navigatio-lavel" data-i18n="nav.category.form">Navigation</div>
                             <ul class="pcoded-item pcoded-left-item">
-                                <li class="pcoded-hasmenu active pcoded-trigger">
-                                    <a href="javascript:void(0)">
-                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.basic-components.main">User
-                                            Account</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                    <ul class="pcoded-submenu">
-                                        <li class="active">
-                                            <a href="/admin/list_all_students">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext"
-                                                    data-i18n="nav.basic-components.alert">Student Account</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="/admin/list_all_coordinators">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext"
-                                                    data-i18n="nav.basic-components.breadcrumbs">Coordinator
-                                                    Account</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="/admin/list_all_managers">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext"
-                                                    data-i18n="nav.basic-components.breadcrumbs">Manager Account</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                        <li class=" ">
-                                            <a href="/admin/list_all_guests">
-                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext"
-                                                    data-i18n="nav.basic-components.breadcrumbs">Guest Account</span>
-                                                <span class="pcoded-mcaret"></span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-
-                            <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">List of Faculty / Topic
-                            </div>
-                            <ul class="pcoded-item pcoded-left-item">
-                                <li>
-                                    <a href="/admin/list_all_faculty">
-                                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Faculty</span>
-                                        <span class="pcoded-mcaret"></span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/admin/list_all_topic">
-                                        <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.form-components.main">Topic</span>
+                                <li class="active">
+                                    <a href="/students/list_articles">
+                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">List of Article</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
@@ -241,11 +191,10 @@
                                             <div class="row align-items-end">
                                                 <div class="col-lg-8">
                                                     <div class="page-header-title">
-                                                        <i class="icofont icofont-file-code bg-c-blue"></i>
+                                                        <i class="icofont icofont-table bg-c-blue"></i>
                                                         <div class="d-inline">
-                                                            <h4>Adding new Student Account</h4>
-                                                            <span>Insert new Student Account</span>
-
+                                                            <h4>Insert new Article</h4>
+                                                            <span>Adding new Article</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -253,15 +202,16 @@
                                                     <div class="page-header-breadcrumb">
                                                         <ul class="breadcrumb-title">
                                                             <li class="breadcrumb-item">
-                                                                <a href="/admin/home">
+                                                                <a href="/students/home">
                                                                     <i class="icofont icofont-home"></i>
                                                                 </a>
                                                             </li>
-                                                            <li class="breadcrumb-item"><a href="#!">User Account</a>
+                                                            <li class="breadcrumb-item"><a
+                                                                    href="/students/list_articles">List of
+                                                                    Articles</a>
                                                             </li>
-                                                            <li class="breadcrumb-item"><a href="#!">Student Account</a>
-                                                            </li>
-                                                            <li class="breadcrumb-item"><a href="#!">Insert new user</a>
+                                                            <li class="breadcrumb-item">
+                                                                <a href="#!">Adding new article</a>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -273,64 +223,83 @@
                                             <div class="col-sm-12">
                                                 <!-- Tab variant tab card start -->
                                                 <div class="card">
-                                                    <div class="card-block table-border-style">
-                                                        <div class="card-block">
-                                                            <form action="/admin/add_student" method="POST">
-                                                                <div class="form-row">
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="username">Username</label>
-                                                                        <input type="text" class="form-control" id="usr"
-                                                                            name="usr" placeholder="Username" required>
-                                                                    </div>
-                                                                    <div class="form-group col-md-6">
-                                                                        <label for="inputPassword">Password</label>
-                                                                        <input type="password" class="form-control"
-                                                                            id="pwd" name="pwd" placeholder="Password"
-                                                                            required>
-                                                                    </div>
+                                                    <div class="card-block">
+                                                        <h3 class="sub-title">Upload new Article</h3>
+
+
+                                                        <form id="uploadForm" action="/students/add_article"
+                                                            method="POST" enctype="multipart/form-data">
+
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Article
+                                                                    Title</label>
+                                                                <div class="col-sm-10">
+                                                                    <input type="text" class="form-control"
+                                                                        placeholder="Enter name of your Article"
+                                                                        id="name" name="name" required>
                                                                 </div>
-                                                                <div class="form-group">
-                                                                    <label for="inputName">Full Name</label>
-                                                                    <input type="text" class="form-control" id="name"
-                                                                        name="name"
-                                                                        placeholder="Enter your full name ..." required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="inputEmail">Email</label>
-                                                                    <input type="email" class="form-control" id="email"
-                                                                        name="email" placeholder="Enter your email ..."
-                                                                        required>
-                                                                </div>
-                                                                <button type="submit"
-                                                                    class="btn btn-primary">Submit</button>
-                                                            </form>
-                                                            <br><br>
-                                                            {{#if err}}
-                                                            <div class="alert alert-danger" role="alert">
-                                                                {{err}}
                                                             </div>
-                                                            {{/if}}
-                                                        </div>
-                                                        <!-- card-block end -->
+                                                            <div class="form-group row">
+                                                                <label
+                                                                    class="col-sm-2 col-form-label">Description</label>
+                                                                <div class="col-sm-10">
+                                                                    <textarea id="desc" name="desc" rows="5" cols="5"
+                                                                        class="form-control"
+                                                                        placeholder="Describe your article"
+                                                                        required></textarea>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 col-form-label">Upload File: You
+                                                                    can upload image
+                                                                    file or PDF file</label>
+                                                                <div class="col-sm-10">
+                                                                    <input name="image" id="image" type="file"
+                                                                        class="form-control" required>
+                                                                </div>
+                                                            </div>
+                                                            <br>
+                                                            <div class="checkbox-fade fade-in-primary d-block">
+                                                                <label class="check-task d-block">
+                                                                    <input type="checkbox" name="myCheck" id="myCheck"
+                                                                        value="" onclick="disableSubmit()">
+                                                                    <span class="cr">
+                                                                        <i
+                                                                            class="cr-icon icofont icofont-ui-check txt-default"></i>
+                                                                    </span>
+                                                                    <span>
+                                                                        <h6>I have read and
+                                                                            agree to the <a
+                                                                                href="/students/term_and_conditions"
+                                                                                style="text-decoration: none;">Terms and
+                                                                                Conditions</a></h6>
+                                                                    </span>
+                                                                </label>
+                                                            </div>
+                                                            <input type="submit" class="btn btn-primary" id="submit"
+                                                                value="Submit" disabled></input>
+                                                            <span id="status"></span>
+                                                        </form>
                                                     </div>
                                                 </div>
-                                                <!-- Tab variant tab card start -->
                                             </div>
+                                            <!-- Tab variant tab card start -->
                                         </div>
-                                        {{!-- row end --}}
                                     </div>
                                 </div>
-
                             </div>
 
-                            <div id="styleSelector">
+                        </div>
 
-                            </div>
+                        <div id="styleSelector">
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     </div>
 
@@ -365,6 +334,21 @@
                 nav.removeClass('active');
             }
         });
+    </script>
+    <script>
+        function disableSubmit() {
+            // Get the checkbox
+            var checkBox = document.getElementById("myCheck");
+            // Get the output text
+            var text = document.getElementById("submit");
+
+            // If the checkbox is checked, display the output text
+            if (checkBox.checked == true) {
+                text.disabled = false;
+            } else {
+                text.disabled = true;
+            }
+        }
     </script>
 </body>
 
