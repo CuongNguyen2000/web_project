@@ -199,7 +199,7 @@ const assignFacultyForStudent_admin = (req, res, next) => {
     .exec()
     .then((value) => {
       console.log(value);
-      res.redirect("/users/admin/list_all_students");
+      res.redirect("/admin/list_all_students");
     })
     .catch((err) => {
       console.log(err);

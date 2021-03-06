@@ -92,15 +92,20 @@ const getListArticles_student = (req, res, next) => {
     .exec()
     .then((info) => {
       if (info.posts) {
-        Articles.find({ _id: info.posts }).exec((err, items) => {
-          if (err) {
-            console.log(err);
-            res.status(500).send("An error occurred", err);
-          } else {
-            console.log(items);
-            res.render("studentViews/student_list_articles", { items: items });
-          }
-        });
+        Articles.find({ _id: info.posts })
+          .populate("topic_id")
+          .exec((err, items) => {
+            if (err) {
+              console.log(err);
+              res.status(500).send("An error occurred", err);
+            } else {
+              console.log(items);
+              res.render("studentViews/student_list_articles", {
+                items: items,
+                info: info,
+              });
+            }
+          });
       }
     });
 };
@@ -167,7 +172,7 @@ const assignTopicForArticle_student = (req, res, next) => {
 };
 
 const deleteArticle_student = async (req, res, next) => {
-  const { name, email, _id } = req.body;
+  const { _id } = req.body;
   await Articles.findOneAndRemove({ _id: _id }, (err) => {
     if (err) {
       console.log(err);
@@ -177,6 +182,7 @@ const deleteArticle_student = async (req, res, next) => {
       Student.findOneAndUpdate(
         { posts: _id },
         { $pull: { posts: _id } },
+        { safe: true, upsert: true },
         (err, data) => {
           if (err) {
             res.render("error", {

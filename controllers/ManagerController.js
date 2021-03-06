@@ -57,15 +57,18 @@ const getListArticles_manager = (req, res, next) => {
   //     console.log(err);
   //     res.redirect("/users/manager/list_articles");
   //   });
-  Article.find({}, (err, items) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send("An error occurred", err);
-    } else {
-      console.log(items);
-      res.render("managerViews/manager_list_articles", { items: items });
-    }
-  });
+  Article.find({})
+    .populate("topic_id")
+    .populate("faculty_id")
+    .exec((err, items) => {
+      if (err) {
+        console.log(err);
+        res.status(500).send("An error occurred", err);
+      } else {
+        console.log(items);
+        res.render("managerViews/manager_list_articles", { items: items });
+      }
+    });
 };
 
 module.exports = { GetManagerHome, getListArticles_manager };

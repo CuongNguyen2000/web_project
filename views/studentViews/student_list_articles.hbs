@@ -125,7 +125,7 @@
                             <li class="user-profile header-notification">
                                 <a href="#!">
                                     <img src="/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                    <span>{{data.info.name}}</span>
+                                    <span>{{info.name}}</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
@@ -150,7 +150,7 @@
                                     <img class="img-40 img-radius" src="/assets/images/avatar-4.jpg"
                                         alt="User-Profile-Image">
                                     <div class="user-details">
-                                        <span>{{data.info.name}}</span>
+                                        <span>{{info.name}}</span>
                                         <span id="more-details">See More<i class="ti-angle-down"></i></span>
                                     </div>
                                 </div>
@@ -180,7 +180,8 @@
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="active">
                                     <a href="/students/list_articles">
-                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
+                                        <span class="pcoded-micon"><i
+                                                class="icofont icofont icofont icofont-file-document"></i><b>D</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.dash.main">List of Article</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
@@ -246,7 +247,7 @@
                                                                     </tr>
                                                                     <tr>
                                                                         <th scope="col">#</th>
-                                                                        <th scope="col">Article Image</th>
+                                                                        {{!-- <th scope="col">Article Image</th> --}}
                                                                         <th scope="col">File Name</th>
                                                                         <th scope="col">Topic</th>
                                                                         <th scope="col">Article Name</th>
@@ -259,14 +260,14 @@
                                                                     {{#each items}}
                                                                     <tr>
                                                                         <th scope="row">{{@index}}</th>
-                                                                        <td scope="row"> <img
+                                                                        {{!-- <td scope="row"> <img
                                                                                 src="/uploads/{{this.articleImage}}"
                                                                                 alt="Image" class="reSize" />
-                                                                        </td>
+                                                                        </td> --}}
                                                                         <td scope="row">
                                                                             <span>{{this.articleImage}}</span>
                                                                         </td>
-                                                                        <td>{{../topic}}</td>
+                                                                        <td>{{topic_id.name}}</td>
                                                                         <td scope="row">{{name}}</td>
                                                                         <td scope="row">{{desc}}</td>
                                                                         <td scope="row">{{timeCreated}}</td>
@@ -284,7 +285,7 @@
                                                                                 <button type="submit"
                                                                                     class="btn btn-primary">Update</button>
                                                                             </form>
-                                                                            <form action="students/delete_article"
+                                                                            <form action="/students/delete_article"
                                                                                 method="POST"
                                                                                 enctype="application/x-www-form-urlencoded">
                                                                                 <input type="hidden" name="_id"
@@ -310,12 +311,12 @@
                                                         </div>
                                                         {{!-- table-responsive end --}}
                                                     </div>
+                                                    {{!-- Card block table end --}}
                                                 </div>
                                                 <!-- Tab variant tab card end -->
                                             </div>
-
-
                                         </div>
+                                        {{!-- row end --}}
                                     </div>
 
                                 </div>

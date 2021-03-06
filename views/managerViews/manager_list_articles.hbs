@@ -200,8 +200,8 @@
                                                         <i
                                                             class="icofont icofont icofont icofont-file-document bg-c-pink"></i>
                                                         <div class="d-inline">
-                                                            <h4>Manager Page</h4>
-                                                            <span>Welcome Manager to Homepage</span>
+                                                            <h4>Article Page</h4>
+                                                            <span>List of all student articles</span>
 
                                                         </div>
                                                     </div>
@@ -233,10 +233,11 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th scope="col">#</th>
-                                                                        <th scope="col">Article Image</th>
+                                                                        <th scope="col">Article Name</th>
+                                                                        {{!-- <th scope="col">Article Image</th> --}}
                                                                         <th scope="col">File Name</th>
                                                                         <th scope="col">Topic</th>
-                                                                        <th scope="col">Article Name</th>
+                                                                        <th scope="col">Faculty</th>
                                                                         <th scope="col">Description</th>
                                                                         <th scope="col">Created date</th>
                                                                         <th scope="col">Option</th>
@@ -245,16 +246,17 @@
                                                                 <tbody>
                                                                     {{#each items}}
                                                                     <tr>
-                                                                        <th scope="row">{{@index}}</th>
-                                                                        <td scope="row"> <img
+                                                                        <td scope="row">{{@index}}</td>
+                                                                        <td scope="row">{{name}}</td>
+                                                                        {{!-- <td scope="row"> <img
                                                                                 src="/uploads/{{this.articleImage}}"
                                                                                 alt="Image" class="reSize" />
-                                                                        </td>
+                                                                        </td> --}}
                                                                         <td scope="row">
                                                                             <span>{{this.articleImage}}</span>
                                                                         </td>
-                                                                        <td>{{../topic}}</td>
-                                                                        <td scope="row">{{name}}</td>
+                                                                        <td>{{topic_id.name}}</td>
+                                                                        <td>{{faculty_id.name}}</td>
                                                                         <td scope="row">{{desc}}</td>
                                                                         <td scope="row">{{timeCreated}}</td>
                                                                         <td class="d-flex flex-row" scope="row">
@@ -265,18 +267,27 @@
                                                                                 </button>
                                                                             </a>
                                                                         </td>
+                                                                        {{#else}}
+                                                                        <td colspan="8">
+                                                                            <div class="alert alert-primary"
+                                                                                role="alert">
+                                                                                There isn't any content !!!
+                                                                            </div>
+                                                                        </td>
                                                                     </tr>
                                                                     {{/each}}
                                                                 </tbody>
                                                             </table>
                                                         </div>
-
+                                                        {{!-- table responsive end --}}
                                                     </div>
+                                                    {{!-- Card block table end --}}
                                                 </div>
+                                                <!-- card end -->
                                             </div>
-
-
+                                            <!-- Tab variant tab card end -->
                                         </div>
+                                        {{!-- end row --}}
                                     </div>
 
                                 </div>

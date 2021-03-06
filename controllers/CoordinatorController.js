@@ -63,17 +63,20 @@ const getListArticles_coordinator = (req, res, next) => {
     .exec()
     .then((info) => {
       if (info.faculty_id) {
-        Articles.find({ faculty_id: info.faculty_id }).exec((err, items) => {
-          if (err) {
-            console.log(err);
-            res.status(500).send("An error occurred", err);
-          } else {
-            console.log(items);
-            res.render("coordinatorViews/coordinator_list_articles", {
-              items: items,
-            });
-          }
-        });
+        Articles.find({ faculty_id: info.faculty_id })
+          .populate("topic_id")
+          .exec((err, items) => {
+            if (err) {
+              console.log(err);
+              res.status(500).send("An error occurred", err);
+            } else {
+              console.log(items);
+              res.render("coordinatorViews/coordinator_list_articles", {
+                items: items,
+                info: info,
+              });
+            }
+          });
       }
     });
 };
@@ -110,8 +113,8 @@ const getListByTechnology_coordinator = async (req, res, next) => {
   //     }
   //   }
   // } catch (error) {}
-
-  Topic.findOne({ _id: "603c9e857c128717dc409c51" })
+  const topicName = await Topic.findOne({ name: "Technologies" });
+  Topic.findOne({ _id: topicName })
     .exec()
     .then((topic) => {
       Articles.find({ topic_id: topic._id }, (err, items) => {
@@ -128,8 +131,9 @@ const getListByTechnology_coordinator = async (req, res, next) => {
     });
 };
 
-const getListByFC_coordinator = (req, res, next) => {
-  Topic.findOne({ _id: "603c9ec87c128717dc409c52" })
+const getListByFC_coordinator = async (req, res, next) => {
+  const topicName = await Topic.findOne({ name: "Foods and Cooking" });
+  Topic.findOne({ _id: topicName })
     .exec()
     .then((topic) => {
       Articles.find({ topic_id: topic._id }, (err, items) => {

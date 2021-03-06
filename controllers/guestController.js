@@ -8,9 +8,9 @@ const GetGuestHome = (req, res, next) => {
     .exec()
     .then((value) => {
       if (value.faculty_id) {
-        Articles.find(
-          { faculty_id: value.faculty_id, status: true },
-          (err, items) => {
+        Articles.find({ faculty_id: value.faculty_id, status: true })
+          .populate("topic_id")
+          .exec((err, items) => {
             if (err) {
               console.log(err);
               res.status(500).send("An error occurred", err);
@@ -18,8 +18,7 @@ const GetGuestHome = (req, res, next) => {
               console.log(items);
               res.render("guestViews/guest_home", { items: items });
             }
-          }
-        );
+          });
       }
     });
 };

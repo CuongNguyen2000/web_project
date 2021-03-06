@@ -11,10 +11,8 @@ const StudentSchema = new mongoose.Schema({
   },
   posts: [
     {
-      post: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Articles",
-      },
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Articles",
     },
   ],
   account_id: {

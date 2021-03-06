@@ -125,7 +125,7 @@
                             <li class="user-profile header-notification">
                                 <a href="#!">
                                     <img src="/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                    <span>{{data.info.name}}</span>
+                                    <span>{{info.name}}</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
@@ -150,7 +150,7 @@
                                     <img class="img-40 img-radius" src="/assets/images/avatar-4.jpg"
                                         alt="User-Profile-Image">
                                     <div class="user-details">
-                                        <span>{{data.info.name}}</span>
+                                        <span>{{info.name}}</span>
                                         <span id="more-details">See More<i class="ti-angle-down"></i></span>
                                     </div>
                                 </div>
@@ -253,10 +253,11 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th scope="col">#</th>
-                                                                        <th scope="col">Article Image</th>
-                                                                        <th scope="col">File Name</th>
                                                                         <th scope="col">Article Name</th>
+                                                                        {{!-- <th scope="col">Article Image</th> --}}
+                                                                        <th scope="col">File Name</th>
                                                                         <th scope="col">Description</th>
+                                                                        <th scope="col">Topic</th>
                                                                         <th scope="col">Created date</th>
                                                                         <th scope="col">status</th>
                                                                         <th scope="col">Option</th>
@@ -266,11 +267,13 @@
                                                                     {{#each items}}
                                                                     <tr>
                                                                         <th scope="row">{{@index}}</th>
-                                                                        <td> <img src="/uploads/{{this.articleImage}}"
-                                                                                alt="Image" class="reSize" /></td>
-                                                                        <td>{{this.articleImage}}</td>
                                                                         <td>{{name}}</td>
+                                                                        {{!-- <td> <img
+                                                                                src="/uploads/{{this.articleImage}}"
+                                                                                alt="Image" class="reSize" /></td> --}}
+                                                                        <td>{{this.articleImage}}</td>
                                                                         <td>{{desc}}</td>
+                                                                        <td>{{topic_id.name}}</td>
                                                                         <td>{{timeCreated}}</td>
                                                                         <td>{{status}}</td>
                                                                         <td class="d-flex flex-row">
@@ -289,7 +292,7 @@
                                                                             </form>
                                                                         </td>
                                                                         {{else}}
-                                                                        <td colspan="7">
+                                                                        <td colspan="6">
                                                                             <div class="alert alert-primary"
                                                                                 role="alert">
                                                                                 There isn't any content !!!
