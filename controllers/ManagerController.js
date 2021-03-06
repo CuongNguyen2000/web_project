@@ -28,46 +28,24 @@ const GetManagerHome = (req, res, next) => {
 };
 
 const getListArticles_manager = (req, res, next) => {
-  // Article.find({})
-  //   .exec()
-  //   .then((items) => {
-  //     if (items.faculty_id) {
-  //       Faculty.findOne({ _id: items.faculty_id })
-  //         .exec()
-  //         .then((assign) => {
-  //           console.log(assign);
-  //           res.render("managerViews/manager_list_articles", {
-  //             data: {
-  //               _id: items._id,
-  //               items: items,
-  //               assign: assign.name,
-  //             },
-  //           });
-  //         });
-  //     } else {
-  //       res.render("managerViews/manager_list_articles", {
-  //         data: {
-  //           _id: items._id,
-  //           items: items,
-  //         },
-  //       });
-  //     }
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //     res.redirect("/users/manager/list_articles");
-  //   });
-  Article.find({})
-    .populate("topic_id")
-    .populate("faculty_id")
-    .exec((err, items) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send("An error occurred", err);
-      } else {
-        console.log(items);
-        res.render("managerViews/manager_list_articles", { items: items });
-      }
+  Manager.findOne({ account_id: req.session.userId })
+    .exec()
+    .then((info) => {
+      Article.find({})
+        .populate("topic_id")
+        .populate("faculty_id")
+        .exec((err, items) => {
+          if (err) {
+            console.log(err);
+            res.status(500).send("An error occurred", err);
+          } else {
+            console.log(items);
+            res.render("managerViews/manager_list_articles", {
+              items: items,
+              info: info,
+            });
+          }
+        });
     });
 };
 

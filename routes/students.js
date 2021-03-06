@@ -13,6 +13,7 @@ var {
 } = require("../controllers/StudentController");
 
 var multerInstance = require("../middleware/uploadImage");
+const Student = require("../models/StudentModel");
 
 // The processing section for Student is below
 // Student request
@@ -25,7 +26,17 @@ router.get("/list_articles", isStudent, getListArticles_student);
 
 // GET/POST adding new article
 router.get("/add_article", isStudent, (req, res, next) => {
-  res.render("studentViews/student_add_article");
+  Student.findOne({ account_id: req.session.userId }).exec((err, info) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("An error occurred", err);
+    } else {
+      console.log(info);
+      res.render("studentViews/student_add_article", {
+        info: info,
+      });
+    }
+  });
 });
 router.post(
   "/add_article",

@@ -16,7 +16,10 @@ const GetGuestHome = (req, res, next) => {
               res.status(500).send("An error occurred", err);
             } else {
               console.log(items);
-              res.render("guestViews/guest_home", { items: items });
+              res.render("guestViews/guest_home", {
+                items: items,
+                info: value,
+              });
             }
           });
       }

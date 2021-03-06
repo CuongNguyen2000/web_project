@@ -100,53 +100,60 @@ const acceptArticle_coordinator = (req, res, next) => {
 };
 
 const getListByTechnology_coordinator = async (req, res, next) => {
-  // try {
-  //   const topic = await Topic.findOne({ name: "Technologies" });
-  //   if (topic) {
-  //     const articles = await Articles.find({ topic_id: topic._id }).limit(100);
-
-  //     if (articles) {
-  //       res.render("coordinatorViews/list_technologies_articles", {
-  //         articles,
-  //         topic,
-  //       });
-  //     }
-  //   }
-  // } catch (error) {}
   const topicName = await Topic.findOne({ name: "Technologies" });
-  Topic.findOne({ _id: topicName })
+  Coordinator.findOne({ account_id: req.session.userId })
     .exec()
-    .then((topic) => {
-      Articles.find({ topic_id: topic._id }, (err, items) => {
-        if (err) {
-          console.log(err);
-          res.status(500).send("An error occurred", err);
-        } else {
-          console.log(items);
-          res.render("coordinatorViews/list_technologies_articles", {
-            items: items,
-          });
-        }
-      });
+    .then((info) => {
+      Topic.findOne({ _id: topicName })
+        .exec()
+        .then((topic) => {
+          if (info.faculty_id) {
+            Articles.find({
+              topic_id: topic._id,
+              faculty_id: info.faculty_id,
+            }).exec((err, items) => {
+              if (err) {
+                console.log(err);
+                res.status(500).send("An error occurred", err);
+              } else {
+                console.log(items);
+                res.render("coordinatorViews/list_technologies_articles", {
+                  items: items,
+                  info: info,
+                });
+              }
+            });
+          }
+        });
     });
 };
 
 const getListByFC_coordinator = async (req, res, next) => {
   const topicName = await Topic.findOne({ name: "Foods and Cooking" });
-  Topic.findOne({ _id: topicName })
+  Coordinator.findOne({ account_id: req.session.userId })
     .exec()
-    .then((topic) => {
-      Articles.find({ topic_id: topic._id }, (err, items) => {
-        if (err) {
-          console.log(err);
-          res.status(500).send("An error occurred", err);
-        } else {
-          console.log(items);
-          res.render("coordinatorViews/list_F&C_articles", {
-            items: items,
-          });
-        }
-      });
+    .then((info) => {
+      Topic.findOne({ _id: topicName })
+        .exec()
+        .then((topic) => {
+          if (info.faculty_id) {
+            Articles.find({
+              topic_id: topic._id,
+              faculty_id: info.faculty_id,
+            }).exec((err, items) => {
+              if (err) {
+                console.log(err);
+                res.status(500).send("An error occurred", err);
+              } else {
+                console.log(items);
+                res.render("coordinatorViews/list_F&C_articles", {
+                  items: items,
+                  info: info,
+                });
+              }
+            });
+          }
+        });
     });
 };
 
