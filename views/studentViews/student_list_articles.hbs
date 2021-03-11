@@ -178,11 +178,11 @@
                             </ul>
                             <div class="pcoded-navigatio-lavel" data-i18n="nav.category.form">Navigation</div>
                             <ul class="pcoded-item pcoded-left-item">
+
                                 <li class="active">
-                                    <a href="/students/list_articles">
-                                        <span class="pcoded-micon"><i
-                                                class="icofont icofont icofont icofont-file-document"></i><b>D</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">List of Article</span>
+                                    <a href="/students/post_article">
+                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Post Articles</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
@@ -203,7 +203,6 @@
                                                         <div class="d-inline">
                                                             <h4>Articles Page</h4>
                                                             <span>List of Articles</span>
-
                                                         </div>
                                                     </div>
                                                 </div>
@@ -225,96 +224,49 @@
                                         </div>
                                         <!-- Page-header end -->
                                         <div class="row">
-                                            <div class="col-sm-12">
-                                                <!-- Tab variant tab card start -->
-                                                <div class="card">
-                                                    <div class="card-block table-border-style">
-                                                        <div class="d-flex flex-row-reverse">
-                                                            <div style="padding-top: 20px; padding-right: 20px">
-                                                                <button type="button" class="btn btn-success"
-                                                                    onclick="window.location='/students/add_article';">
-                                                                    Adding more Article
-                                                                </button>
+                                            {{#each items}}
+                                            <div class="col-6 col-md-4">
+                                                <div class="card-desk">
+                                                    <div class="card" style="width:25rem">
+                                                        <div
+                                                            style="width: 25rem; height: 15rem; display: flex;align-items: center;">
+                                                            <img class="card-img-top"
+                                                                style="display: block;margin-left: auto;margin-right: auto;width: 50%;"
+                                                                src="/uploads/{{articleImage}}" alt="image cap">
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Title: {{name}}</h5>
+                                                            <div style="width: 25rem; height: 5rem">
+                                                                <p class="card-text">{{desc}}</p>
                                                             </div>
+
+                                                            <a href="/uploads/{{articleImage}}"
+                                                                class="btn btn-info btn-round">Detailed</a>
+                                                            <form style="display: inline-block"
+                                                                action="/students/update_article" method="POST">
+                                                                <input type="hidden" name="_id" value={{_id}}>
+                                                                <button type="submit"
+                                                                    class="btn btn-primary btn-round">Update</button>
+                                                            </form>
+                                                            <form style="display:inline-block"
+                                                                action="/students/delete_article" method="POST"
+                                                                enctype="application/x-www-form-urlencoded">
+                                                                <input type="hidden" name="_id" value={{_id}}>
+                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                <button type="submit"
+                                                                    class="btn btn-danger btn-round">Delete</button>
+                                                            </form>
                                                         </div>
-                                                        <div class="table-responsive">
-                                                            <table class="table table-hover">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <td colspan="5">
-                                                                            <h2>Uploaded Articles</h2>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <th scope="col">#</th>
-                                                                        {{!-- <th scope="col">Article Image</th> --}}
-                                                                        <th scope="col">File Name</th>
-                                                                        <th scope="col">Topic</th>
-                                                                        <th scope="col">Article Name</th>
-                                                                        <th scope="col">Description</th>
-                                                                        <th scope="col">Created date</th>
-                                                                        <th scope="col">Option</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    {{#each items}}
-                                                                    <tr>
-                                                                        <th scope="row">{{@index}}</th>
-                                                                        {{!-- <td scope="row"> <img
-                                                                                src="/uploads/{{this.articleImage}}"
-                                                                                alt="Image" class="reSize" />
-                                                                        </td> --}}
-                                                                        <td scope="row">
-                                                                            <span>{{this.articleImage}}</span>
-                                                                        </td>
-                                                                        <td>{{topic_id.name}}</td>
-                                                                        <td scope="row">{{name}}</td>
-                                                                        <td scope="row">{{desc}}</td>
-                                                                        <td scope="row">{{timeCreated}}</td>
-                                                                        <td class="d-flex flex-row" scope="row">
-                                                                            <a href="/uploads/{{this.articleImage}}">
-                                                                                <button type="submit"
-                                                                                    class="btn btn-info">
-                                                                                    Detailed
-                                                                                </button>
-                                                                            </a>
-                                                                            <form action="/students/update_article"
-                                                                                method="POST">
-                                                                                <input type="hidden" name="_id"
-                                                                                    value={{_id}}>
-                                                                                <button type="submit"
-                                                                                    class="btn btn-primary">Update</button>
-                                                                            </form>
-                                                                            <form action="/students/delete_article"
-                                                                                method="POST"
-                                                                                enctype="application/x-www-form-urlencoded">
-                                                                                <input type="hidden" name="_id"
-                                                                                    value={{_id}}>
-                                                                                <input type="hidden" name="_method"
-                                                                                    value="DELETE">
-                                                                                <button type="submit"
-                                                                                    class="btn btn-danger">Delete</button>
-                                                                            </form>
-                                                                        </td>
-                                                                        {{else}}
-                                                                        <td colspan="8">
-                                                                            <div class="alert alert-primary"
-                                                                                role="alert">
-                                                                                There isn't any content --- Let's add an
-                                                                                article !!!
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    {{/each}}
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                        {{!-- table-responsive end --}}
                                                     </div>
-                                                    {{!-- Card block table end --}}
                                                 </div>
-                                                <!-- Tab variant tab card end -->
                                             </div>
+                                            {{else}}
+                                            <div class="col-lg-12">
+                                                <div class="alert alert-primary" role="alert">
+                                                    There isn't any content !!!
+                                                </div>
+                                            </div>
+                                            {{/each}}
                                         </div>
                                         {{!-- row end --}}
                                     </div>

@@ -682,7 +682,7 @@ const listTopic_admin = (req, res, next) => {
 
 // adding new Topic
 const addTopic_admin = (req, res, next) => {
-  const { name, desc } = req.body;
+  const { name, desc, timeOver, timeCreated } = req.body;
   Topic.findOne({ name: name })
     .exec()
     .then((value) => {
@@ -696,6 +696,8 @@ const addTopic_admin = (req, res, next) => {
   const newTopic = new Topic({
     name: name,
     description: desc,
+    timeCreated: timeCreated,
+    timeOver: timeOver,
   });
 
   newTopic.save();
@@ -716,6 +718,8 @@ const updatePageTopic_admin = (req, res, next) => {
         data: {
           name: value.name,
           desc: value.description,
+          timeCreated: value.timeCreated,
+          timeOver: value.timeOver,
           _id: value._id,
         },
       });
@@ -726,12 +730,13 @@ const updatePageTopic_admin = (req, res, next) => {
 };
 
 const updateTopic_admin = (req, res, next) => {
-  const { name, desc, _id } = req.body;
+  const { name, desc, timeOver, _id } = req.body;
   const newValue = {};
   if (name) newValue.name = name;
   if (desc) newValue.description = desc;
+  if (timeOver) newValue.timeOver = timeOver;
 
-  Faculty.findByIdAndUpdate({ _id: _id }, { $set: newValue }, { new: true })
+  Topic.findByIdAndUpdate({ _id: _id }, { $set: newValue }, { new: true })
     .exec()
     .then((value) => {
       console.log(value);
@@ -746,7 +751,7 @@ const updateTopic_admin = (req, res, next) => {
 // Delete Topic
 const deleteTopic_admin = (req, res, next) => {
   const { _id } = req.body;
-  Faculty.findByIdAndRemove({ _id: _id })
+  Topic.findByIdAndRemove({ _id: _id })
     .exec()
     .then((value) => {
       console.log(value);

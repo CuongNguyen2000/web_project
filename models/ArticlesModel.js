@@ -27,7 +27,7 @@ const ArticlesSchema = new mongoose.Schema({
 ArticlesSchema.virtual("student", {
   ref: "Student",
   localField: "_id",
-  foreignField: "posts.post",
+  foreignField: "posts",
 });
 
 const Articles = mongoose.model("Articles", ArticlesSchema);

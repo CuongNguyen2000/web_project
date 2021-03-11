@@ -13,6 +13,9 @@ const TopicSchema = new mongoose.Schema({
     type: Date,
     default: () => Date.now(),
   },
+  timeOver: {
+    type: Date,
+  },
 });
 
 const Topic = mongoose.model("Topic", TopicSchema);

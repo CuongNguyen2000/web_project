@@ -1,7 +1,9 @@
 var AppUser = require("../models/AppUserModel");
 var Manager = require("../models/ManagerModel");
 var Article = require("../models/ArticlesModel");
-var Faculty = require("../models/FacultyModel");
+// var fs = require("fs");
+// const AdmZip = require("adm-zip");
+// var uploadDir = fs.readdirSync("./public/uploads");
 
 const GetManagerHome = (req, res, next) => {
   Manager.findOne({ account_id: req.session.userId })
@@ -34,6 +36,7 @@ const getListArticles_manager = (req, res, next) => {
       Article.find({})
         .populate("topic_id")
         .populate("faculty_id")
+        .populate("student")
         .exec((err, items) => {
           if (err) {
             console.log(err);

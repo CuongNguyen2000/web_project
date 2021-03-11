@@ -4,6 +4,8 @@ var Articles = require("../models/ArticlesModel");
 var Faculty = require("../models/FacultyModel");
 var Topic = require("../models/TopicModel");
 
+var Nodemailer = require("../middleware/sendingEmail");
+
 const GetStudentHome = (req, res, next) => {
   let user = {};
   let info = {};
@@ -58,6 +60,7 @@ const GetStudentHome = (req, res, next) => {
 };
 
 const addArticle_student = async (req, res, next) => {
+  const _id = req.body;
   Student.findOne({ account_id: req.session.userId })
     .exec()
     .then((info) => {
@@ -70,6 +73,7 @@ const addArticle_student = async (req, res, next) => {
               desc: req.body.desc,
               articleImage: req.file.filename,
               faculty_id: faculty._id,
+              topic_id: _id,
             };
 
             Articles.create(obj, (err, item) => {
@@ -79,7 +83,10 @@ const addArticle_student = async (req, res, next) => {
                 item.save();
                 info.posts.push(item);
                 info.save();
-                res.redirect("/students/list_articles");
+                Nodemailer.then((result) =>
+                  console.log("Email sent ...", result)
+                ).catch((err) => console.log(err.message));
+                res.redirect("/students/post_article");
               }
             });
           });
@@ -87,12 +94,31 @@ const addArticle_student = async (req, res, next) => {
     });
 };
 
+const getListTopic = (req, res, next) => {
+  Student.findOne({ account_id: req.session.userId })
+    .exec()
+    .then((info) => {
+      Topic.find({})
+        .exec()
+        .then((topic) => {
+          res.render("studentViews/student_post_article", {
+            topic: topic,
+            info: info,
+          });
+        })
+        .catch((err) => {
+          res.send(err);
+        });
+    });
+};
+
 const getListArticles_student = (req, res, next) => {
+  const _id = req.query.id;
   Student.findOne({ account_id: req.session.userId })
     .exec()
     .then((info) => {
       if (info.posts) {
-        Articles.find({ _id: info.posts })
+        Articles.find({ _id: info.posts, topic_id: _id })
           .populate("topic_id")
           .exec((err, items) => {
             if (err) {
@@ -112,37 +138,47 @@ const getListArticles_student = (req, res, next) => {
 
 const getUpdateArticle_student = (req, res, next) => {
   const { _id } = req.body;
-  Articles.findOne({ _id: _id })
+  Student.findOne({ account_id: req.session.userId })
     .exec()
-    .then((value) => {
-      Topic.find({})
+    .then((info) => {
+      Articles.findOne({ _id: _id })
         .exec()
-        .then((topic) => {
-          if (value.topic_id) {
-            Topic.findOne({ _id: value.topic_id })
-              .exec()
-              .then((assign) => {
-                console.log(assign);
+        .then((value) => {
+          Topic.find({})
+            .exec()
+            .then((topic) => {
+              if (value.topic_id) {
+                Topic.findOne({ _id: value.topic_id })
+                  .exec()
+                  .then((assign) => {
+                    console.log(assign);
+                    res.render("studentViews/student_update_article", {
+                      data: {
+                        _id: value._id,
+                        assign: assign.name,
+                        topic: topic,
+                        info: info,
+                      },
+                    });
+                  })
+                  .catch();
+              } else {
                 res.render("studentViews/student_update_article", {
                   data: {
                     _id: value._id,
-                    assign: assign.name,
                     topic: topic,
+                    info: info,
                   },
                 });
-              })
-              .catch();
-          } else {
-            res.render("studentViews/student_update_article", {
-              data: {
-                _id: value._id,
-                topic: topic,
-              },
+              }
+            })
+            .catch((err) => {
+              console.log(err);
             });
-          }
         })
         .catch((err) => {
           console.log(err);
+          res.redirect("/students/list_articles");
         });
     })
     .catch((err) => {
@@ -207,6 +243,7 @@ module.exports = {
   addArticle_student,
   getListArticles_student,
   getUpdateArticle_student,
+  getListTopic,
   deleteArticle_student,
   assignTopicForArticle_student,
 };

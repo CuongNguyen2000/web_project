@@ -20,13 +20,17 @@
     <!-- Favicon icon -->
     <link rel="icon" href="/assets/images/favicon.ico" type="image/x-icon">
     <!-- Google font-->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
     <!-- Required Fremwork -->
     <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap/css/bootstrap.min.css">
     <!-- themify-icons line icon -->
     <link rel="stylesheet" type="text/css" href="/assets/icon/themify-icons/themify-icons.css">
     <!-- ico font -->
     <link rel="stylesheet" type="text/css" href="/assets/icon/icofont/css/icofont.css">
+    <!-- Notification.css -->
+    <link rel="stylesheet" type="text/css" href="/assets/pages/notification/notification.css">
+    <!-- Animate.css -->
+    <link rel="stylesheet" type="text/css" href="/assets/css/animate.css/css/animate.css">
     <!-- Style.css -->
     <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="/assets/css/jquery.mCustomScrollbar.css">
@@ -172,10 +176,11 @@
                             </ul>
                             <div class="pcoded-navigatio-lavel" data-i18n="nav.category.form">Navigation</div>
                             <ul class="pcoded-item pcoded-left-item">
+
                                 <li class="active">
-                                    <a href="/students/list_articles">
+                                    <a href="/students/post_article">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">List of Article</span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Post Articles</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
@@ -225,11 +230,8 @@
                                                 <div class="card">
                                                     <div class="card-block">
                                                         <h3 class="sub-title">Upload new Article</h3>
-
-
                                                         <form id="uploadForm" action="/students/add_article"
                                                             method="POST" enctype="multipart/form-data">
-
                                                             <div class="form-group row">
                                                                 <label class="col-sm-2 col-form-label">Article
                                                                     Title</label>
@@ -277,24 +279,31 @@
                                                                     </span>
                                                                 </label>
                                                             </div>
-                                                            <input type="submit" class="btn btn-primary" id="submit"
-                                                                value="Submit" disabled></input>
+
+                                                            <button id="submit" type="submit"
+                                                                class="btn btn-primary waves-effect" data-type="success"
+                                                                data-from="top" data-align="right"
+                                                                disabled>Submit</button>
+
                                                             <span id="status"></span>
+                                                            <input type="hidden" id="_id" name="_id"
+                                                                value="{{articles.topic_id}}">
                                                         </form>
                                                     </div>
+                                                    {{!-- card-block end --}}
                                                 </div>
                                             </div>
-                                            <!-- Tab variant tab card start -->
                                         </div>
+                                        <!-- Tab variant tab card start -->
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
-                        <div id="styleSelector">
+                    </div>
 
-                        </div>
+                    <div id="styleSelector">
+
                     </div>
                 </div>
             </div>
@@ -302,7 +311,9 @@
     </div>
     </div>
     </div>
+    </div>
 
+    <!-- Required Jquery -->
     <script type="text/javascript" src="/assets/js/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/assets/js/jquery-ui/jquery-ui.min.js"></script>
     <script type="text/javascript" src="/assets/js/popper.js/popper.min.js"></script>
@@ -311,30 +322,17 @@
     <script type="text/javascript" src="/assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
     <!-- modernizr js -->
     <script type="text/javascript" src="/assets/js/modernizr/modernizr.js"></script>
-    <!-- am chart -->
-    <script src="/assets/pages/widget/amchart/amcharts.min.js"></script>
-    <script src="/assets/pages/widget/amchart/serial.min.js"></script>
-    <!-- Todo js -->
-    <script type="text/javascript " src="/assets/pages/todo/todo.js "></script>
+    <script type="text/javascript" src="/assets/js/modernizr/css-scrollbars.js"></script>
+    <!-- classie js -->
+    <script type="text/javascript" src="/assets/js/classie/classie.js"></script>
+    <!-- notification js -->
+    <script type="text/javascript" src="/assets/js/bootstrap-growl.min.js"></script>
+    <script type="text/javascript" src="/assets/pages/notification/notification.js"></script>
     <!-- Custom js -->
-    <script type="text/javascript" src="/assets/pages/dashboard/custom-dashboard.js"></script>
     <script type="text/javascript" src="/assets/js/script.js"></script>
-    <script type="text/javascript " src="/assets/js/SmoothScroll.js"></script>
     <script src="/assets/js/pcoded.min.js"></script>
     <script src="/assets/js/demo-12.js"></script>
     <script src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script>
-        var $window = $(window);
-        var nav = $('.fixed-button');
-        $window.scroll(function () {
-            if ($window.scrollTop() >= 200) {
-                nav.addClass('active');
-            }
-            else {
-                nav.removeClass('active');
-            }
-        });
-    </script>
     <script>
         function disableSubmit() {
             // Get the checkbox

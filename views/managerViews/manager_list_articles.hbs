@@ -233,6 +233,7 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th scope="col">#</th>
+                                                                        <th scope="col">Student</th>
                                                                         <th scope="col">Article Name</th>
                                                                         {{!-- <th scope="col">Article Image</th> --}}
                                                                         <th scope="col">File Name</th>
@@ -247,6 +248,7 @@
                                                                     {{#each items}}
                                                                     <tr>
                                                                         <td scope="row">{{@index}}</td>
+                                                                        <td>{{student.name}}</td>
                                                                         <td scope="row">{{name}}</td>
                                                                         {{!-- <td scope="row"> <img
                                                                                 src="/uploads/{{this.articleImage}}"
@@ -266,6 +268,13 @@
                                                                                     Detailed
                                                                                 </button>
                                                                             </a>
+                                                                            <form action="" method="GET"
+                                                                                enctype="application/x-www-form-urlencoded">
+                                                                                <input type="hidden" name="_id"
+                                                                                    value="{{_id}}">
+                                                                                <button type="submit"
+                                                                                    class="btn btn-danger">Download</button>
+                                                                            </form>
                                                                         </td>
                                                                         {{else}}
                                                                         <td colspan="8">

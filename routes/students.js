@@ -8,12 +8,15 @@ var {
   addArticle_student,
   getListArticles_student,
   getUpdateArticle_student,
+  getListTopic,
   deleteArticle_student,
   assignTopicForArticle_student,
 } = require("../controllers/StudentController");
 
 var multerInstance = require("../middleware/uploadImage");
 const Student = require("../models/StudentModel");
+const Topic = require("../models/TopicModel");
+const Articles = require("../models/ArticlesModel");
 
 // The processing section for Student is below
 // Student request
@@ -21,29 +24,30 @@ const Student = require("../models/StudentModel");
 // Get Homepage
 router.get("/home", isStudent, GetStudentHome);
 
+// Get post articles page
+router.get("/post_article", isStudent, getListTopic);
+
 // Displaying list of student article
 router.get("/list_articles", isStudent, getListArticles_student);
 
 // GET/POST adding new article
 router.get("/add_article", isStudent, (req, res, next) => {
-  Student.findOne({ account_id: req.session.userId }).exec((err, info) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send("An error occurred", err);
-    } else {
-      console.log(info);
-      res.render("studentViews/student_add_article", {
-        info: info,
-      });
-    }
-  });
+  const _id = req.query.id;
+  Student.findOne({ account_id: req.session.userId })
+    .exec()
+    .then((info) => {
+      Articles.findOne({ topic_id: _id })
+        .exec()
+        .then((articles) => {
+          res.render("studentViews/student_add_article", {
+            articles: articles,
+            info: info,
+          });
+        });
+    });
 });
-router.post(
-  "/add_article",
-  multerInstance.single("image"),
-  isStudent,
-  addArticle_student
-);
+
+router.post("/add_article", multerInstance, isStudent, addArticle_student);
 
 // Delete article
 router.delete("/delete_article", isStudent, deleteArticle_student);

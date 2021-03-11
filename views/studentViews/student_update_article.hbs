@@ -119,7 +119,7 @@
                             <li class="user-profile header-notification">
                                 <a href="#!">
                                     <img src="/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                                    <span>Administrator</span>
+                                    <span>{{data.info.name}}</span>
                                     <i class="ti-angle-down"></i>
                                 </a>
                                 <ul class="show-notification profile-notification">
@@ -144,7 +144,7 @@
                                     <img class="img-40 img-radius" src="/assets/images/avatar-4.jpg"
                                         alt="User-Profile-Image">
                                     <div class="user-details">
-                                        <span>Administrator</span>
+                                        <span>{{data.info.name}}</span>
                                         <span id="more-details">See More<i class="ti-angle-down"></i></span>
                                     </div>
                                 </div>
@@ -172,10 +172,11 @@
                             </ul>
                             <div class="pcoded-navigatio-lavel" data-i18n="nav.category.form">Navigation</div>
                             <ul class="pcoded-item pcoded-left-item">
+
                                 <li class="active">
-                                    <a href="/students/list_articles">
+                                    <a href="/students/post_article">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">List of Article</span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Post Articles</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
@@ -223,6 +224,46 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <!-- Tab variant tab card start -->
+                                                {{!-- <div class="card">
+                                                    <div class="card-block">
+                                                        <h3 class="sub-title">Update article information</h3>
+                                                        <form action="/students/update_articleInfo" method="POST"
+                                                            enctype="application/x-www-form-urlencoded">
+                                                            <div class="form-group">
+                                                                <label for="name">Article Name: <span
+                                                                        class="changeStyle">{{data.articles.name}}</span>
+                                                                </label>
+                                                                <input type="text" class="form-control" id="name"
+                                                                    name="name">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="email">description: <span
+                                                                        class="changeStyle">{{data.articles.desc}}</span>
+                                                                </label>
+                                                                <textarea id="desc" name="desc" rows="5" cols="5"
+                                                                    class="form-control"
+                                                                    placeholder="Describe your article"
+                                                                    required></textarea>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Upload File: <span
+                                                                        class="changeStyle">{{data.articles.articleImage}}</span>
+                                                                </label>
+
+                                                                <input name="articleImage" id="articleImage" type="file"
+                                                                    class="form-control" required>
+
+                                                            </div>
+                                                            <input type="hidden" name="_method" value="PUT">
+                                                            <input type="hidden" name="_id"
+                                                                value="{{data.articles._id}}">
+                                                            <button type="submit" class="btn btn-primary"
+                                                                id="submit_info">Update</button>
+                                                        </form>
+                                                    </div>
+                                                </div> --}}
+                                                <!-- Tab variant tab card end -->
+                                                <!-- Tab variant tab card start -->
                                                 <div class="card">
                                                     <div class="card-block">
                                                         <h3 class="sub-title">Assign Topic</h3>
@@ -253,8 +294,9 @@
                                                         {{/if}}
                                                     </div>
                                                 </div>
+                                                <!-- Tab variant tab card end -->
                                             </div>
-                                            <!-- Tab variant tab card start -->
+
                                         </div>
                                     </div>
 
