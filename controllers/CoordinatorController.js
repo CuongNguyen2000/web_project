@@ -59,25 +59,31 @@ const GetCoordinatorHome = (req, res, next) => {
 };
 
 const getListArticles_coordinator = (req, res, next) => {
+  const _id = req.query.topicID;
   Coordinator.findOne({ account_id: req.session.userId })
     .exec()
     .then((info) => {
-      if (info.faculty_id) {
-        Articles.find({ faculty_id: info.faculty_id })
-          .populate("topic_id")
-          .exec((err, items) => {
-            if (err) {
-              console.log(err);
-              res.status(500).send("An error occurred", err);
-            } else {
-              console.log(items);
-              res.render("coordinatorViews/coordinator_list_articles", {
-                items: items,
-                info: info,
+      Topic.find({})
+        .exec()
+        .then((topic) => {
+          if (info.faculty_id) {
+            Articles.find({ faculty_id: info.faculty_id, topic_id: _id })
+              .populate("topic_id")
+              .exec((err, items) => {
+                if (err) {
+                  console.log(err);
+                  res.status(500).send("An error occurred", err);
+                } else {
+                  console.log(items);
+                  res.render("coordinatorViews/coordinator_list_articles", {
+                    items: items,
+                    info: info,
+                    topic: topic,
+                  });
+                }
               });
-            }
-          });
-      }
+          }
+        });
     });
 };
 

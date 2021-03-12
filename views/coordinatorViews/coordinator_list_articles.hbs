@@ -235,12 +235,15 @@
                                                             <select class="form-control"
                                                                 onchange="window.location = this.value">
                                                                 <option selected>Open this select Topic</option>
+                                                                {{#each topic}}
                                                                 <option
-                                                                    value="/coordinators/list_technologies_articles">
-                                                                    Technologies
+                                                                    value="/coordinators/list_articles?topicID={{_id}}">
+                                                                    {{name}}
                                                                 </option>
-                                                                <option value="/coordinators/list_F&C_articles">Foods
-                                                                    and Cookings</option>
+                                                                {{/each}}
+                                                                {{!-- <option value="/coordinators/list_F&C_articles">
+                                                                    Foods
+                                                                    and Cookings</option> --}}
                                                             </select>
                                                         </div>
                                                     </div>
@@ -292,7 +295,7 @@
                                                                             </form>
                                                                         </td>
                                                                         {{else}}
-                                                                        <td colspan="6">
+                                                                        <td colspan="8">
                                                                             <div class="alert alert-primary"
                                                                                 role="alert">
                                                                                 There isn't any content !!!

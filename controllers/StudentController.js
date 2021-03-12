@@ -60,7 +60,7 @@ const GetStudentHome = (req, res, next) => {
 };
 
 const addArticle_student = async (req, res, next) => {
-  const _id = req.body;
+  const { _id } = req.body;
   Student.findOne({ account_id: req.session.userId })
     .exec()
     .then((info) => {

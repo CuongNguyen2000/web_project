@@ -36,11 +36,11 @@ router.get("/add_article", isStudent, (req, res, next) => {
   Student.findOne({ account_id: req.session.userId })
     .exec()
     .then((info) => {
-      Articles.findOne({ topic_id: _id })
+      Topic.findOne({ _id: _id })
         .exec()
-        .then((articles) => {
+        .then((topic) => {
           res.render("studentViews/student_add_article", {
-            articles: articles,
+            topic: topic,
             info: info,
           });
         });

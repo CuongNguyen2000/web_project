@@ -60,21 +60,30 @@ const getStatistics_manager = (req, res, next) => {
       Faculty.find({})
         .exec()
         .then((faculty) => {
-          if (faculty._id) {
-            Article.countDocuments({}, (err, count) => {
-              if (err) {
-                console.log(err);
-                res.status(500).send("An error occurred", err);
-              } else {
-                console.log(count);
-                // res.render("managerViews/manager_statistics", {
-                //   info: info,
-                //   faculty: faculty,
-                //   count: count,
-                // });
-              }
-            });
-          }
+          Article.countDocuments({ faculty_id: faculty._id }, (err, count) => {
+            if (faculty._id == "6036753a3a7633530809d0e9") {
+              console.log(count);
+            }
+          });
+          res.render("managerViews/manager_statistics", {
+            info: info,
+            faculty: faculty,
+          });
+          // if (faculty._id) {
+          //   Article.countDocuments({}, (err, count) => {
+          //     if (err) {
+          //       console.log(err);
+          //       res.status(500).send("An error occurred", err);
+          //     } else {
+          //       console.log(count);
+          //       res.render("managerViews/manager_statistics", {
+          //         info: info,
+          //         faculty: faculty,
+          //         count: count,
+          //       });
+          //     }
+          //   });
+          // }
         });
     });
 };
