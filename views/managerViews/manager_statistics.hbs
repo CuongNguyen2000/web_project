@@ -178,14 +178,14 @@
                             </ul>
                             <div class="pcoded-navigatio-lavel" data-i18n="nav.category.form">Navigation</div>
                             <ul class="pcoded-item pcoded-left-item">
-                                <li class="active">
+                                <li class="">
                                     <a href="/managers/list_articles">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.dash.main">List of Article</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                <li class="">
+                                <li class="active">
                                     <a href="/managers/statistic_contributions">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.dash.main">Statistic of
@@ -208,8 +208,8 @@
                                                         <i
                                                             class="icofont icofont icofont icofont-file-document bg-c-pink"></i>
                                                         <div class="d-inline">
-                                                            <h4>Article Page</h4>
-                                                            <span>List of all student articles</span>
+                                                            <h4>Statistics Page</h4>
+                                                            <span>Statistics of Contributions by each faculty</span>
 
                                                         </div>
                                                     </div>
@@ -223,7 +223,7 @@
                                                                 </a>
                                                             </li>
                                                             <li class="breadcrumb-item">
-                                                                <a href="#!">List of Articles</a>
+                                                                <a href="#!">Statistics of Contributions</a>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -232,77 +232,25 @@
                                         </div>
                                         <!-- Page-header end -->
                                         <div class="row">
-                                            <div class="col-sm-12">
-                                                <!-- Tab variant tab card start -->
-                                                <div class="card">
-                                                    <div class="card-block table-border-style">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-hover">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th scope="col">#</th>
-                                                                        <th scope="col">Student</th>
-                                                                        <th scope="col">Article Name</th>
-                                                                        {{!-- <th scope="col">Article Image</th> --}}
-                                                                        <th scope="col">File Name</th>
-                                                                        <th scope="col">Topic</th>
-                                                                        <th scope="col">Faculty</th>
-                                                                        <th scope="col">Description</th>
-                                                                        <th scope="col">Created date</th>
-                                                                        <th scope="col">Option</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    {{#each items}}
-                                                                    <tr>
-                                                                        <td scope="row">{{@index}}</td>
-                                                                        <td>{{student.name}}</td>
-                                                                        <td scope="row">{{name}}</td>
-                                                                        {{!-- <td scope="row"> <img
-                                                                                src="/uploads/{{this.articleImage}}"
-                                                                                alt="Image" class="reSize" />
-                                                                        </td> --}}
-                                                                        <td scope="row">
-                                                                            <span>{{this.articleImage}}</span>
-                                                                        </td>
-                                                                        <td>{{topic_id.name}}</td>
-                                                                        <td>{{faculty_id.name}}</td>
-                                                                        <td scope="row">{{desc}}</td>
-                                                                        <td scope="row">{{timeCreated}}</td>
-                                                                        <td class="d-flex flex-row" scope="row">
-                                                                            <a href="/uploads/{{this.articleImage}}">
-                                                                                <button type="submit"
-                                                                                    class="btn btn-info">
-                                                                                    Detailed
-                                                                                </button>
-                                                                            </a>
-                                                                            <form action="" method="GET"
-                                                                                enctype="application/x-www-form-urlencoded">
-                                                                                <input type="hidden" name="_id"
-                                                                                    value="{{_id}}">
-                                                                                <button type="submit"
-                                                                                    class="btn btn-danger">Download</button>
-                                                                            </form>
-                                                                        </td>
-                                                                        {{else}}
-                                                                        <td colspan="8">
-                                                                            <div class="alert alert-primary"
-                                                                                role="alert">
-                                                                                There isn't any content !!!
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    {{/each}}
-                                                                </tbody>
-                                                            </table>
+                                            {{#each faculty}}
+                                            <div class="col-md-12 col-xl-6">
+                                                <div class="card fb-card">
+                                                    <div class="card-header">
+                                                        <i class="icofont icofont-social-facebook"></i>
+                                                        <div class="d-inline-block">
+                                                            <h5>{{name}}</h5>
+                                                            <span>{{description}}</span>
                                                         </div>
-                                                        {{!-- table responsive end --}}
                                                     </div>
-                                                    {{!-- Card block table end --}}
+                                                    <div class="card-block text-center">
+                                                        <div class="col-12">
+                                                            <h2>{{../count}}</h2>
+                                                            <p class="text-muted">Contributions</p>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <!-- card end -->
                                             </div>
-                                            <!-- Tab variant tab card end -->
+                                            {{/each}}
                                         </div>
                                         {{!-- end row --}}
                                     </div>

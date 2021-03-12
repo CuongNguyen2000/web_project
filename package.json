@@ -6,7 +6,6 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.2",
     "bcrypt": "^5.0.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
