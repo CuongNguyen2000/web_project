@@ -287,13 +287,13 @@
                                                                 </div>
                                                                 <button type="submit"
                                                                     class="btn btn-primary">Submit</button>
+                                                                <br><br>
+                                                                {{#if err}}
+                                                                <div class="alert alert-danger" role="alert">
+                                                                    {{err}}
+                                                                </div>
+                                                                {{/if}}
                                                             </form>
-                                                            <br><br>
-                                                            {{#if err}}
-                                                            <div class="alert alert-danger" role="alert">
-                                                                {{err}}
-                                                            </div>
-                                                            {{/if}}
                                                         </div>
                                                         <!-- card-block end -->
                                                     </div>
