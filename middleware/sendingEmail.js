@@ -15,7 +15,7 @@ const oAuth2client = new google.auth.OAuth2(
 );
 oAuth2client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
-async function sendMail() {
+async function sendMail(email) {
   try {
     const accessToken = await oAuth2client.getAccessToken();
     const transport = nodemailer.createTransport({
@@ -32,7 +32,7 @@ async function sendMail() {
 
     const mailOption = {
       from: "ARTICLE MANAGEMENT SYSTEM 🎡 <cuongndgch18641@fpt.edu.vn>",
-      to: "cn1122000@gmail.com",
+      to: `${email}`,
       subject: "Hello from Gmail using API: You have receive a new submission",
       text: "You have receive a new submission",
       html: "<h3>You have receive a new submission from a student</h3>",
@@ -45,4 +45,4 @@ async function sendMail() {
   }
 }
 
-module.exports = sendMail();
+module.exports = sendMail;

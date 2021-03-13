@@ -683,15 +683,14 @@ const listTopic_admin = (req, res, next) => {
 // adding new Topic
 const addTopic_admin = (req, res, next) => {
   const { name, desc, timeOver, timeCreated } = req.body;
-  Topic.findOne({ name: name })
-    .exec()
-    .then((value) => {
+  Topic.findOne({ name: name }).exec((err, value) => {
+    if (err) {
+      return console.log(err);
+    } else if (value) {
       const msg = "This Topic is already exist !!! Please Try again";
-      res.redirect(`/admin/add_topic?msg=${msg}`);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
+      return res.redirect(`/admin/add_topic?msg=${msg}`);
+    }
+  });
 
   const newTopic = new Topic({
     name: name,

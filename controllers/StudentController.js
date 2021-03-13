@@ -3,6 +3,7 @@ var Student = require("../models/StudentModel");
 var Articles = require("../models/ArticlesModel");
 var Faculty = require("../models/FacultyModel");
 var Topic = require("../models/TopicModel");
+const Coordinator = require("../models/CoordinatorModel");
 
 var Nodemailer = require("../middleware/sendingEmail");
 
@@ -76,17 +77,25 @@ const addArticle_student = async (req, res, next) => {
               topic_id: _id,
             };
 
-            Articles.create(obj, (err, item) => {
+            Articles.create(obj, async (err, item) => {
               if (err) {
                 console.log(err);
               } else {
                 item.save();
                 info.posts.push(item);
                 info.save();
-                Nodemailer.then((result) =>
-                  console.log("Email sent ...", result)
-                ).catch((err) => console.log(err.message));
-                res.redirect("/students/post_article");
+                const coordinator = await Coordinator.findOne({
+                  faculty_id: faculty._id,
+                });
+                // console.log(coordinator);
+                await Nodemailer(coordinator.email)
+                  .then((result) => {
+                    console.log("Email sent...", result);
+                  })
+                  .catch((err) => {
+                    console.log(err.message);
+                  });
+                res.redirect("/students/list_articles?id=" + _id);
               }
             });
           });
@@ -209,33 +218,39 @@ const assignTopicForArticle_student = (req, res, next) => {
 
 const deleteArticle_student = async (req, res, next) => {
   const { _id } = req.body;
-  await Articles.findOneAndRemove({ _id: _id }, (err) => {
-    if (err) {
-      console.log(err);
-      return res.redirect("/students/list_articles");
-    } else {
-      console.log("Ok");
-      Student.findOneAndUpdate(
-        { posts: _id },
-        { $pull: { posts: _id } },
-        { safe: true, upsert: true },
-        (err, data) => {
-          if (err) {
-            res.render("error", {
-              message: "Sorry failed to delete post id in students",
-              error: {
-                status: err,
-                stacks: "failed to delete post id in students",
-              },
-            });
-          } else {
-            console.log("OK");
-            return res.redirect("/students/list_articles");
-          }
+  await Articles.findOne({ _id: _id })
+    .exec()
+    .then((value) => {
+      Articles.findOneAndRemove({ _id: _id }, (err) => {
+        if (err) {
+          console.log(err);
+          return res.redirect("/students/list_articles?id=" + value.topic_id);
+        } else {
+          console.log("Ok");
+          Student.findOneAndUpdate(
+            { posts: _id },
+            { $pull: { posts: _id } },
+            { safe: true, upsert: true },
+            (err, data) => {
+              if (err) {
+                res.render("error", {
+                  message: "Sorry failed to delete post id in students",
+                  error: {
+                    status: err,
+                    stacks: "failed to delete post id in students",
+                  },
+                });
+              } else {
+                console.log("OK");
+                return res.redirect(
+                  "/students/list_articles?id=" + value.topic_id
+                );
+              }
+            }
+          );
         }
-      );
-    }
-  });
+      });
+    });
 };
 
 module.exports = {

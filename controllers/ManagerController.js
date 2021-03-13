@@ -37,13 +37,30 @@ const getListArticles_manager = (req, res, next) => {
       Article.find({})
         .populate("topic_id")
         .populate("faculty_id")
-        .populate("student")
         .exec((err, items) => {
           if (err) {
             console.log(err);
             res.status(500).send("An error occurred", err);
           } else {
-            console.log(items);
+            let result = [];
+            items.forEach((item) => {
+              // console.log(item);
+              let x = { item: item, students: [] };
+              item
+                .populate("student")
+                .execPopulate()
+                .then((res) => {
+                  x.students = [...res.student];
+                  console.log(x);
+                });
+              // console.log(x);
+            });
+            // console.log(result);
+            // let students = [];
+            // items.forEach((item) => {
+            //   console.log(item.student);
+            // });
+            // console.log(items.student);
             res.render("managerViews/manager_list_articles", {
               items: items,
               info: info,
