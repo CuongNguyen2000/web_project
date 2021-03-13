@@ -208,7 +208,7 @@ const assignTopicForArticle_student = (req, res, next) => {
     .exec()
     .then((value) => {
       console.log(value);
-      res.redirect("/students/list_articles");
+      res.redirect("/students/list_articles?id=" + value.topic_id);
     })
     .catch((err) => {
       console.log(err);

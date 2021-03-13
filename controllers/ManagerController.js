@@ -2,9 +2,6 @@ var AppUser = require("../models/AppUserModel");
 var Manager = require("../models/ManagerModel");
 var Article = require("../models/ArticlesModel");
 const Faculty = require("../models/FacultyModel");
-// var fs = require("fs");
-// const AdmZip = require("adm-zip");
-// var uploadDir = fs.readdirSync("./public/uploads");
 
 const GetManagerHome = (req, res, next) => {
   Manager.findOne({ account_id: req.session.userId })

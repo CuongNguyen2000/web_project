@@ -225,21 +225,20 @@
                                         <!-- Page-header end -->
                                         <div class="row">
                                             {{#each items}}
-                                            <div class="col-6 col-md-4">
-                                                <div class="card-desk">
-                                                    <div class="card" style="width:25rem">
-                                                        <div
-                                                            style="width: 25rem; height: 15rem; display: flex;align-items: center;">
-                                                            <img class="card-img-top"
-                                                                style="display: block;margin-left: auto;margin-right: auto;width: 50%;height: 80%;"
-                                                                src="/uploads/{{articleImage}}" alt="image cap">
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <h5 class="card-title">Title: {{name}}</h5>
-                                                            <div style="width: 25rem; height: 5rem">
-                                                                <p class="card-text">{{desc}}</p>
-                                                            </div>
+                                            <div class="col-sm-4">
 
+                                                <div class="card">
+                                                    <div style=" display: flex;align-items: center;">
+                                                        <img class="card-img-top"
+                                                            style="display: block;margin-left: auto;margin-right: auto;width: 50%;height: 80%;"
+                                                            src="/uploads/{{articleImage}}" alt="image cap">
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">Title: {{name}}</h5>
+                                                        <div style="width: 25rem; height: 5rem">
+                                                            <p class="card-text">{{desc}}</p>
+                                                        </div>
+                                                        <div class="text-center">
                                                             <a href="/uploads/{{articleImage}}"
                                                                 class="btn btn-info btn-round">Detailed</a>
                                                             <form style="display: inline-block"
@@ -257,8 +256,11 @@
                                                                     class="btn btn-danger btn-round">Delete</button>
                                                             </form>
                                                         </div>
+
+
                                                     </div>
                                                 </div>
+
                                             </div>
                                             {{else}}
                                             <div class="col-lg-12">
