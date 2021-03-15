@@ -256,8 +256,8 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th scope="col">#</th>
+                                                                        <th scope="col">Student Name</th>
                                                                         <th scope="col">Article Name</th>
-                                                                        {{!-- <th scope="col">Article Image</th> --}}
                                                                         <th scope="col">File Name</th>
                                                                         <th scope="col">Description</th>
                                                                         <th scope="col">Topic</th>
@@ -270,10 +270,8 @@
                                                                     {{#each items}}
                                                                     <tr>
                                                                         <th scope="row">{{@index}}</th>
+                                                                        <td>{{author.name}}</td>
                                                                         <td>{{name}}</td>
-                                                                        {{!-- <td> <img
-                                                                                src="/uploads/{{this.articleImage}}"
-                                                                                alt="Image" class="reSize" /></td> --}}
                                                                         <td>{{this.articleImage}}</td>
                                                                         <td>{{desc}}</td>
                                                                         <td>{{topic_id.name}}</td>
@@ -295,7 +293,7 @@
                                                                             </form>
                                                                         </td>
                                                                         {{else}}
-                                                                        <td colspan="8">
+                                                                        <td colspan="9">
                                                                             <div class="alert alert-primary"
                                                                                 role="alert">
                                                                                 There isn't any content !!!

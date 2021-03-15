@@ -69,6 +69,7 @@ const getListArticles_coordinator = (req, res, next) => {
           if (info.faculty_id) {
             Articles.find({ faculty_id: info.faculty_id, topic_id: _id })
               .populate("topic_id")
+              .populate("author")
               .exec((err, items) => {
                 if (err) {
                   console.log(err);

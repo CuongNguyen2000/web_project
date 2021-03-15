@@ -22,6 +22,10 @@ const ArticlesSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Topic",
   },
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Student",
+  },
 });
 
 ArticlesSchema.virtual("student", {
@@ -29,6 +33,9 @@ ArticlesSchema.virtual("student", {
   localField: "_id",
   foreignField: "posts",
 });
+
+// ArticlesSchema.set("toObject", { virtuals: true });
+// ArticlesSchema.set("toJSON", { virtuals: true });
 
 const Articles = mongoose.model("Articles", ArticlesSchema);
 

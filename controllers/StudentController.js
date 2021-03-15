@@ -75,6 +75,7 @@ const addArticle_student = async (req, res, next) => {
               articleImage: req.file.filename,
               faculty_id: faculty._id,
               topic_id: _id,
+              author: info._id,
             };
 
             Articles.create(obj, async (err, item) => {
@@ -84,17 +85,17 @@ const addArticle_student = async (req, res, next) => {
                 item.save();
                 info.posts.push(item);
                 info.save();
-                const coordinator = await Coordinator.findOne({
-                  faculty_id: faculty._id,
-                });
-                // console.log(coordinator);
-                await Nodemailer(coordinator.email)
-                  .then((result) => {
-                    console.log("Email sent...", result);
-                  })
-                  .catch((err) => {
-                    console.log(err.message);
-                  });
+                // const coordinator = await Coordinator.findOne({
+                //   faculty_id: faculty._id,
+                // });
+                // // console.log(coordinator);
+                // await Nodemailer(coordinator.email)
+                //   .then((result) => {
+                //     console.log("Email sent...", result);
+                //   })
+                //   .catch((err) => {
+                //     console.log(err.message);
+                //   });
                 res.redirect("/students/list_articles?id=" + _id);
               }
             });
