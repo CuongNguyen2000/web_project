@@ -10,11 +10,10 @@ const TopicSchema = new mongoose.Schema({
     required: true,
   },
   timeCreated: {
-    type: Date,
-    default: () => Date.now(),
+    type: String,
   },
   timeOver: {
-    type: Date,
+    type: String,
   },
 });
 

@@ -224,44 +224,43 @@
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <!-- Tab variant tab card start -->
-                                                {{!-- <div class="card">
+                                                <div class="card">
                                                     <div class="card-block">
                                                         <h3 class="sub-title">Update article information</h3>
-                                                        <form action="/students/update_articleInfo" method="POST"
-                                                            enctype="application/x-www-form-urlencoded">
+                                                        <form action="/students/update_article_information"
+                                                            method="POST" enctype="application/x-www-form-urlencoded">
                                                             <div class="form-group">
-                                                                <label for="name">Article Name: <span
-                                                                        class="changeStyle">{{data.articles.name}}</span>
+                                                                <label class="">Article Title:
+                                                                    <span class="changeStyle">{{data.value.name}}</span>
                                                                 </label>
-                                                                <input type="text" class="form-control" id="name"
+                                                                <input type="text" class="form-control"
+                                                                    placeholder="Enter name of your Article" id="name"
                                                                     name="name">
                                                             </div>
                                                             <div class="form-group">
-                                                                <label for="email">description: <span
-                                                                        class="changeStyle">{{data.articles.desc}}</span>
+                                                                <label class="">Description:
+                                                                    <span class="changeStyle">{{data.value.desc}}</span>
                                                                 </label>
                                                                 <textarea id="desc" name="desc" rows="5" cols="5"
                                                                     class="form-control"
-                                                                    placeholder="Describe your article"
-                                                                    required></textarea>
+                                                                    placeholder="Describe your article"></textarea>
                                                             </div>
-                                                            <div class="form-group">
-                                                                <label>Upload File: <span
-                                                                        class="changeStyle">{{data.articles.articleImage}}</span>
-                                                                </label>
+                                                            {{!-- <div class="form-group">
+                                                                <label class="">Upload File: You
+                                                                    can upload image
+                                                                    file or PDF file:
+                                                                    {{data.value.articleImage}}</label>
 
-                                                                <input name="articleImage" id="articleImage" type="file"
-                                                                    class="form-control" required>
-
-                                                            </div>
+                                                                <input name="image" id="image" type="file"
+                                                                    class="form-control">
+                                                            </div> --}}
                                                             <input type="hidden" name="_method" value="PUT">
-                                                            <input type="hidden" name="_id"
-                                                                value="{{data.articles._id}}">
+                                                            <input type="hidden" name="_id" value="{{data._id}}">
                                                             <button type="submit" class="btn btn-primary"
                                                                 id="submit_info">Update</button>
                                                         </form>
                                                     </div>
-                                                </div> --}}
+                                                </div>
                                                 <!-- Tab variant tab card end -->
                                                 <!-- Tab variant tab card start -->
                                                 <div class="card">
@@ -269,7 +268,7 @@
                                                         <h3 class="sub-title">Assign Topic</h3>
                                                         Curently Topic
                                                         <ol>
-                                                            <li>{{data.assign}}</li>
+                                                            <li class="changeStyle">{{data.assign}}</li>
                                                         </ol>
                                                         <form action="/students/assign_topic_article" method="post"
                                                             enctype="application/x-www-form-urlencoded">

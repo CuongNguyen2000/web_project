@@ -40,20 +40,6 @@ const getListArticles_manager = (req, res, next) => {
             console.log(err);
             res.status(500).send("An error occurred", err);
           } else {
-            // let result = [];
-            // items.forEach((item) => {
-            //   // console.log(item);
-            //   let x = { item: item, students: [] };
-            //   item
-            //     .populate("student")
-            //     .execPopulate()
-            //     .then((res) => {
-            //       x.students = [...res.student];
-            //       // console.log(x);
-            //       result.push(x);
-            //       // console.log("push successfully...", result);
-            //     });
-            // });
             console.log(items);
             res.render("managerViews/manager_list_articles", {
               items: items,

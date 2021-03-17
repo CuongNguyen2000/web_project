@@ -164,6 +164,7 @@ const getUpdateArticle_student = (req, res, next) => {
                     console.log(assign);
                     res.render("studentViews/student_update_article", {
                       data: {
+                        value: value,
                         _id: value._id,
                         assign: assign.name,
                         topic: topic,
@@ -175,6 +176,7 @@ const getUpdateArticle_student = (req, res, next) => {
               } else {
                 res.render("studentViews/student_update_article", {
                   data: {
+                    value: value,
                     _id: value._id,
                     topic: topic,
                     info: info,
@@ -197,9 +199,34 @@ const getUpdateArticle_student = (req, res, next) => {
     });
 };
 
+// Update article information
+const updateArticleInfo = (req, res, next) => {
+  const { _id, name, desc, image } = req.body;
+  // const image = req.file.filename;
+  const newValue = {};
+  if (name) newValue.name = name;
+  if (desc) newValue.desc = desc;
+  // if (image) newValue.articleImage = req.file;
+  Articles.findOneAndUpdate(
+    { _id: _id },
+    { $set: newValue },
+    { new: true, useFindAndModify: false }
+  )
+    .exec()
+    .then((value) => {
+      console.log(value);
+      res.redirect("/students/list_articles?id=" + value.topic_id);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
+};
+
 // Assign article to Topic
 const assignTopicForArticle_student = (req, res, next) => {
   const { _id, topic } = req.body;
+
   console.log(topic, _id);
   Articles.findOneAndUpdate(
     { _id: _id },
@@ -289,4 +316,5 @@ module.exports = {
   getListTopic,
   deleteArticle_student,
   assignTopicForArticle_student,
+  updateArticleInfo,
 };

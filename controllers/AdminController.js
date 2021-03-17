@@ -729,10 +729,11 @@ const updatePageTopic_admin = (req, res, next) => {
 };
 
 const updateTopic_admin = (req, res, next) => {
-  const { name, desc, timeOver, _id } = req.body;
+  const { name, desc, timeCreated, timeOver, _id } = req.body;
   const newValue = {};
   if (name) newValue.name = name;
   if (desc) newValue.description = desc;
+  if (timeCreated) newValue.timeCreated = timeCreated;
   if (timeOver) newValue.timeOver = timeOver;
 
   Topic.findByIdAndUpdate({ _id: _id }, { $set: newValue }, { new: true })
