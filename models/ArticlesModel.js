@@ -26,6 +26,15 @@ const ArticlesSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Student",
   },
+  comments: [
+    {
+      comment: String,
+      timeCreated: {
+        type: Date,
+        default: () => Date.now(),
+      },
+    },
+  ],
 });
 
 ArticlesSchema.virtual("student", {

@@ -60,6 +60,10 @@ const GetCoordinatorHome = (req, res, next) => {
 
 const getListArticles_coordinator = (req, res, next) => {
   const _id = req.query.topicID;
+  let query = {};
+  if (_id) {
+    query.topic_id = _id;
+  }
   Coordinator.findOne({ account_id: req.session.userId })
     .exec()
     .then((info) => {
@@ -67,7 +71,8 @@ const getListArticles_coordinator = (req, res, next) => {
         .exec()
         .then((topic) => {
           if (info.faculty_id) {
-            Articles.find({ faculty_id: info.faculty_id, topic_id: _id })
+            query.faculty_id = info.faculty_id;
+            Articles.find({ ...query })
               .populate("topic_id")
               .populate("author")
               .exec((err, items) => {
@@ -99,6 +104,55 @@ const acceptArticle_coordinator = (req, res, next) => {
     .then((value) => {
       console.log(value);
       res.redirect("/coordinators/list_articles");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
+};
+
+const getReviewArticles = (req, res, next) => {
+  const _id = req.query.id;
+  Coordinator.findOne({ account_id: req.session.userId })
+    .exec()
+    .then((info) => {
+      Articles.findOne({ _id: _id })
+        .populate("topic_id")
+        // .populate("comments")
+        .exec()
+        .then((value) => {
+          console.log(value);
+          res.render("coordinatorViews/article_detail", {
+            value: value,
+            info: info,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.redirect("/coordinators/article_detail");
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect("/coordinators/article_detail");
+    });
+};
+
+const doComment = (req, res, next) => {
+  const { _id, comment } = req.body;
+  Articles.findOneAndUpdate(
+    { _id: _id },
+    {
+      $push: {
+        comments: { comment: comment },
+      },
+    },
+    { new: true, useFindAndModify: false }
+  )
+    .exec()
+    .then((value) => {
+      console.log(value);
+      res.redirect("/coordinators/article_detail?id=" + value._id);
     })
     .catch((err) => {
       console.log(err);
@@ -170,4 +224,6 @@ module.exports = {
   acceptArticle_coordinator,
   getListByTechnology_coordinator,
   getListByFC_coordinator,
+  getReviewArticles,
+  doComment,
 };

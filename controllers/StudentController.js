@@ -254,11 +254,38 @@ const deleteArticle_student = async (req, res, next) => {
     });
 };
 
+const getArticleDetails = (req, res, next) => {
+  const _id = req.query.id;
+  Student.findOne({ account_id: req.session.userId })
+    .exec()
+    .then((info) => {
+      Articles.findOne({ _id: _id })
+        .populate("topic_id")
+        .exec()
+        .then((value) => {
+          console.log(value);
+          res.render("studentViews/article_detail", {
+            value: value,
+            info: info,
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.redirect("/students/article_detail");
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect("/students/article_detail");
+    });
+};
+
 module.exports = {
   GetStudentHome,
   addArticle_student,
   getListArticles_student,
   getUpdateArticle_student,
+  getArticleDetails,
   getListTopic,
   deleteArticle_student,
   assignTopicForArticle_student,

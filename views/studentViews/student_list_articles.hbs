@@ -226,7 +226,6 @@
                                         <div class="row">
                                             {{#each items}}
                                             <div class="col-sm-4">
-
                                                 <div class="card">
                                                     <div style=" display: flex;align-items: center;">
                                                         <img class="card-img-top"
@@ -239,8 +238,8 @@
                                                             <p class="card-text">{{desc}}</p>
                                                         </div>
                                                         <div class="text-center">
-                                                            <a href="/uploads/{{articleImage}}"
-                                                                class="btn btn-info btn-round">Detailed</a>
+                                                            <a href="/students/article_detail?id={{_id}}"
+                                                                class="btn btn-info btn-round">Details</a>
                                                             <form style="display: inline-block"
                                                                 action="/students/update_article" method="POST">
                                                                 <input type="hidden" name="_id" value={{_id}}>

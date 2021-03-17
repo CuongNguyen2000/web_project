@@ -8,6 +8,7 @@ var {
   addArticle_student,
   getListArticles_student,
   getUpdateArticle_student,
+  getArticleDetails,
   getListTopic,
   deleteArticle_student,
   assignTopicForArticle_student,
@@ -29,6 +30,9 @@ router.get("/post_article", isStudent, getListTopic);
 
 // Displaying list of student article
 router.get("/list_articles", isStudent, getListArticles_student);
+
+// GET article detail page
+router.get("/article_detail", isStudent, getArticleDetails);
 
 // GET/POST adding new article
 router.get("/add_article", isStudent, (req, res, next) => {
