@@ -232,6 +232,12 @@
                                                         <h3 class="sub-title">Upload new Article</h3>
                                                         <form id="uploadForm" action="/students/add_article"
                                                             method="POST" enctype="multipart/form-data">
+                                                            {{#if err}}
+                                                            <div class="alert alert-danger" role="alert"
+                                                                style="width: auto;">
+                                                                {{err}}
+                                                            </div>
+                                                            {{else}}
                                                             <div class="form-group row">
                                                                 <label class="col-sm-2 col-form-label">Article
                                                                     Title</label>
@@ -251,7 +257,6 @@
                                                                         required></textarea>
                                                                 </div>
                                                             </div>
-
                                                             <div class="form-group row">
                                                                 <label class="col-sm-2 col-form-label">Upload File: You
                                                                     can upload image
@@ -261,7 +266,6 @@
                                                                         class="form-control" required>
                                                                 </div>
                                                             </div>
-
                                                             <div class="checkbox-fade fade-in-primary d-block">
                                                                 <label class="check-task d-block">
                                                                     <input type="checkbox" name="myCheck" id="myCheck"
@@ -279,13 +283,11 @@
                                                                     </span>
                                                                 </label>
                                                             </div>
-
                                                             <button id="submit" type="submit"
                                                                 class="btn btn-primary waves-effect" data-type="success"
                                                                 data-from="top" data-align="right"
                                                                 disabled>Submit</button>
-
-                                                            <span id="status"></span>
+                                                            {{/if}}
                                                             <input type="hidden" id="_id" name="_id"
                                                                 value="{{topic._id}}">
                                                         </form>

@@ -57,7 +57,13 @@ router.get("/add_article", isStudent, (req, res, next) => {
               info: info,
             });
           } else {
-            res.send("Time Over");
+            const msg =
+              "The time allowed to post has expired !!! --- If you have a problem, please contact the Marketing Coordinator of your faculty.";
+            res.render("studentViews/student_add_article", {
+              err: msg,
+              topic: topic,
+              info: info,
+            });
           }
         });
     });
