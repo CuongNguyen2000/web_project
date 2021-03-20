@@ -43,6 +43,12 @@ ArticlesSchema.virtual("student", {
   foreignField: "posts",
 });
 
+ArticlesSchema.virtual("amount_article", {
+  ref: "Faculty",
+  localField: "_id",
+  foreignField: "amountArticle",
+});
+
 // ArticlesSchema.set("toObject", { virtuals: true });
 // ArticlesSchema.set("toJSON", { virtuals: true });
 

@@ -9,8 +9,14 @@ const CoordinatorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  account_id: mongoose.Schema.Types.ObjectId,
-  faculty_id: mongoose.Schema.Types.ObjectId,
+  account_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "AppUser",
+  },
+  faculty_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Faculty",
+  },
 });
 
 const Coordinator = mongoose.model("Coordinator", CoordinatorSchema);

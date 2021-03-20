@@ -84,7 +84,9 @@ const addArticle_student = async (req, res, next) => {
               } else {
                 item.save();
                 info.posts.push(item);
+                faculty.amountArticle.push(item);
                 info.save();
+                faculty.save();
                 // const coordinator = await Coordinator.findOne({
                 //   faculty_id: faculty._id,
                 // });

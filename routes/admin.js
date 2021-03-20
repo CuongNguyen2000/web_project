@@ -4,6 +4,8 @@ var router = express.Router();
 var { isAdmin } = require("../middleware/RequiresLogin");
 
 var {
+  getListFacultyForAddStudent,
+  getListFacultyForAddCoordinator,
   listStudent_Admin,
   listCoordinator_Admin,
   listManager_Admin,
@@ -42,6 +44,7 @@ var {
   assignFacultyForCoordinator_admin,
   assignFacultyForGuest_admin,
 } = require("../controllers/AdminController");
+const Faculty = require("../models/FacultyModel");
 
 // The processing section for Administrator is below
 // Admin request
@@ -59,16 +62,39 @@ router.get("/list_all_guests", isAdmin, listGuest_admin);
 router.get("/list_all_faculty", isAdmin, listFaculty_admin);
 router.get("/list_all_topic", isAdmin, listTopic_admin);
 
+router.get("/list_faculties_student", isAdmin, getListFacultyForAddStudent);
+router.get(
+  "/list_faculties_coordinator",
+  isAdmin,
+  getListFacultyForAddCoordinator
+);
+
 // Adding new user account
 router.get("/add_student", isAdmin, (req, res, next) => {
+  const _id = req.query.faculty_id;
   const { msg } = req.query;
-  res.render("adminViews/admin_add_student", { err: msg });
+  Faculty.findOne({ _id: _id })
+    .exec()
+    .then((faculty) => {
+      res.render("adminViews/admin_add_student", {
+        err: msg,
+        faculty: faculty,
+      });
+    });
 });
 router.post("/add_student", isAdmin, addStudent_admin);
 
 router.get("/add_coordinator", isAdmin, (req, res, next) => {
+  const _id = req.query.faculty_id;
   const { msg } = req.query;
-  res.render("adminViews/admin_add_coordinator", { err: msg });
+  Faculty.findOne({ _id: _id })
+    .exec()
+    .then((faculty) => {
+      res.render("adminViews/admin_add_coordinator", {
+        err: msg,
+        faculty: faculty,
+      });
+    });
 });
 router.post("/add_coordinator", isAdmin, addCoordinator_admin);
 

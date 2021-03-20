@@ -9,6 +9,12 @@ const FacultySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  amountArticle: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Articles",
+    },
+  ],
   timeCreated: {
     type: Date,
     default: () => Date.now(),

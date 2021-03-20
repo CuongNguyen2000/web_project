@@ -9,18 +9,41 @@ const Topic = require("../models/TopicModel");
 // The processing section for a student's account is below
 // showing list of student
 const listStudent_Admin = (req, res, next) => {
-  AppUser.find({ role: "student" })
+  const _id = req.query.faculty_id;
+  Student.find({ faculty_id: _id })
+    .populate("account_id")
     .exec()
-    .then((user) => {
-      console.log(user);
-      res.render("adminViews/admin_list_student", { user: user });
+    .then((students) => {
+      Faculty.findOne({ _id: _id })
+        .exec()
+        .then((faculty) => {
+          console.log(students);
+          res.render("adminViews/admin_list_student", {
+            faculty: faculty,
+            students: students,
+          });
+        });
     })
     .catch((err) => console.log(err));
 };
 
+// Get list faculty to add new student
+const getListFacultyForAddStudent = (req, res, next) => {
+  Faculty.find({})
+    .exec()
+    .then((faculties) => {
+      res.render("adminViews/add_student", {
+        faculties: faculties,
+      });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
 // Adding new student account
 const addStudent_admin = async (req, res, next) => {
-  const { usr, pwd, name, email } = req.body;
+  const { usr, pwd, name, email, _id } = req.body;
   AppUser.findOne({ username: usr }).exec((err, user) => {
     if (err) {
       return console.log(err);
@@ -45,12 +68,13 @@ const addStudent_admin = async (req, res, next) => {
       const newStudent = new Student({
         name: name,
         email: email,
+        faculty_id: _id,
         account_id: user._id,
       });
 
       await newStudent.save();
 
-      return res.redirect("/admin/list_all_students");
+      return res.redirect("/admin/list_all_students?faculty_id=" + _id);
     }
   });
 };
@@ -137,7 +161,9 @@ const updateStudentInfo_admin = (req, res, next) => {
         return res.render("adminViews/admin_update_studentAcc");
       } else {
         console.log(data);
-        return res.redirect("/admin/list_all_students");
+        return res.redirect(
+          "/admin/list_all_students?faculty_id=" + data.faculty_id
+        );
       }
     }
   );
@@ -149,20 +175,26 @@ const updateStudentAcc_admin = (req, res, next) => {
   if (usr) newValue.username = usr;
   if (pwd) newValue.password = pwd;
 
-  AppUser.findOneAndUpdate(
-    { _id: _id },
-    { $set: newValue },
-    { new: true },
-    (err, data) => {
-      if (err) {
-        console.log(err);
-        return res.render("adminViews/admin_update_studentAcc");
-      } else {
-        console.log(data);
-        return res.redirect("/admin/list_all_students");
-      }
-    }
-  );
+  Student.findOne({ account_id: _id })
+    .exec()
+    .then((value) => {
+      AppUser.findOneAndUpdate(
+        { _id: _id },
+        { $set: newValue },
+        { new: true },
+        (err, data) => {
+          if (err) {
+            console.log(err);
+            return res.render("adminViews/admin_update_studentAcc");
+          } else {
+            console.log(data);
+            return res.redirect(
+              "/admin/list_all_students?faculty_id=" + value.faculty_id
+            );
+          }
+        }
+      );
+    });
 };
 
 // Delete Student account
@@ -177,7 +209,9 @@ const deleteStudent_Admin = async (req, res, next) => {
       Student.findOneAndRemove({ account_id: _id })
         .then((result) => {
           console.log("OK");
-          return res.redirect("/admin/list_all_students");
+          return res.redirect(
+            "/admin/list_all_students?faculty_id=" + result.faculty_id
+          );
         })
         .catch((err) => {
           console.log(err);
@@ -199,7 +233,7 @@ const assignFacultyForStudent_admin = (req, res, next) => {
     .exec()
     .then((value) => {
       console.log(value);
-      res.redirect("/admin/list_all_students");
+      res.redirect("/admin/list_all_students?faculty_id=" + value.faculty_id);
     })
     .catch((err) => {
       console.log(err);
@@ -216,17 +250,41 @@ const assignFacultyForStudent_admin = (req, res, next) => {
 // The processing section for a Coordinator's account is below
 // Display list of Marketing Coordinator
 const listCoordinator_Admin = (req, res, next) => {
-  AppUser.find({ role: "coordinator" })
+  const _id = req.query.faculty_id;
+  Coordinator.find({ faculty_id: _id })
+    .populate("account_id")
     .exec()
-    .then((user) => {
-      res.render("adminViews/admin_list_coordinator", { user: user });
+    .then((coordinators) => {
+      Faculty.findOne({ _id: _id })
+        .exec()
+        .then((faculty) => {
+          console.log(coordinators);
+          res.render("adminViews/admin_list_coordinator", {
+            faculty: faculty,
+            coordinators: coordinators,
+          });
+        });
     })
     .catch((err) => console.log(err));
 };
 
+// Get list faculty to add new coordinator
+const getListFacultyForAddCoordinator = (req, res, next) => {
+  Faculty.find({})
+    .exec()
+    .then((faculties) => {
+      res.render("adminViews/add_coordinator", {
+        faculties: faculties,
+      });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
 // Adding new Coordinator account
 const addCoordinator_admin = async (req, res, next) => {
-  const { usr, pwd, name, email } = req.body;
+  const { usr, pwd, name, email, _id } = req.body;
   AppUser.findOne({ username: usr }).exec((err, user) => {
     if (err) {
       return console.log(err);
@@ -251,12 +309,13 @@ const addCoordinator_admin = async (req, res, next) => {
       const newCoordinator = new Coordinator({
         name: name,
         email: email,
+        faculty_id: _id,
         account_id: user._id,
       });
 
       await newCoordinator.save();
 
-      return res.redirect("/admin/list_all_coordinators");
+      return res.redirect("/admin/list_all_coordinators?faculty_id=" + _id);
     }
   });
 };
@@ -342,7 +401,9 @@ const updateCoordinatorInfo_admin = (req, res, next) => {
         return res.render("adminViews/admin_update_coordinatorAcc");
       } else {
         console.log(data);
-        return res.redirect("/admin/list_all_coordinators");
+        return res.redirect(
+          "/admin/list_all_coordinators?faculty_id=" + data.faculty_id
+        );
       }
     }
   );
@@ -354,20 +415,26 @@ const updateCoordinatorAcc_admin = (req, res, next) => {
   if (usr) newValue.username = usr;
   if (pwd) newValue.password = pwd;
 
-  AppUser.findOneAndUpdate(
-    { _id: _id },
-    { $set: newValue },
-    { new: true },
-    (err, data) => {
-      if (err) {
-        console.log(err);
-        return res.render("adminViews/admin_update_coordinatorAcc");
-      } else {
-        console.log(data);
-        return res.redirect("/admin/list_all_coordinators");
-      }
-    }
-  );
+  Coordinator.findOne({ account_id: _id })
+    .exec()
+    .then((value) => {
+      AppUser.findOneAndUpdate(
+        { _id: _id },
+        { $set: newValue },
+        { new: true },
+        (err, data) => {
+          if (err) {
+            console.log(err);
+            return res.render("adminViews/admin_update_coordinatorAcc");
+          } else {
+            console.log(data);
+            return res.redirect(
+              "/admin/list_all_coordinators?faculty_id=" + value.faculty_id
+            );
+          }
+        }
+      );
+    });
 };
 
 // Delete Marketing Coordinator account
@@ -382,7 +449,9 @@ const deleteCoordinator_Admin = async (req, res, next) => {
       Coordinator.findOneAndRemove({ account_id: _id })
         .then((result) => {
           console.log("OK");
-          return res.redirect("/admin/list_all_coordinators");
+          return res.redirect(
+            "/admin/list_all_coordinators?faculty_id=" + result.faculty_id
+          );
         })
         .catch((err) => {
           console.log(err);
@@ -404,7 +473,9 @@ const assignFacultyForCoordinator_admin = (req, res, next) => {
     .exec()
     .then((value) => {
       console.log(value);
-      res.redirect("/admin/list_all_coordinators");
+      res.redirect(
+        "/admin/list_all_coordinators?faculty_id=" + value.faculty_id
+      );
     })
     .catch((err) => {
       console.log(err);
@@ -968,6 +1039,8 @@ const deleteGuest_Admin = async (req, res, next) => {
 };
 
 module.exports = {
+  getListFacultyForAddStudent,
+  getListFacultyForAddCoordinator,
   listStudent_Admin,
   listCoordinator_Admin,
   listManager_Admin,

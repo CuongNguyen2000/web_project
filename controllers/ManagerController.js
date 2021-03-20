@@ -1,7 +1,9 @@
 var AppUser = require("../models/AppUserModel");
 var Manager = require("../models/ManagerModel");
 var Article = require("../models/ArticlesModel");
-const Faculty = require("../models/FacultyModel");
+var Faculty = require("../models/FacultyModel");
+var fs = require("fs");
+const archiver = require("archiver");
 
 const GetManagerHome = (req, res, next) => {
   Manager.findOne({ account_id: req.session.userId })
@@ -28,24 +30,34 @@ const GetManagerHome = (req, res, next) => {
 };
 
 const getListArticles_manager = (req, res, next) => {
+  const _id = req.query.faculty_id;
+  let query = {};
+  if (_id) {
+    query.faculty_id = _id;
+  }
   Manager.findOne({ account_id: req.session.userId })
     .exec()
     .then((info) => {
-      Article.find({})
-        .populate("topic_id")
-        .populate("faculty_id")
-        .populate("author")
-        .exec((err, items) => {
-          if (err) {
-            console.log(err);
-            res.status(500).send("An error occurred", err);
-          } else {
-            console.log(items);
-            res.render("managerViews/manager_list_articles", {
-              items: items,
-              info: info,
+      Faculty.find({})
+        .exec()
+        .then((faculty) => {
+          Article.find({ ...query })
+            .populate("topic_id")
+            .populate("faculty_id")
+            .populate("author")
+            .exec((err, items) => {
+              if (err) {
+                console.log(err);
+                res.status(500).send("An error occurred", err);
+              } else {
+                console.log(items);
+                res.render("managerViews/manager_list_articles", {
+                  faculty: faculty,
+                  items: items,
+                  info: info,
+                });
+              }
             });
-          }
         });
     });
 };
@@ -55,38 +67,49 @@ const getStatistics_manager = (req, res, next) => {
     .exec()
     .then((info) => {
       Faculty.find({})
+        .populate("amountArticle")
         .exec()
-        .then((faculty) => {
-          Article.countDocuments({ faculty_id: faculty._id }, (err, count) => {
-            if (faculty._id == "6036753a3a7633530809d0e9") {
-              console.log(count);
-            }
-          });
+        .then((faculties) => {
           res.render("managerViews/manager_statistics", {
             info: info,
-            faculty: faculty,
+            faculty: faculties,
           });
-          // if (faculty._id) {
-          //   Article.countDocuments({}, (err, count) => {
-          //     if (err) {
-          //       console.log(err);
-          //       res.status(500).send("An error occurred", err);
-          //     } else {
-          //       console.log(count);
-          //       res.render("managerViews/manager_statistics", {
-          //         info: info,
-          //         faculty: faculty,
-          //         count: count,
-          //       });
-          //     }
-          //   });
-          // }
         });
     });
+};
+
+const downloadFile = (req, res, next) => {
+  var a = req.body.check;
+  if (!a) {
+    res.send(
+      '<script>alert("You need to choose at least one file to download")</script>'
+    );
+  } else {
+    var output = fs.createWriteStream("public/fileDownload.zip");
+    var archive = archiver("zip");
+    output.on("close", () => {
+      console.log(archive.pointer() + " total bytes");
+      console.log(
+        "Archiver has been finalized and the output file descriptor has closed"
+      );
+    });
+    archive.on("error", (err) => {
+      throw err;
+    });
+
+    archive.pipe(output);
+    for (var n = 1; n < a.length; n++) {
+      var file = "public/uploads/" + a[n];
+      archive.append(fs.createReadStream(file), { name: file });
+    }
+    archive.finalize();
+    res.redirect("/managers/downloadFile");
+  }
 };
 
 module.exports = {
   GetManagerHome,
   getListArticles_manager,
   getStatistics_manager,
+  downloadFile,
 };

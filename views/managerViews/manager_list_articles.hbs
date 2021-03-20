@@ -235,6 +235,24 @@
                                             <div class="col-sm-12">
                                                 <!-- Tab variant tab card start -->
                                                 <div class="card">
+                                                    <div class="card-block">
+                                                        <div class="form-group">
+                                                            <select class="form-control"
+                                                                onchange="window.location = this.value">
+                                                                <option selected>Open this select Faculty</option>
+                                                                {{#each faculty}}
+                                                                <option
+                                                                    value="/managers/list_articles?faculty_id={{_id}}">
+                                                                    {{name}}
+                                                                </option>
+                                                                {{/each}}
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Tab variant tab card end -->
+                                                <!-- Tab variant tab card start -->
+                                                <div class="card">
                                                     <div class="card-block table-border-style">
                                                         <div class="table-responsive">
                                                             <table class="table table-hover">
@@ -245,56 +263,84 @@
                                                                         <th scope="col">Article Name</th>
                                                                         {{!-- <th scope="col">Article Image</th> --}}
                                                                         <th scope="col">File Name</th>
+                                                                        <th scope="col">Description</th>
                                                                         <th scope="col">Topic</th>
                                                                         <th scope="col">Faculty</th>
-                                                                        <th scope="col">Description</th>
-                                                                        <th scope="col">Created date</th>
+                                                                        <th scope="col">Choose to download</th>
                                                                         <th scope="col">Option</th>
-                                                                    </tr>
+                                                                    <tr></tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    {{#each items}}
-                                                                    <tr>
-                                                                        <td scope="row">{{@index}}</td>
-                                                                        <td>{{author.name}}</td>
-                                                                        <td scope="row">{{name}}</td>
-                                                                        {{!-- <td scope="row"> <img
-                                                                                src="/uploads/{{this.articleImage}}"
-                                                                                alt="Image" class="reSize" />
-                                                                        </td> --}}
-                                                                        <td scope="row">
-                                                                            <span>{{this.articleImage}}</span>
-                                                                        </td>
-                                                                        <td>{{topic_id.name}}</td>
-                                                                        <td>{{faculty_id.name}}</td>
-                                                                        <td scope="row">{{desc}}</td>
-                                                                        <td scope="row">{{timeCreated}}</td>
-                                                                        <td class="d-flex flex-row" scope="row">
-                                                                            <a href="/uploads/{{this.articleImage}}">
-                                                                                <button type="submit"
-                                                                                    class="btn btn-info">
-                                                                                    Detailed
-                                                                                </button>
-                                                                            </a>
-                                                                            <form action="" method="GET"
-                                                                                enctype="application/x-www-form-urlencoded">
-                                                                                <input type="hidden" name="_id"
-                                                                                    value="{{_id}}">
-                                                                                <button type="submit"
-                                                                                    class="btn btn-danger">Download</button>
-                                                                            </form>
-                                                                        </td>
-                                                                        {{else}}
-                                                                        <td colspan="9">
-                                                                            <div class="alert alert-primary"
-                                                                                role="alert">
-                                                                                There isn't any content !!!
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    {{/each}}
+                                                                    <form action="/managers/downloadFile" method="POST"
+                                                                        enctype="application/x-www-form-urlencoded">
+                                                                        <input type="hidden" name="check" id="">
+
+                                                                        {{#each items}}
+                                                                        <tr>
+                                                                            <td scope="row">{{@index}}</td>
+                                                                            <td scope="row">{{author.name}}</td>
+                                                                            <td scope="row">{{name}}</td>
+                                                                            {{!-- <td scope="row"> <img
+                                                                                    src="/uploads/{{this.articleImage}}"
+                                                                                    alt="Image" class="reSize" />
+                                                                            </td> --}}
+                                                                            <td scope="row">{{this.articleImage}}</td>
+                                                                            <td scope="row">{{desc}}</td>
+                                                                            <td scope="row">{{topic_id.name}}</td>
+                                                                            <td scope="row">{{faculty_id.name}}</td>
+
+                                                                            <td class="d-flex flex-row" scope="row">
+                                                                                <div
+                                                                                    class="checkbox-fade fade-in-primary d-block">
+                                                                                    <label class="check-task d-block">
+                                                                                        <input type="checkbox"
+                                                                                            name="check" id="myCheck"
+                                                                                            value="{{articleImage}}">
+                                                                                        <span class="cr">
+                                                                                            <i
+                                                                                                class="cr-icon icofont icofont-ui-check txt-default"></i>
+                                                                                        </span>
+
+                                                                                    </label>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                <a
+                                                                                    href="/uploads/{{this.articleImage}}">
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-info">
+                                                                                        Detailed
+                                                                                    </button>
+                                                                                </a>
+                                                                            </td>
+                                                                            {{else}}
+                                                                            <td colspan="9">
+                                                                                <div class="alert alert-primary"
+                                                                                    role="alert">
+                                                                                    There isn't any content !!!
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                        {{/each}}
+                                                                        <button type="submit" class="btn btn-danger"
+                                                                            onsubmit="alert(this);">Download</button>
+                                                                    </form>
                                                                 </tbody>
                                                             </table>
+                                                            <script>
+                                                                function alert(form) {
+                                                                    var formData = { check: form.check.value };
+                                                                    $.ajax({
+                                                                        url: "/managers/downloadFile",
+                                                                        method: "POST",
+                                                                        data: formData,
+                                                                        _id: form._id.value,
+                                                                        error: function (error) {
+                                                                            alert("Please choose at least one file to download")
+                                                                        };
+                                                                    })
+                                                                }
+                                                            </script>
                                                         </div>
                                                         {{!-- table responsive end --}}
                                                     </div>

@@ -169,7 +169,7 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="/admin/list_all_students">
+                                            <a href="/admin/list_faculties_student">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext"
                                                     data-i18n="nav.basic-components.alert">Student Account</span>
@@ -177,7 +177,7 @@
                                             </a>
                                         </li>
                                         <li class="active">
-                                            <a href="/admin/list_all_coordinators">
+                                            <a href="/admin/list_faculties_coordinator">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext"
                                                     data-i18n="nav.basic-components.breadcrumbs">Coordinator
@@ -272,7 +272,7 @@
                                                         <div class="d-flex flex-row-reverse">
                                                             <div style="padding-top: 20px; padding-right: 20px">
                                                                 <button type="button" class="btn btn-success"
-                                                                    onclick="window.location='/admin/add_coordinator';">
+                                                                    onclick="window.location='/admin/add_coordinator?faculty_id={{faculty._id}}';">
                                                                     Adding more user
                                                                 </button>
                                                             </div>
@@ -291,18 +291,18 @@
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    {{#each user}}
+                                                                    {{#each coordinators}}
                                                                     <tr>
                                                                         <th scope="row">{{@index}}</th>
-                                                                        <td>{{_id}}</td>
-                                                                        <td>{{username}}</td>
+                                                                        <td>{{account_id._id}}</td>
+                                                                        <td>{{account_id.username}}</td>
                                                                         <td>Hidden</td>
-                                                                        <td>{{timeCreated}}</td>
+                                                                        <td>{{account_id.timeCreated}}</td>
                                                                         <td class="d-flex flex-row">
                                                                             <form action="/admin/update_coordinator"
                                                                                 method="POST">
                                                                                 <input type="hidden" name="_id"
-                                                                                    value={{_id}}>
+                                                                                    value={{account_id._id}}>
                                                                                 <button type="submit"
                                                                                     class="btn btn-primary">Update</button>
                                                                             </form>
@@ -310,7 +310,7 @@
                                                                                 method="POST"
                                                                                 enctype="application/x-www-form-urlencoded">
                                                                                 <input type="hidden" name="_id"
-                                                                                    value={{_id}}>
+                                                                                    value={{account_id._id}}>
                                                                                 <input type="hidden" name="_method"
                                                                                     value="DELETE">
                                                                                 <button type="submit"
