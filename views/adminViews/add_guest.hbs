@@ -167,7 +167,7 @@
                             </ul>
                             <div class="pcoded-navigatio-lavel" data-i18n="nav.category.forms">List of Account</div>
                             <ul class="pcoded-item pcoded-left-item">
-                                <li class="pcoded-hasmenu">
+                                <li class="pcoded-hasmenu active pcoded-trigger">
                                     <a href="javascript:void(0)">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i></span>
                                         <span class="pcoded-mtext" data-i18n="nav.basic-components.main">User
@@ -200,7 +200,7 @@
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
-                                        <li class=" ">
+                                        <li class="active">
                                             <a href="/admin/list_faculties_guest">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext"
@@ -222,13 +222,15 @@
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
-                                <li class="active">
+                                <li>
                                     <a href="/admin/list_all_topic">
                                         <span class="pcoded-micon"><i class="ti-layers"></i><b>FC</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.form-components.main">Topic</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
+
+
                             </ul>
                     </nav>
                     <div class="pcoded-content">
@@ -241,10 +243,10 @@
                                             <div class="row align-items-end">
                                                 <div class="col-lg-8">
                                                     <div class="page-header-title">
-                                                        <i class="icofont icofont-file-code bg-c-blue"></i>
+                                                        <i class="icofont icofont-table bg-c-blue"></i>
                                                         <div class="d-inline">
-                                                            <h4>Adding new Topic</h4>
-                                                            <span>Insert new Topic</span>
+                                                            <h4>Guests Account</h4>
+                                                            <span>List of Guest Account</span>
 
                                                         </div>
                                                     </div>
@@ -257,10 +259,10 @@
                                                                     <i class="icofont icofont-home"></i>
                                                                 </a>
                                                             </li>
-                                                            <li class="breadcrumb-item"><a href="#!">List of
-                                                                    Faculty_Topic</a>
+                                                            <li class="breadcrumb-item"><a href="#!">User Account</a>
                                                             </li>
-                                                            <li class="breadcrumb-item"><a href="#!">Topic</a>
+                                                            <li class="breadcrumb-item">
+                                                                <a href="#!">List of Guets Account</a>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -268,51 +270,49 @@
                                             </div>
                                         </div>
                                         <!-- Page-header end -->
+                                        <!-- Scale Open Accordion start -->
                                         <div class="row">
-                                            <div class="col-sm-12">
-                                                <!-- Tab variant tab card start -->
+                                            {{#each faculties}}
+                                            <div class="col-lg-6">
                                                 <div class="card">
-                                                    <div class="card-block table-border-style">
-                                                        <div class="card-block">
-                                                            <form action="/admin/add_topic" method="POST">
-                                                                <div class="form-group">
-                                                                    <label for="name">Topic Name</label>
-                                                                    <input type="text" class="form-control" id="name"
-                                                                        name="name" placeholder="Faculty Name" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="inputDesc">Description</label>
-                                                                    <textarea class="form-control" id="desc" name="desc"
-                                                                        value="" rows="3" placeholder="Description"
-                                                                        required></textarea>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="date">First Date</label>
-                                                                    <input type="date" class="form-control"
-                                                                        id="timeCreated" name="timeCreated">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="date">Final Date</label>
-                                                                    <input type="date" class="form-control"
-                                                                        id="timeOver" name="timeOver">
-                                                                </div>
-                                                                <button type="submit"
-                                                                    class="btn btn-primary">Submit</button>
-                                                                <br><br>
-                                                                {{#if err}}
-                                                                <div class="alert alert-danger" role="alert">
-                                                                    {{err}}
-                                                                </div>
-                                                                {{/if}}
-                                                            </form>
+                                                    <div class="card-header">
+                                                        <h3 class="card-header-text">{{name}}</h3>
+                                                    </div>
+                                                    <div class="card-block accordion-block">
+                                                        <div class="accordion-box">
+                                                            <a class="accordion-msg">Description</a>
+                                                            <div class="accordion-desc">
+                                                                <p>{{description}}</p>
+                                                            </div>
                                                         </div>
-                                                        <!-- card-block end -->
+                                                    </div>
+                                                    <div class="col-lg-12 col-md-12">
+                                                        <div class="form-group row">
+                                                            <div class="col-lg-6">
+                                                                <button class="btn btn-primary col-12"
+                                                                    onclick="window.location='/admin/list_all_guests?faculty_id={{_id}}'">List
+                                                                    of Guest Account</button>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <button
+                                                                    class="btn btn-primary btn-outline-primary col-12"
+                                                                    onclick="window.location='/admin/add_guest?faculty_id={{_id}}'">
+                                                                    Add new Guest
+                                                                </button>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <!-- Tab variant tab card start -->
                                             </div>
+                                            {{else}}
+                                            <div class="col-lg-12">
+                                                <div class="alert alert-primary" role="alert">
+                                                    There isn't any Faculty !!! Let's add a new Faculty
+                                                </div>
+                                            </div>
+                                            {{/each}}
                                         </div>
-                                        {{!-- row end --}}
+                                        <!-- Scale Open Accordion ends -->
                                     </div>
                                 </div>
 
@@ -349,18 +349,6 @@
     <script src="/assets/js/pcoded.min.js"></script>
     <script src="/assets/js/demo-12.js"></script>
     <script src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script>
-        var $window = $(window);
-        var nav = $('.fixed-button');
-        $window.scroll(function () {
-            if ($window.scrollTop() >= 200) {
-                nav.addClass('active');
-            }
-            else {
-                nav.removeClass('active');
-            }
-        });
-    </script>
 </body>
 
 </html>

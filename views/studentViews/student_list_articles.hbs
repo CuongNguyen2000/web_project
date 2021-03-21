@@ -227,35 +227,57 @@
                                             {{#each items}}
                                             <div class="col-sm-4">
                                                 <div class="card">
-                                                    <div style="display: flex;align-items: center;">
-                                                        <img class="card-img-top"
-                                                            style="display: block;margin-left: auto;margin-right: auto;width: 200px;height: 250px;"
-                                                            src="/uploads/{{articleImage}}" alt="image cap">
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <h5 class="card-title">Title: {{name}}</h5>
-                                                        <div style="width: 25rem; height: 5rem">
-                                                            <p class="card-text">{{desc}}</p>
+                                                    <div class="card-header">
+                                                        <div class="card-header-left ">
                                                         </div>
-                                                        <div class="text-center">
-                                                            <a href="/students/article_detail?id={{_id}}"
-                                                                class="btn btn-info btn-round">Details</a>
-                                                            <form style="display: inline-block"
-                                                                action="/students/update_article" method="POST">
-                                                                <input type="hidden" name="_id" value={{_id}}>
-                                                                <button type="submit"
-                                                                    class="btn btn-primary btn-round">Update</button>
-                                                            </form>
-                                                            <form style="display:inline-block"
-                                                                action="/students/delete_article" method="POST"
-                                                                enctype="application/x-www-form-urlencoded">
-                                                                <input type="hidden" name="_id" value={{_id}}>
-                                                                <input type="hidden" name="_method" value="DELETE">
-                                                                <button type="submit"
-                                                                    class="btn btn-danger btn-round">Delete</button>
-                                                            </form>
+                                                        <div class="card-header-right">
+                                                            <ul class="list-unstyled card-option">
+                                                                <li><i class="icofont icofont-simple-left "></i>
+                                                                </li>
+                                                                <li><i class="icofont icofont-maximize full-card"></i>
+                                                                </li>
+                                                                <li><i class="icofont icofont-minus minimize-card"></i>
+                                                                </li>
+                                                                <li><i class="icofont icofont-refresh reload-card"></i>
+                                                                </li>
+                                                                <li><i class="icofont icofont-error close-card"></i>
+                                                                </li>
+                                                            </ul>
                                                         </div>
                                                     </div>
+
+                                                    <div class="card-block">
+                                                        <div style="display: flex;align-items: center;">
+                                                            <img class="card-img-top"
+                                                                style="display: block;margin-left: auto;margin-right: auto;width: 200px;height: 250px;"
+                                                                src="/uploads/{{articleImage}}" alt="image cap">
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">Title: {{name}}</h5>
+                                                            <div style="width: 25rem; height: 5rem">
+                                                                <p class="card-text">{{desc}}</p>
+                                                            </div>
+                                                            <div class="text-center">
+                                                                <a href="/students/article_detail?id={{_id}}"
+                                                                    class="btn btn-info btn-round">Details</a>
+                                                                <form style="display: inline-block"
+                                                                    action="/students/update_article" method="POST">
+                                                                    <input type="hidden" name="_id" value={{_id}}>
+                                                                    <button type="submit"
+                                                                        class="btn btn-primary btn-round">Update</button>
+                                                                </form>
+                                                                <form style="display:inline-block"
+                                                                    action="/students/delete_article" method="POST"
+                                                                    enctype="application/x-www-form-urlencoded">
+                                                                    <input type="hidden" name="_id" value={{_id}}>
+                                                                    <input type="hidden" name="_method" value="DELETE">
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger btn-round">Delete</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                             {{else}}

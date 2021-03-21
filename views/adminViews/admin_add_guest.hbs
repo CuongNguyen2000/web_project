@@ -201,7 +201,7 @@
                                             </a>
                                         </li>
                                         <li class="active">
-                                            <a href="/admin/list_all_guests">
+                                            <a href="/admin/list_faculties_guest">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext"
                                                     data-i18n="nav.basic-components.breadcrumbs">Guest Account</span>
@@ -309,6 +309,8 @@
                                                                     {{err}}
                                                                 </div>
                                                                 {{/if}}
+                                                                <input type="hidden" name="_id" id="_id"
+                                                                    value="{{faculty._id}}">
                                                             </form>
                                                         </div>
                                                         <!-- card-block end -->

@@ -1,9 +1,10 @@
-var AppUser = require("../models/AppUserModel");
-var Coordinator = require("../models/CoordinatorModel");
-var Faculty = require("../models/FacultyModel");
-var Articles = require("../models/ArticlesModel");
+const AppUser = require("../models/AppUserModel");
+const Coordinator = require("../models/CoordinatorModel");
+const Faculty = require("../models/FacultyModel");
+const Articles = require("../models/ArticlesModel");
 const Student = require("../models/StudentModel");
-var Topic = require("../models/TopicModel");
+const Topic = require("../models/TopicModel");
+const Comment = require("../models/commentModel");
 
 const GetCoordinatorHome = (req, res, next) => {
   let user = {};
@@ -117,7 +118,9 @@ const getReviewArticles = (req, res, next) => {
     .exec()
     .then((info) => {
       Articles.findOne({ _id: _id })
+        .sort("comments")
         .populate("topic_id")
+        .populate("comments")
         // .populate("comments")
         .exec()
         .then((value) => {
@@ -139,24 +142,81 @@ const getReviewArticles = (req, res, next) => {
 };
 
 const doComment = (req, res, next) => {
-  const { _id, comment } = req.body;
-  Articles.findOneAndUpdate(
-    { _id: _id },
-    {
-      $push: {
-        comments: { comment: comment },
-      },
-    },
-    { new: true, useFindAndModify: false }
-  )
+  const { _id } = req.body;
+  console.log(_id);
+  Coordinator.findOne({ account_id: req.session.userId })
+    .exec()
+    .then((info) => {
+      Articles.findOne({ _id: _id })
+        .exec()
+        .then((article) => {
+          var obj = {
+            author: info._id,
+            comment: req.body.comment,
+          };
+
+          Comment.create(obj, (err, item) => {
+            if (err) {
+              console.log(err);
+            } else {
+              item.save();
+              article.comments.push(item);
+              article.save();
+
+              res.redirect("/coordinators/article_detail?id=" + article._id);
+            }
+          });
+        });
+    });
+  // const { _id, comment } = req.body;
+  // Articles.findOneAndUpdate(
+  //   { _id: _id },
+  //   {
+  //     $push: {
+  //       comments: { comment: comment },
+  //     },
+  //   },
+  //   { new: true, useFindAndModify: false }
+  // )
+  //   .exec()
+  //   .then((value) => {
+  //     console.log(value);
+  //     res.redirect("/coordinators/article_detail?id=" + value._id);
+  //   })
+  //   .catch((err) => {
+  //     console.log(err);
+  //     res.send(err);
+  //   });
+};
+
+// Delete Comments
+const deleteComment = async (req, res, next) => {
+  const { _id } = req.body;
+  await Articles.findOne({ comments: _id })
     .exec()
     .then((value) => {
-      console.log(value);
-      res.redirect("/coordinators/article_detail?id=" + value._id);
+      Articles.findOneAndUpdate(
+        { comments: _id },
+        { $pull: { comments: { comment: _id } } },
+        { safe: true, upsert: true },
+        (err, data) => {
+          if (err) {
+            res.render("error", {
+              message: "Sorry failed to delete comment id in article",
+              error: {
+                status: err,
+                stacks: "failed to delete comment in article",
+              },
+            });
+          } else {
+            console.log("OK");
+            return res.redirect("/coordinators/article_detail?id=" + value._id);
+          }
+        }
+      );
     })
     .catch((err) => {
       console.log(err);
-      res.send(err);
     });
 };
 
@@ -226,4 +286,5 @@ module.exports = {
   getListByFC_coordinator,
   getReviewArticles,
   doComment,
+  deleteComment,
 };

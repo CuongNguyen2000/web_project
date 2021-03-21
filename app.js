@@ -6,17 +6,6 @@ var logger = require("morgan");
 var methodOverride = require("method-override");
 var session = require("express-session");
 
-var http = require("http").createServer(app);
-var io = require("socket.io")(http);
-
-io.on("Connection", (socket) => {
-  console.log("User Connected");
-
-  socket.on("new_comment", (comment) => {
-    io.emit("new_comment", comment);
-  });
-});
-
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var adminRouter = require("./routes/admin");

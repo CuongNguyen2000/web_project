@@ -6,6 +6,7 @@ var { isAdmin } = require("../middleware/RequiresLogin");
 var {
   getListFacultyForAddStudent,
   getListFacultyForAddCoordinator,
+  getListFacultyForAddGuest,
   listStudent_Admin,
   listCoordinator_Admin,
   listManager_Admin,
@@ -44,6 +45,7 @@ var {
   assignFacultyForCoordinator_admin,
   assignFacultyForGuest_admin,
 } = require("../controllers/AdminController");
+
 const Faculty = require("../models/FacultyModel");
 
 // The processing section for Administrator is below
@@ -68,6 +70,7 @@ router.get(
   isAdmin,
   getListFacultyForAddCoordinator
 );
+router.get("/list_faculties_guest", isAdmin, getListFacultyForAddGuest);
 
 // Adding new user account
 router.get("/add_student", isAdmin, (req, res, next) => {
@@ -105,8 +108,16 @@ router.get("/add_manager", isAdmin, (req, res, next) => {
 router.post("/add_manager", isAdmin, addManager_admin);
 
 router.get("/add_guest", isAdmin, (req, res, next) => {
+  const _id = req.query.faculty_id;
   const { msg } = req.query;
-  res.render("adminViews/admin_add_guest", { err: msg });
+  Faculty.findOne({ _id: _id })
+    .exec()
+    .then((faculty) => {
+      res.render("adminViews/admin_add_guest", {
+        err: msg,
+        faculty: faculty,
+      });
+    });
 });
 router.post("/add_guest", isAdmin, addGuest_admin);
 

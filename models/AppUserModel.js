@@ -19,16 +19,6 @@ const AppUserSchema = new mongoose.Schema({
     enum: ["admin", "student", "coordinator", "manager", "guest"],
     default: "student",
   },
-  // detailAccount: [
-  //   {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     refPath: "onModel",
-  //   },
-  // ],
-  // onModel: {
-  //   type: String,
-  //   enum: ["Student", "Manager", "Coordinator", "Guest"],
-  // },
   timeCreated: {
     type: Date,
     default: () => Date.now(),

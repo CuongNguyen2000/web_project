@@ -272,9 +272,30 @@ const deleteArticle_student = async (req, res, next) => {
                 });
               } else {
                 console.log("OK");
-                return res.redirect(
-                  "/students/list_articles?id=" + value.topic_id
+                Faculty.findOneAndUpdate(
+                  { amountArticle: _id },
+                  { $pull: { amountArticle: _id } },
+                  { safe: true, upsert: true },
+                  (err, data) => {
+                    if (err) {
+                      res.render("error", {
+                        message: "Sorry failed to delete post id in students",
+                        error: {
+                          status: err,
+                          stacks: "failed to delete post id in students",
+                        },
+                      });
+                    } else {
+                      console.log("OK");
+                      return res.redirect(
+                        "/students/list_articles?id=" + value.topic_id
+                      );
+                    }
+                  }
                 );
+                // return res.redirect(
+                //   "/students/list_articles?id=" + value.topic_id
+                // );
               }
             }
           );
@@ -290,6 +311,10 @@ const getArticleDetails = (req, res, next) => {
     .then((info) => {
       Articles.findOne({ _id: _id })
         .populate("topic_id")
+        .populate({
+          path: "comments",
+          populate: { path: "author" },
+        })
         .exec()
         .then((value) => {
           console.log(value);

@@ -230,6 +230,25 @@
                                             <div class="col-sm-6">
                                                 <!-- Tab variant tab card start -->
                                                 <div class="card">
+
+                                                    <div class="card-header">
+                                                        <div class="card-header-left ">
+                                                        </div>
+                                                        <div class="card-header-right">
+                                                            <ul class="list-unstyled card-option">
+                                                                <li><i class="icofont icofont-simple-left "></i>
+                                                                </li>
+                                                                <li><i class="icofont icofont-maximize full-card"></i>
+                                                                </li>
+                                                                <li><i class="icofont icofont-minus minimize-card"></i>
+                                                                </li>
+                                                                <li><i class="icofont icofont-refresh reload-card"></i>
+                                                                </li>
+                                                                <li><i class="icofont icofont-error close-card"></i>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
                                                     <div class="card-block">
                                                         <div style=" display: flex;align-items: center;">
                                                             <img class="card-img-top"
@@ -242,13 +261,16 @@
                                                             <p class="card-text">Topic: {{value.topic_id.name}}</p>
                                                         </div>
                                                     </div>
+
+
+
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="card">
                                                     <div class="card-block">
                                                         <h3 class="sub-title">Leave a comment</h3>
-                                                        <form action="/coordinators/do_comment" method="post"
+                                                        <form action="/coordinators/do_comment" method="POST"
                                                             enctype="application/x-www-form-urlencoded"
                                                             onsubmit="doComment(this);">
                                                             <div class="form-group">
@@ -264,51 +286,79 @@
                                                     </div>
                                                 </div>
                                                 {{#if value.comments}}
-                                                <div id="comments">
-                                                    <div class="card">
-                                                        <div class="card-block">
-                                                            {{#each value.comments}}
-                                                            <div class="media mb-4">
-                                                                <img style="width: 50px; height: 50px"
-                                                                    class="d-flex mr-3 rounded-circle"
-                                                                    src="/images/gallery/03.jpg" alt="image">
-                                                                <div class="media-body">
-                                                                    <h5 style="display: inline" class="mt-0">Coordinator
-                                                                        make a comment at</h5>
-                                                                    <span
-                                                                        style="display: inline; color: rgb(184, 183, 183)">-
-                                                                        {{timeCreated}}
-                                                                    </span><br>
-                                                                    <h5>{{comment}}</h5>
-                                                                </div>
-                                                            </div>
-                                                            <hr>
-                                                            {{/each}}
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>List of Comments: </h5>
+                                                        <div class="card-header-left ">
+                                                        </div>
+                                                        <div class="card-header-right">
+                                                            <ul class="list-unstyled card-option">
+                                                                <li><i class="icofont icofont-simple-left "></i>
+                                                                </li>
+                                                                <li><i class="icofont icofont-maximize full-card"></i>
+                                                                </li>
+                                                                <li><i class="icofont icofont-minus minimize-card"></i>
+                                                                </li>
+                                                                <li><i class="icofont icofont-refresh reload-card"></i>
+                                                                </li>
+                                                                <li><i class="icofont icofont-error close-card"></i>
+                                                                </li>
+                                                            </ul>
                                                         </div>
                                                     </div>
-                                                    {{else}}
-                                                    <div class="card">
-                                                        <div class="card-block">
-                                                            <div class="alert alert-info" role="alert">
-                                                                This is no feedback!
+                                                    {{#each value.comments}}
+                                                    <div class="card-block">
+                                                        <div class="media mb-4">
+                                                            <img style="width: 50px; height: 50px"
+                                                                class="d-flex mr-3 rounded-circle"
+                                                                src="/images/gallery/03.jpg" alt="image">
+                                                            <div class="media-body">
+                                                                <h5 style="display: inline" class="mt-0">
+                                                                    You have make a comment at</h5>
+                                                                <span
+                                                                    style="display: inline; color: rgb(184, 183, 183)">-
+                                                                    {{timeCreated}}
+                                                                </span><br>
+                                                                <h5>{{comment}}</h5>
+                                                            </div>
+                                                            <div class="icon-btn">
+                                                                <form action="/coordinators/delete_comment"
+                                                                    method="POST"
+                                                                    enctype="application/x-www-form-urlencoded">
+                                                                    <input type="hidden" name="_id" value={{_id}}>
+                                                                    <input type="hidden" name="_method" value="DELETE">
+                                                                    <button type="submit"
+                                                                        class="btn btn-danger btn-outline-danger btn-icon">
+                                                                        <i class="ti-close"></i>
+                                                                    </button>
+                                                                </form>
                                                             </div>
                                                         </div>
+                                                        <hr>
                                                     </div>
+                                                    {{/each}}
+                                                </div>
 
+                                                {{else}}
+                                                <div class="card">
+                                                    <div class="card-block">
+                                                        <div class="alert alert-info" role="alert">
+                                                            This is no feedback!
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 {{/if}}
                                                 <script>
                                                     function doComment(form) {
-                                                        var formData = { comment: form.comment.value },
-                                                            $.ajax({
-                                                                url: "/coordinators/do_comment",
-                                                                method: "POST",
-                                                                data: formData,
-                                                                _id: form._id.value
-                                                                success: function (res) {
-                                                                    alert("Comment Successfully !!!");
-                                                                }
-                                                            });
+                                                        $.ajax({
+                                                            url: "/coordinators/do_comment",
+                                                            method: "POST",
+                                                            data: { comment: form.comment.value },
+                                                            _id: form._id.value,
+                                                            success: function (res) {
+                                                                alert("Comment Successfully !!!");
+                                                            }
+                                                        });
                                                         return false;
                                                     }
                                                 </script>
@@ -328,17 +378,8 @@
                 </div>
             </div>
         </div>
-        <div class="fixed-button">
-            <a href="https://codedthemes.com/item/guru-able-admin-template/" target="_blank"
-                class="btn btn-md btn-primary">
-                <i class="fa fa-shopping-cart" aria-hidden="true"></i> Upgrade To Pro
-            </a>
-        </div>
     </div>
     </div>
-
-    <script type="text/javascript" src="/node_modules/socket.io/client-dist/socket.io.js"></script>
-
 
     <script type="text/javascript" src="/assets/js/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/assets/js/jquery-ui/jquery-ui.min.js"></script>
@@ -360,18 +401,6 @@
     <script src="/assets/js/pcoded.min.js"></script>
     <script src="/assets/js/demo-12.js"></script>
     <script src="/assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script>
-        var $window = $(window);
-        var nav = $('.fixed-button');
-        $window.scroll(function () {
-            if ($window.scrollTop() >= 200) {
-                nav.addClass('active');
-            }
-            else {
-                nav.removeClass('active');
-            }
-        });
-    </script>
 </body>
 
 </html>

@@ -201,7 +201,7 @@
                                             </a>
                                         </li>
                                         <li class=" ">
-                                            <a href="/admin/list_all_guests">
+                                            <a href="/admin/list_faculties_guest">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
                                                 <span class="pcoded-mtext"
                                                     data-i18n="nav.basic-components.breadcrumbs">Guest Account</span>
@@ -291,17 +291,23 @@
                                                             <div class="col-lg-6">
                                                                 <button class="btn btn-primary col-12"
                                                                     onclick="window.location='/admin/list_all_students?faculty_id={{_id}}'">List
-                                                                    Articles</button>
+                                                                    of Student Account</button>
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <button
                                                                     class="btn btn-primary btn-outline-primary col-12"
                                                                     onclick="window.location='/admin/add_student?faculty_id={{_id}}'">
-                                                                    Add Article
+                                                                    Add new Student
                                                                 </button>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            {{else}}
+                                            <div class="col-lg-12">
+                                                <div class="alert alert-primary" role="alert">
+                                                    There isn't any Faculty !!! Let's add a new Faculty
                                                 </div>
                                             </div>
                                             {{/each}}

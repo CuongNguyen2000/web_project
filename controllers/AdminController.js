@@ -842,17 +842,41 @@ const deleteTopic_admin = (req, res, next) => {
 // The processing section for a Guest's account is below
 // Displaying list of Guest acc
 const listGuest_admin = (req, res, next) => {
-  AppUser.find({ role: "guest" })
+  const _id = req.query.faculty_id;
+  Guest.find({ faculty_id: _id })
+    .populate("account_id")
     .exec()
-    .then((user) => {
-      res.render("adminViews/admin_list_guest", { user: user });
+    .then((guests) => {
+      Faculty.findOne({ _id: _id })
+        .exec()
+        .then((faculty) => {
+          console.log(guests);
+          res.render("adminViews/admin_list_guest", {
+            faculty: faculty,
+            guests: guests,
+          });
+        });
     })
     .catch((err) => console.log(err));
 };
 
+// Get list faculty to add new guest
+const getListFacultyForAddGuest = (req, res, next) => {
+  Faculty.find({})
+    .exec()
+    .then((faculties) => {
+      res.render("adminViews/add_guest", {
+        faculties: faculties,
+      });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
 // Adding new Guest account
 const addGuest_admin = async (req, res, next) => {
-  const { usr, pwd, name, email } = req.body;
+  const { usr, pwd, name, email, _id } = req.body;
   AppUser.findOne({ username: usr }).exec((err, user) => {
     if (err) {
       return console.log(err);
@@ -877,12 +901,13 @@ const addGuest_admin = async (req, res, next) => {
       const newGuest = new Guest({
         name: name,
         email: email,
+        faculty_id: _id,
         account_id: user._id,
       });
 
       await newGuest.save();
 
-      return res.redirect("/admin/list_all_guests");
+      return res.redirect("/admin/list_all_guests?faculty_id=" + _id);
     }
   });
 };
@@ -968,7 +993,9 @@ const updateGuestInfo_admin = (req, res, next) => {
         return res.render("adminViews/admin_update_guestAcc");
       } else {
         console.log(data);
-        return res.redirect("/admin/list_all_guests");
+        return res.redirect(
+          "/admin/list_all_guests?faculty_id=" + data.faculty_id
+        );
       }
     }
   );
@@ -980,20 +1007,26 @@ const updateGuestAcc_admin = (req, res, next) => {
   if (usr) newValue.username = usr;
   if (pwd) newValue.password = pwd;
 
-  AppUser.findOneAndUpdate(
-    { _id: _id },
-    { $set: newValue },
-    { new: true },
-    (err, data) => {
-      if (err) {
-        console.log(err);
-        return res.render("adminViews/admin_update_guestAcc");
-      } else {
-        console.log(data);
-        return res.redirect("/admin/list_all_guests");
-      }
-    }
-  );
+  Guest.findOne({ account_id: _id })
+    .exec()
+    .then((value) => {
+      AppUser.findOneAndUpdate(
+        { _id: _id },
+        { $set: newValue },
+        { new: true },
+        (err, data) => {
+          if (err) {
+            console.log(err);
+            return res.render("adminViews/admin_update_guestAcc");
+          } else {
+            console.log(data);
+            return res.redirect(
+              "/admin/list_all_guests?faculty_id=" + value.faculty_id
+            );
+          }
+        }
+      );
+    });
 };
 
 // Assign faculty for guest
@@ -1008,7 +1041,7 @@ const assignFacultyForGuest_admin = (req, res, next) => {
     .exec()
     .then((value) => {
       console.log(value);
-      res.redirect("/admin/list_all_guests");
+      res.redirect("/admin/list_all_guests?faculty_id=" + value.faculty_id);
     })
     .catch((err) => {
       console.log(err);
@@ -1028,7 +1061,9 @@ const deleteGuest_Admin = async (req, res, next) => {
       Guest.findOneAndRemove({ account_id: _id })
         .then((result) => {
           console.log("OK");
-          return res.redirect("/admin/list_all_guests");
+          return res.redirect(
+            "/admin/list_all_guests?faculty_id=" + result.faculty_id
+          );
         })
         .catch((err) => {
           console.log(err);
@@ -1041,6 +1076,7 @@ const deleteGuest_Admin = async (req, res, next) => {
 module.exports = {
   getListFacultyForAddStudent,
   getListFacultyForAddCoordinator,
+  getListFacultyForAddGuest,
   listStudent_Admin,
   listCoordinator_Admin,
   listManager_Admin,
