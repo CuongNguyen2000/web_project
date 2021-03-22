@@ -4,7 +4,7 @@ var Articles = require("../models/ArticlesModel");
 var Faculty = require("../models/FacultyModel");
 var Topic = require("../models/TopicModel");
 const Coordinator = require("../models/CoordinatorModel");
-
+const Comment = require("../models/commentModel");
 var Nodemailer = require("../middleware/sendingEmail");
 
 const GetStudentHome = (req, res, next) => {
@@ -65,44 +65,42 @@ const addArticle_student = async (req, res, next) => {
   Student.findOne({ account_id: req.session.userId })
     .exec()
     .then((info) => {
-      if (info.faculty_id) {
-        Faculty.findOne({ _id: info.faculty_id })
-          .exec()
-          .then((faculty) => {
-            var obj = {
-              name: req.body.name,
-              desc: req.body.desc,
-              articleImage: req.file.filename,
-              faculty_id: faculty._id,
-              topic_id: _id,
-              author: info._id,
-            };
+      Faculty.findOne({ _id: info.faculty_id })
+        .exec()
+        .then((faculty) => {
+          var obj = {
+            name: req.body.name,
+            desc: req.body.desc,
+            articleImage: req.file.filename,
+            faculty_id: faculty._id,
+            topic_id: _id,
+            author: info._id,
+          };
 
-            Articles.create(obj, async (err, item) => {
-              if (err) {
-                console.log(err);
-              } else {
-                item.save();
-                info.posts.push(item);
-                faculty.amountArticle.push(item);
-                info.save();
-                faculty.save();
-                // const coordinator = await Coordinator.findOne({
-                //   faculty_id: faculty._id,
-                // });
-                // // console.log(coordinator);
-                // await Nodemailer(coordinator.email)
-                //   .then((result) => {
-                //     console.log("Email sent...", result);
-                //   })
-                //   .catch((err) => {
-                //     console.log(err.message);
-                //   });
-                res.redirect("/students/list_articles?id=" + _id);
-              }
-            });
+          Articles.create(obj, async (err, item) => {
+            if (err) {
+              console.log(err);
+            } else {
+              item.save();
+              info.posts.push(item);
+              faculty.amountArticle.push(item);
+              info.save();
+              faculty.save();
+              // const coordinator = await Coordinator.findOne({
+              //   faculty_id: faculty._id,
+              // });
+              // // console.log(coordinator);
+              // await Nodemailer(coordinator.email)
+              //   .then((result) => {
+              //     console.log("Email sent...", result);
+              //   })
+              //   .catch((err) => {
+              //     console.log(err.message);
+              //   });
+              res.redirect("/students/list_articles?id=" + _id);
+            }
           });
-      }
+        });
     });
 };
 
@@ -149,7 +147,7 @@ const getListArticles_student = (req, res, next) => {
 };
 
 const getUpdateArticle_student = (req, res, next) => {
-  const { _id } = req.body;
+  const _id = req.params.id;
   Student.findOne({ account_id: req.session.userId })
     .exec()
     .then((info) => {
@@ -203,12 +201,16 @@ const getUpdateArticle_student = (req, res, next) => {
 
 // Update article information
 const updateArticleInfo = (req, res, next) => {
-  const { _id, name, desc, image } = req.body;
-  // const image = req.file.filename;
+  const { _id, name, desc } = req.body;
+
   const newValue = {};
+  // console.log(req.file);
+  if (req.file) {
+    const image = req.file.filename;
+    newValue.articleImage = image;
+  }
   if (name) newValue.name = name;
   if (desc) newValue.desc = desc;
-  // if (image) newValue.articleImage = req.file;
   Articles.findOneAndUpdate(
     { _id: _id },
     { $set: newValue },
@@ -216,6 +218,7 @@ const updateArticleInfo = (req, res, next) => {
   )
     .exec()
     .then((value) => {
+      console.log("OK");
       console.log(value);
       res.redirect("/students/list_articles?id=" + value.topic_id);
     })
@@ -256,49 +259,61 @@ const deleteArticle_student = async (req, res, next) => {
           console.log(err);
           return res.redirect("/students/list_articles?id=" + value.topic_id);
         } else {
-          console.log("Ok");
-          Student.findOneAndUpdate(
-            { posts: _id },
-            { $pull: { posts: _id } },
-            { safe: true, upsert: true },
-            (err, data) => {
-              if (err) {
-                res.render("error", {
-                  message: "Sorry failed to delete post id in students",
-                  error: {
-                    status: err,
-                    stacks: "failed to delete post id in students",
-                  },
-                });
-              } else {
-                console.log("OK");
-                Faculty.findOneAndUpdate(
-                  { amountArticle: _id },
-                  { $pull: { amountArticle: _id } },
-                  { safe: true, upsert: true },
-                  (err, data) => {
-                    if (err) {
-                      res.render("error", {
-                        message: "Sorry failed to delete post id in students",
-                        error: {
-                          status: err,
-                          stacks: "failed to delete post id in students",
-                        },
-                      });
-                    } else {
-                      console.log("OK");
-                      return res.redirect(
-                        "/students/list_articles?id=" + value.topic_id
-                      );
-                    }
+          console.log("====================================");
+          console.log("Delete successfully in Articles");
+
+          Comment.findOneAndRemove({ _id: value.comments }, (err) => {
+            if (err) {
+              console.log(err);
+              return res.redirect(
+                "/students/list_articles?id=" + value.topic_id
+              );
+            } else {
+              console.log("Delete successfully in Comment");
+              Student.findOneAndUpdate(
+                { posts: _id },
+                { $pull: { posts: _id } },
+                { safe: true, upsert: true },
+                (err, data) => {
+                  if (err) {
+                    res.render("error", {
+                      message: "Sorry failed to delete post id in students",
+                      error: {
+                        status: err,
+                        stacks: "failed to delete post id in students",
+                      },
+                    });
+                  } else {
+                    console.log("Delete successfully in array from Student");
+                    Faculty.findOneAndUpdate(
+                      { amountArticle: _id },
+                      { $pull: { amountArticle: _id } },
+                      { safe: true, upsert: true },
+                      (err, data) => {
+                        if (err) {
+                          res.render("error", {
+                            message:
+                              "Sorry failed to delete post id in students",
+                            error: {
+                              status: err,
+                              stacks: "failed to delete post id in students",
+                            },
+                          });
+                        } else {
+                          console.log(
+                            "Delete successfully in array from Faculty"
+                          );
+                          return res.redirect(
+                            "/students/list_articles?id=" + value.topic_id
+                          );
+                        }
+                      }
+                    );
                   }
-                );
-                // return res.redirect(
-                //   "/students/list_articles?id=" + value.topic_id
-                // );
-              }
+                }
+              );
             }
-          );
+          });
         }
       });
     });

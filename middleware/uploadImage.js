@@ -23,6 +23,11 @@ var storage = multer.diskStorage({
 });
 
 var upload = multer({ storage: storage }).single("image");
-var uploadFilesMiddleware = util.promisify(upload);
+var multerInstance = util.promisify(upload);
 
-module.exports = uploadFilesMiddleware;
+// const test = (req, res, next) => {
+//   console.log(req);
+//   console.log(req.file);
+// };
+
+module.exports = { multerInstance };

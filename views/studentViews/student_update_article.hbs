@@ -228,7 +228,7 @@
                                                     <div class="card-block">
                                                         <h3 class="sub-title">Update article information</h3>
                                                         <form action="/students/update_article_information"
-                                                            method="POST" enctype="application/x-www-form-urlencoded">
+                                                            method="POST" enctype="multipart/form-data">
                                                             <div class="form-group">
                                                                 <label class="">Article Title:
                                                                     <span class="changeStyle">{{data.value.name}}</span>
@@ -245,16 +245,17 @@
                                                                     class="form-control"
                                                                     placeholder="Describe your article"></textarea>
                                                             </div>
-                                                            {{!-- <div class="form-group">
+                                                            <div class="form-group">
                                                                 <label class="">Upload File: You
                                                                     can upload image
-                                                                    file or PDF file:
-                                                                    {{data.value.articleImage}}</label>
+                                                                    file or PDF file: <span class="changeStyle">
+                                                                        {{data.value.articleImage}}</span>
+                                                                </label>
 
                                                                 <input name="image" id="image" type="file"
                                                                     class="form-control">
-                                                            </div> --}}
-                                                            <input type="hidden" name="_method" value="PUT">
+                                                            </div>
+                                                            {{!-- <input type="hidden" name="_method" value="PUT"> --}}
                                                             <input type="hidden" name="_id" value="{{data._id}}">
                                                             <button type="submit" class="btn btn-primary"
                                                                 id="submit_info">Update</button>
@@ -264,33 +265,49 @@
                                                 <!-- Tab variant tab card end -->
                                                 <!-- Tab variant tab card start -->
                                                 <div class="card">
-                                                    <div class="card-block">
-                                                        <h3 class="sub-title">Assign Topic</h3>
-                                                        Curently Topic
-                                                        <ol>
-                                                            <li class="changeStyle">{{data.assign}}</li>
-                                                        </ol>
-                                                        <form action="/students/assign_topic_article" method="post"
-                                                            enctype="application/x-www-form-urlencoded">
-                                                            <div class="form-group">
-                                                                <label for="type">List of Topics</label>
-                                                                <select class="form-control" id="topic" name="topic">
-                                                                    {{#each data.topic}}
-                                                                    <option value="{{_id}}">{{name}}</option>
-                                                                    {{/each}}
-                                                                </select>
-                                                            </div>
-                                                            <input type="hidden" name="_id" value="{{data._id}}">
-                                                            <input type="hidden" name="_method" value="PUT">
-                                                            <button type="submit" class="btn btn-primary"
-                                                                id="submit_info">Assign</button>
-                                                        </form>
-                                                        <br><br>
-                                                        {{#if err}}
-                                                        <div class="alert alert-danger" role="alert">
-                                                            {{err}}
+                                                    <div class="card-header">
+                                                        <h4>Assign Topic</h4>
+                                                        <div class="card-header-right">
                                                         </div>
-                                                        {{/if}}
+                                                    </div>
+                                                    <div class="card-block list-tag">
+                                                        <div class="row">
+                                                            <div class="col-sm-12 col-xl-4">
+                                                                <h5 class="sub-title">Current Topic</h5>
+                                                                <ul>
+                                                                    <li>
+                                                                        <i
+                                                                            class="icofont icofont-stylish-right text-danger"></i>{{data.assign}}
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="col-sm-12 col-xl-8">
+                                                                <h5 class="sub-title">List of Topic</h5>
+                                                                <form action="/students/assign_topic_article"
+                                                                    method="put" enctype="multipart/form-data">
+                                                                    <div class="form-group">
+                                                                        <select class="form-control" id="topic"
+                                                                            name="topic">
+                                                                            {{#each data.topic}}
+                                                                            <option value="{{_id}}">{{name}}
+                                                                            </option>
+                                                                            {{/each}}
+                                                                        </select>
+                                                                    </div>
+                                                                    <input type="hidden" name="_id"
+                                                                        value="{{data._id}}">
+                                                                    <input type="hidden" name="_method">
+                                                                    <button type="submit" class="btn btn-primary"
+                                                                        id="submit_info">Assign</button>
+                                                                </form>
+                                                                <br><br>
+                                                                {{#if err}}
+                                                                <div class="alert alert-danger" role="alert">
+                                                                    {{err}}
+                                                                </div>
+                                                                {{/if}}
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <!-- Tab variant tab card end -->

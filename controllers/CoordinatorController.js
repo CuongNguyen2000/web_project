@@ -121,7 +121,6 @@ const getReviewArticles = (req, res, next) => {
         .sort("comments")
         .populate("topic_id")
         .populate("comments")
-        // .populate("comments")
         .exec()
         .then((value) => {
           console.log(value);
@@ -150,6 +149,7 @@ const doComment = (req, res, next) => {
       Articles.findOne({ _id: _id })
         .exec()
         .then((article) => {
+          console.log(article);
           var obj = {
             author: info._id,
             comment: req.body.comment,
@@ -160,6 +160,7 @@ const doComment = (req, res, next) => {
               console.log(err);
             } else {
               item.save();
+              // console.log(item);
               article.comments.push(item);
               article.save();
 
@@ -197,7 +198,7 @@ const deleteComment = async (req, res, next) => {
     .then((value) => {
       Articles.findOneAndUpdate(
         { comments: _id },
-        { $pull: { comments: { comment: _id } } },
+        { $pull: { comments: _id } },
         { safe: true, upsert: true },
         (err, data) => {
           if (err) {
@@ -209,8 +210,20 @@ const deleteComment = async (req, res, next) => {
               },
             });
           } else {
-            console.log("OK");
-            return res.redirect("/coordinators/article_detail?id=" + value._id);
+            console.log("Delete successfully in array from Article");
+            Comment.findOneAndRemove({ _id: value.comments }, (err) => {
+              if (err) {
+                console.log(err);
+                return res.redirect(
+                  "/coordinators/article_detail?id=" + value._id
+                );
+              } else {
+                console.log("Delete successfully in Comment");
+                return res.redirect(
+                  "/coordinators/article_detail?id=" + value._id
+                );
+              }
+            });
           }
         }
       );
@@ -220,70 +233,10 @@ const deleteComment = async (req, res, next) => {
     });
 };
 
-const getListByTechnology_coordinator = async (req, res, next) => {
-  const topicName = await Topic.findOne({ name: "Technologies" });
-  Coordinator.findOne({ account_id: req.session.userId })
-    .exec()
-    .then((info) => {
-      Topic.findOne({ _id: topicName })
-        .exec()
-        .then((topic) => {
-          if (info.faculty_id) {
-            Articles.find({
-              topic_id: topic._id,
-              faculty_id: info.faculty_id,
-            }).exec((err, items) => {
-              if (err) {
-                console.log(err);
-                res.status(500).send("An error occurred", err);
-              } else {
-                console.log(items);
-                res.render("coordinatorViews/list_technologies_articles", {
-                  items: items,
-                  info: info,
-                });
-              }
-            });
-          }
-        });
-    });
-};
-
-const getListByFC_coordinator = async (req, res, next) => {
-  const topicName = await Topic.findOne({ name: "Foods and Cooking" });
-  Coordinator.findOne({ account_id: req.session.userId })
-    .exec()
-    .then((info) => {
-      Topic.findOne({ _id: topicName })
-        .exec()
-        .then((topic) => {
-          if (info.faculty_id) {
-            Articles.find({
-              topic_id: topic._id,
-              faculty_id: info.faculty_id,
-            }).exec((err, items) => {
-              if (err) {
-                console.log(err);
-                res.status(500).send("An error occurred", err);
-              } else {
-                console.log(items);
-                res.render("coordinatorViews/list_F&C_articles", {
-                  items: items,
-                  info: info,
-                });
-              }
-            });
-          }
-        });
-    });
-};
-
 module.exports = {
   GetCoordinatorHome,
   getListArticles_coordinator,
   acceptArticle_coordinator,
-  getListByTechnology_coordinator,
-  getListByFC_coordinator,
   getReviewArticles,
   doComment,
   deleteComment,

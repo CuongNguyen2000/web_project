@@ -230,7 +230,6 @@
                                             <div class="col-sm-6">
                                                 <!-- Tab variant tab card start -->
                                                 <div class="card">
-
                                                     <div class="card-header">
                                                         <div class="card-header-left ">
                                                         </div>
@@ -261,9 +260,6 @@
                                                             <p class="card-text">Topic: {{value.topic_id.name}}</p>
                                                         </div>
                                                     </div>
-
-
-
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
@@ -274,8 +270,8 @@
                                                             enctype="application/x-www-form-urlencoded"
                                                             onsubmit="doComment(this);">
                                                             <div class="form-group">
-                                                                <textarea class="form-control" name="comment" id=""
-                                                                    rows="6"></textarea>
+                                                                <textarea class="form-control" name="comment"
+                                                                    id="comment" rows="6"></textarea>
                                                             </div>
                                                             <input type="hidden" id="_id" name="_id"
                                                                 value="{{value._id}}">
@@ -348,20 +344,7 @@
                                                     </div>
                                                 </div>
                                                 {{/if}}
-                                                <script>
-                                                    function doComment(form) {
-                                                        $.ajax({
-                                                            url: "/coordinators/do_comment",
-                                                            method: "POST",
-                                                            data: { comment: form.comment.value },
-                                                            _id: form._id.value,
-                                                            success: function (res) {
-                                                                alert("Comment Successfully !!!");
-                                                            }
-                                                        });
-                                                        return false;
-                                                    }
-                                                </script>
+
                                             </div>
 
                                         </div>

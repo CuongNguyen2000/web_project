@@ -14,7 +14,7 @@ const CommentSchema = new mongoose.Schema({
 });
 
 CommentSchema.virtual("comment_article", {
-  ref: "Article",
+  ref: "Articles",
   localField: "_id",
   foreignField: "comments",
 });

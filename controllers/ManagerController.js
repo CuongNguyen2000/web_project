@@ -78,6 +78,25 @@ const getStatistics_manager = (req, res, next) => {
     });
 };
 
+const getDetailStatistics = (req, res, next) => {
+  const _id = req.params.id;
+  Manager.findOne({ account_id: req.session.userId })
+    .exec()
+    .then((info) => {
+      Faculty.find({ _id: _id })
+        .exec()
+        .then((faculty) => {
+          Article.find({ faculty_id: faculty._id })
+            .exec()
+            .then((article) => {
+              res.render("managerViews/manager_detail_statistic", {
+                info: info,
+              });
+            });
+        });
+    });
+};
+
 const downloadFile = (req, res, next) => {
   var a = req.body.check;
   if (!a) {
@@ -111,5 +130,6 @@ module.exports = {
   GetManagerHome,
   getListArticles_manager,
   getStatistics_manager,
+  getDetailStatistics,
   downloadFile,
 };

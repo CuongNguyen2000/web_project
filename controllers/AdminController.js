@@ -1,8 +1,8 @@
-var AppUser = require("../models/AppUserModel");
-var Student = require("../models/StudentModel");
-var Coordinator = require("../models/CoordinatorModel");
-var Manager = require("../models/ManagerModel");
-var Faculty = require("../models/FacultyModel");
+const AppUser = require("../models/AppUserModel");
+const Student = require("../models/StudentModel");
+const Coordinator = require("../models/CoordinatorModel");
+const Manager = require("../models/ManagerModel");
+const Faculty = require("../models/FacultyModel");
 const Guest = require("../models/GuestModel");
 const Topic = require("../models/TopicModel");
 
@@ -205,10 +205,10 @@ const deleteStudent_Admin = async (req, res, next) => {
       console.log(err);
       return res.redirect("/admin/list_all_students");
     } else {
-      console.log("Ok");
+      console.log("Delete successfully in AppUser");
       Student.findOneAndRemove({ account_id: _id })
         .then((result) => {
-          console.log("OK");
+          console.log("Delete successfully in Student");
           return res.redirect(
             "/admin/list_all_students?faculty_id=" + result.faculty_id
           );
@@ -445,10 +445,10 @@ const deleteCoordinator_Admin = async (req, res, next) => {
       console.log(err);
       return res.redirect("/admin/list_all_coordinators");
     } else {
-      console.log("Ok");
+      console.log("Delete successfully in AppUser");
       Coordinator.findOneAndRemove({ account_id: _id })
         .then((result) => {
-          console.log("OK");
+          console.log("Delete successfully in Coordinator");
           return res.redirect(
             "/admin/list_all_coordinators?faculty_id=" + result.faculty_id
           );
@@ -628,10 +628,10 @@ const deleteManager_Admin = async (req, res, next) => {
       console.log(err);
       return res.redirect("/admin/list_all_managers");
     } else {
-      console.log("Ok");
+      console.log("Delete successfully in AppUser");
       Manager.findOneAndRemove({ account_id: _id })
         .then((result) => {
-          console.log("OK");
+          console.log("Delete successfully in Manager");
           return res.redirect("/admin/list_all_managers");
         })
         .catch((err) => {
@@ -727,6 +727,7 @@ const deleteFaculty_admin = (req, res, next) => {
   Faculty.findByIdAndRemove({ _id: _id })
     .exec()
     .then((value) => {
+      console.log("Delete successfully in Faculty");
       console.log(value);
       res.redirect("/admin/list_all_faculty");
     })
@@ -825,6 +826,7 @@ const deleteTopic_admin = (req, res, next) => {
   Topic.findByIdAndRemove({ _id: _id })
     .exec()
     .then((value) => {
+      console.log("Delete successfully in Topic");
       console.log(value);
       res.redirect("/admin/list_all_topic");
     })
@@ -1057,10 +1059,10 @@ const deleteGuest_Admin = async (req, res, next) => {
       console.log(err);
       return res.redirect("/admin/list_all_guests");
     } else {
-      console.log("Ok");
+      console.log("Delete successfully in AppUser");
       Guest.findOneAndRemove({ account_id: _id })
         .then((result) => {
-          console.log("OK");
+          console.log("Delete successfully in Guest");
           return res.redirect(
             "/admin/list_all_guests?faculty_id=" + result.faculty_id
           );

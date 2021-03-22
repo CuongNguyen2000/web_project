@@ -15,7 +15,7 @@ var {
   updateArticleInfo,
 } = require("../controllers/StudentController");
 
-var multerInstance = require("../middleware/uploadImage");
+var { multerInstance } = require("../middleware/uploadImage");
 const Student = require("../models/StudentModel");
 const Topic = require("../models/TopicModel");
 const Articles = require("../models/ArticlesModel");
@@ -78,10 +78,10 @@ router.delete("/delete_article", isStudent, deleteArticle_student);
 router.put("/assign_topic_article", isStudent, assignTopicForArticle_student);
 
 // GET update page article
-router.post("/update_article", isStudent, getUpdateArticle_student);
+router.post("/update_article/:id", isStudent, getUpdateArticle_student);
 
 // update article Information
-router.put(
+router.post(
   "/update_article_information",
   multerInstance,
   isStudent,

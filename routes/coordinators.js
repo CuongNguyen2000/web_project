@@ -7,8 +7,6 @@ var {
   GetCoordinatorHome,
   getListArticles_coordinator,
   acceptArticle_coordinator,
-  getListByTechnology_coordinator,
-  getListByFC_coordinator,
   getReviewArticles,
   doComment,
   deleteComment,
@@ -25,14 +23,6 @@ router.get("/list_articles", isCoordinator, getListArticles_coordinator);
 
 // accept article for publication
 router.put("/accept_article", isCoordinator, acceptArticle_coordinator);
-
-router.get(
-  "/list_technologies_articles",
-  isCoordinator,
-  getListByTechnology_coordinator
-);
-
-router.get("/list_F&C_articles", isCoordinator, getListByFC_coordinator);
 
 router.get("/article_detail", isCoordinator, getReviewArticles);
 
