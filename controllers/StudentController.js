@@ -65,42 +65,44 @@ const addArticle_student = async (req, res, next) => {
   Student.findOne({ account_id: req.session.userId })
     .exec()
     .then((info) => {
-      Faculty.findOne({ _id: info.faculty_id })
-        .exec()
-        .then((faculty) => {
-          var obj = {
-            name: req.body.name,
-            desc: req.body.desc,
-            articleImage: req.file.filename,
-            faculty_id: faculty._id,
-            topic_id: _id,
-            author: info._id,
-          };
+      if (info.faculty_id) {
+        Faculty.findOne({ _id: info.faculty_id })
+          .exec()
+          .then((faculty) => {
+            var obj = {
+              name: req.body.name,
+              desc: req.body.desc,
+              articleImage: req.file.filename,
+              faculty_id: faculty._id,
+              topic_id: _id,
+              author: info._id,
+            };
 
-          Articles.create(obj, async (err, item) => {
-            if (err) {
-              console.log(err);
-            } else {
-              item.save();
-              info.posts.push(item);
-              faculty.amountArticle.push(item);
-              info.save();
-              faculty.save();
-              // const coordinator = await Coordinator.findOne({
-              //   faculty_id: faculty._id,
-              // });
-              // // console.log(coordinator);
-              // await Nodemailer(coordinator.email)
-              //   .then((result) => {
-              //     console.log("Email sent...", result);
-              //   })
-              //   .catch((err) => {
-              //     console.log(err.message);
-              //   });
-              res.redirect("/students/list_articles?id=" + _id);
-            }
+            Articles.create(obj, async (err, item) => {
+              if (err) {
+                console.log(err);
+              } else {
+                item.save();
+                info.posts.push(item);
+                faculty.amountArticle.push(item);
+                info.save();
+                faculty.save();
+                // const coordinator = await Coordinator.findOne({
+                //   faculty_id: faculty._id,
+                // });
+                // // console.log(coordinator);
+                // await Nodemailer(coordinator.email)
+                //   .then((result) => {
+                //     console.log("Email sent...", result);
+                //   })
+                //   .catch((err) => {
+                //     console.log(err.message);
+                //   });
+                res.redirect("/students/list_articles?id=" + _id);
+              }
+            });
           });
-        });
+      }
     });
 };
 

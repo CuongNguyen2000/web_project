@@ -80,18 +80,29 @@ const getStatistics_manager = (req, res, next) => {
 
 const getDetailStatistics = (req, res, next) => {
   const _id = req.params.id;
+  let demo = {};
   Manager.findOne({ account_id: req.session.userId })
     .exec()
     .then((info) => {
-      Faculty.find({ _id: _id })
+      Faculty.findOne({ _id: _id })
         .exec()
         .then((faculty) => {
-          Article.find({ faculty_id: faculty._id })
+          Article.find({ faculty_id: faculty._id, status: false })
+            .populate("topic_id")
+            .populate("author")
             .exec()
             .then((article) => {
-              res.render("managerViews/manager_detail_statistic", {
-                info: info,
-              });
+              demo["rejectArticle"] = article;
+              Article.find({ faculty_id: faculty._id, status: true })
+                .exec()
+                .then((article) => {
+                  demo["acceptArticle"] = article;
+                  res.render("managerViews/manager_detail_statistic", {
+                    info: info,
+                    faculty: faculty,
+                    demo: demo,
+                  });
+                });
             });
         });
     });

@@ -169,25 +169,6 @@ const doComment = (req, res, next) => {
           });
         });
     });
-  // const { _id, comment } = req.body;
-  // Articles.findOneAndUpdate(
-  //   { _id: _id },
-  //   {
-  //     $push: {
-  //       comments: { comment: comment },
-  //     },
-  //   },
-  //   { new: true, useFindAndModify: false }
-  // )
-  //   .exec()
-  //   .then((value) => {
-  //     console.log(value);
-  //     res.redirect("/coordinators/article_detail?id=" + value._id);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //     res.send(err);
-  //   });
 };
 
 // Delete Comments
