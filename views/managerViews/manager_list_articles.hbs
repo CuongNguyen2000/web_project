@@ -254,48 +254,57 @@
                                                 <!-- Tab variant tab card start -->
                                                 <div class="card">
                                                     <div class="card-block table-border-style">
+                                                        {{!-- <form action="/managers/downloadFile" method="post"
+                                                            name="">
+                                                            <input type="hidden" name="check" value="." />
+                                                            {{#each items}}
+                                                            <input type="text" value="{{topic_id.name}}" name="slug">
+                                                            <input type="checkbox" name="check"
+                                                                value="uploads/{{articleImage}}" />
+                                                            <label>{{articleImage}}</label>
+                                                            <br>
+                                                            <br> <br>
+                                                            {{/each}}
+                                                            <input type="submit" id="btn" value="Download" />
+                                                        </form> --}}
                                                         <div class="table-responsive">
                                                             <table class="table table-hover">
+
                                                                 <thead>
                                                                     <tr>
                                                                         <th scope="col">#</th>
                                                                         <th scope="col">Student</th>
                                                                         <th scope="col">Article Name</th>
-                                                                        {{!-- <th scope="col">Article Image</th> --}}
                                                                         <th scope="col">File Name</th>
                                                                         <th scope="col">Description</th>
                                                                         <th scope="col">Topic</th>
                                                                         <th scope="col">Faculty</th>
                                                                         <th scope="col">Choose to download</th>
                                                                         <th scope="col">Option</th>
-                                                                    <tr></tr>
+                                                                    </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <form action="/managers/downloadFile" method="POST"
-                                                                        enctype="application/x-www-form-urlencoded">
-                                                                        <input type="hidden" name="check" id="">
-
+                                                                    <form action="/managers/downloadFile" method="POST">
+                                                                        <input type="hidden" name="check" id=""
+                                                                            value=".">
+                                                                        <button type="submit" class="btn btn-danger"
+                                                                            onsubmit="alert(this);">Download</button>
                                                                         {{#each items}}
                                                                         <tr>
                                                                             <td scope="row">{{@index}}</td>
                                                                             <td scope="row">{{author.name}}</td>
                                                                             <td scope="row">{{name}}</td>
-                                                                            {{!-- <td scope="row"> <img
-                                                                                    src="/uploads/{{this.articleImage}}"
-                                                                                    alt="Image" class="reSize" />
-                                                                            </td> --}}
                                                                             <td scope="row">{{this.articleImage}}</td>
                                                                             <td scope="row">{{desc}}</td>
                                                                             <td scope="row">{{topic_id.name}}</td>
                                                                             <td scope="row">{{faculty_id.name}}</td>
-
                                                                             <td class="d-flex flex-row" scope="row">
                                                                                 <div
                                                                                     class="checkbox-fade fade-in-primary d-block">
                                                                                     <label class="check-task d-block">
                                                                                         <input type="checkbox"
                                                                                             name="check" id="myCheck"
-                                                                                            value="{{articleImage}}">
+                                                                                            value="uploads/{{articleImage}}">
                                                                                         <span class="cr">
                                                                                             <i
                                                                                                 class="cr-icon icofont icofont-ui-check txt-default"></i>
@@ -322,25 +331,10 @@
                                                                             </td>
                                                                         </tr>
                                                                         {{/each}}
-                                                                        <button type="submit" class="btn btn-danger"
-                                                                            onsubmit="alert(this);">Download</button>
                                                                     </form>
+
                                                                 </tbody>
                                                             </table>
-                                                            <script>
-                                                                function alert(form) {
-                                                                    var formData = { check: form.check.value };
-                                                                    $.ajax({
-                                                                        url: "/managers/downloadFile",
-                                                                        method: "POST",
-                                                                        data: formData,
-                                                                        _id: form._id.value,
-                                                                        error: function (error) {
-                                                                            alert("Please choose at least one file to download")
-                                                                        };
-                                                                    })
-                                                                }
-                                                            </script>
                                                         </div>
                                                         {{!-- table responsive end --}}
                                                     </div>

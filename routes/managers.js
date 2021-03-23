@@ -26,11 +26,13 @@ router.get("/statistic_contributions", isManager, getStatistics_manager);
 // Get detail statistic page
 router.get("/detail_statistic/:id", isManager, getDetailStatistics);
 
-router.get("/downloadFile", (req, res, next) => {
+router.post("/downloadFile", isManager, downloadFile);
+
+router.get("/downloadFile", isManager, (req, res, next) => {
   var x = __dirname.replace("routes", "public/") + "fileDownload.zip";
+  console.log("===========");
+  console.log(x);
   res.download(x);
 });
-
-router.post("/downloadFile", isManager, downloadFile);
 
 module.exports = router;

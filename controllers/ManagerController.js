@@ -91,17 +91,40 @@ const getDetailStatistics = (req, res, next) => {
             .populate("topic_id")
             .populate("author")
             .exec()
-            .then((article) => {
-              demo["rejectArticle"] = article;
+            .then((rejectArticle) => {
+              demo["rejectArticle"] = rejectArticle;
               Article.find({ faculty_id: faculty._id, status: true })
+                .populate("topic_id")
+                .populate("author")
                 .exec()
-                .then((article) => {
-                  demo["acceptArticle"] = article;
-                  res.render("managerViews/manager_detail_statistic", {
-                    info: info,
-                    faculty: faculty,
-                    demo: demo,
-                  });
+                .then((acceptArticle) => {
+                  demo["acceptArticle"] = acceptArticle;
+                  Article.find({
+                    faculty_id: faculty._id,
+                    comments: { $exists: true, $ne: [] },
+                  })
+                    .populate("topic_id")
+                    .populate("author")
+                    .exec()
+                    .then((article) => {
+                      demo["commentExist"] = article;
+                      Article.find({
+                        faculty_id: faculty._id,
+                        comments: { $exists: true, $size: 0 },
+                      })
+                        .populate("topic_id")
+                        .populate("author")
+                        .exec()
+                        .then((article) => {
+                          demo["noComment"] = article;
+                          // console.log(demo);
+                          res.render("managerViews/manager_detail_statistic", {
+                            info: info,
+                            faculty: faculty,
+                            demo: demo,
+                          });
+                        });
+                    });
                 });
             });
         });
@@ -116,23 +139,33 @@ const downloadFile = (req, res, next) => {
     );
   } else {
     var output = fs.createWriteStream("public/fileDownload.zip");
-    var archive = archiver("zip");
+    var archive = archiver("zip", {
+      zlib: { level: 9 },
+    });
+
+    // listen for all archive data to be written
+    // 'close' event is fired only when a file descriptor is involved
     output.on("close", () => {
       console.log(archive.pointer() + " total bytes");
       console.log(
         "Archiver has been finalized and the output file descriptor has closed"
       );
     });
+    output.on("end", function () {
+      console.log("Data has been drained");
+    });
     archive.on("error", (err) => {
       throw err;
     });
 
     archive.pipe(output);
-    for (var n = 1; n < a.length; n++) {
-      var file = "public/uploads/" + a[n];
+    for (var i = 1; i < a.length; i++) {
+      var file = "public/" + a[i];
+      console.log("file name: ", file);
       archive.append(fs.createReadStream(file), { name: file });
     }
     archive.finalize();
+    // console.log(output);
     res.redirect("/managers/downloadFile");
   }
 };

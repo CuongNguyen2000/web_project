@@ -227,6 +227,12 @@
                                                 <div class="card">
                                                     <div class="card-block">
                                                         <h3 class="sub-title">Update article information</h3>
+                                                        {{#if err}}
+                                                        <div class="alert alert-danger" role="alert"
+                                                            style="width: auto;">
+                                                            {{err}}
+                                                        </div>
+                                                        {{else}}
                                                         <form action="/students/update_article_information"
                                                             method="POST" enctype="multipart/form-data">
                                                             <div class="form-group">
@@ -301,16 +307,15 @@
                                                                         id="submit_info">Assign</button>
                                                                 </form>
                                                                 <br><br>
-                                                                {{#if err}}
-                                                                <div class="alert alert-danger" role="alert">
-                                                                    {{err}}
-                                                                </div>
-                                                                {{/if}}
+
+
                                                             </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <!-- Tab variant tab card end -->
+                                                {{/if}}
                                             </div>
 
                                         </div>

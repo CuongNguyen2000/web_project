@@ -149,6 +149,12 @@ const getListArticles_student = (req, res, next) => {
 };
 
 const getUpdateArticle_student = (req, res, next) => {
+  var Xmas95 = new Date();
+  var day = Xmas95.getDate().toString().padStart(2, "0");
+  var month = (Xmas95.getMonth() + 1).toString().padStart(2, "0");
+  var year = Xmas95.getFullYear();
+  let now = year + "-" + month + "-" + day;
+
   const _id = req.params.id;
   Student.findOne({ account_id: req.session.userId })
     .exec()
@@ -159,24 +165,38 @@ const getUpdateArticle_student = (req, res, next) => {
           Topic.find({})
             .exec()
             .then((topic) => {
-              if (value.topic_id) {
-                Topic.findOne({ _id: value.topic_id })
-                  .exec()
-                  .then((assign) => {
-                    console.log(assign);
-                    res.render("studentViews/student_update_article", {
-                      data: {
-                        value: value,
-                        _id: value._id,
-                        assign: assign.name,
-                        topic: topic,
-                        info: info,
-                      },
-                    });
-                  })
-                  .catch();
+              if (topic.timeOver > now) {
+                if (value.topic_id) {
+                  Topic.findOne({ _id: value.topic_id })
+                    .exec()
+                    .then((assign) => {
+                      console.log(assign);
+                      res.render("studentViews/student_update_article", {
+                        data: {
+                          value: value,
+                          _id: value._id,
+                          assign: assign.name,
+                          topic: topic,
+                          info: info,
+                        },
+                      });
+                    })
+                    .catch();
+                } else {
+                  res.render("studentViews/student_update_article", {
+                    data: {
+                      value: value,
+                      _id: value._id,
+                      topic: topic,
+                      info: info,
+                    },
+                  });
+                }
               } else {
+                const msg =
+                  "The time allowed to post has expired and you can't edit your article !!!";
                 res.render("studentViews/student_update_article", {
+                  err: msg,
                   data: {
                     value: value,
                     _id: value._id,
