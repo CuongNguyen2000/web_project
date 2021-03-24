@@ -305,13 +305,11 @@
                                                                         <td>Hidden</td>
                                                                         <td>{{account_id.timeCreated}}</td>
                                                                         <td class="d-flex flex-row">
-                                                                            <form action="/admin/update_student"
-                                                                                method="POST">
-                                                                                <input type="hidden" name="_id"
-                                                                                    value={{account_id._id}}>
+                                                                            <a
+                                                                                href="/admin/update_student/{{account_id._id}}">
                                                                                 <button type="submit"
                                                                                     class="btn btn-primary">Update</button>
-                                                                            </form>
+                                                                            </a>
                                                                             <form action="/admin/delete_student"
                                                                                 method="POST"
                                                                                 enctype="application/x-www-form-urlencoded">

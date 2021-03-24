@@ -306,13 +306,10 @@
                                                                         <td>Hidden</td>
                                                                         <td>{{timeCreated}}</td>
                                                                         <td class="d-flex flex-row">
-                                                                            <form action="/admin/update_manager"
-                                                                                method="POST">
-                                                                                <input type="hidden" name="_id"
-                                                                                    value={{_id}}>
+                                                                            <a href="/admin/update_manager/{{_id}}">
                                                                                 <button type="submit"
                                                                                     class="btn btn-primary">Update</button>
-                                                                            </form>
+                                                                            </a>
                                                                             <form action="/admin/delete_manager"
                                                                                 method="POST"
                                                                                 enctype="application/x-www-form-urlencoded">

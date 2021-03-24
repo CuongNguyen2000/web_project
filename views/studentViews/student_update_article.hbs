@@ -227,10 +227,10 @@
                                                 <div class="card">
                                                     <div class="card-block">
                                                         <h3 class="sub-title">Update article information</h3>
-                                                        {{#if err}}
+                                                        {{#if data.err}}
                                                         <div class="alert alert-danger" role="alert"
                                                             style="width: auto;">
-                                                            {{err}}
+                                                            {{data.err}}
                                                         </div>
                                                         {{else}}
                                                         <form action="/students/update_article_information"

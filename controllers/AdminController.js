@@ -44,46 +44,52 @@ const getListFacultyForAddStudent = (req, res, next) => {
 // Adding new student account
 const addStudent_admin = async (req, res, next) => {
   const { usr, pwd, name, email, _id } = req.body;
-  AppUser.findOne({ username: usr }).exec((err, user) => {
-    if (err) {
-      return console.log(err);
-    } else if (user) {
-      const msg = "User has already exist !!!";
-      return res.redirect(`/admin/add_student?msg=${msg}`);
+  await AppUser.findOne({ username: usr, role: "student" }).exec(
+    async (err, user) => {
+      if (err) {
+        return console.log(err);
+      } else if (user) {
+        const errorUsername = "Username has already exist !!!";
+        return res.redirect(`/admin/add_student?msg=${errorUsername}`);
+      } else if (pwd.length < 4) {
+        const errorPassword = "Password must be at least 4 characters !!!";
+        return res.redirect(`/admin/add_student?msg=${errorPassword}`);
+      } else {
+        const newUser = new AppUser({
+          username: usr,
+          password: pwd,
+          role: "student",
+        });
+
+        await newUser.save();
+
+        AppUser.findOne({ username: usr }).exec(async (err, user) => {
+          if (err) {
+            return console.log(err);
+          } else {
+            const newStudent = new Student({
+              name: name,
+              email: email,
+              faculty_id: _id,
+              account_id: user._id,
+            });
+
+            await newStudent.save();
+
+            return res.redirect("/admin/list_all_students?faculty_id=" + _id);
+          }
+        });
+      }
     }
-  });
-
-  const newUser = new AppUser({
-    username: usr,
-    password: pwd,
-    role: "student",
-  });
-
-  await newUser.save();
-
-  AppUser.findOne({ username: usr }).exec(async (err, user) => {
-    if (err) {
-      return console.log(err);
-    } else {
-      const newStudent = new Student({
-        name: name,
-        email: email,
-        faculty_id: _id,
-        account_id: user._id,
-      });
-
-      await newStudent.save();
-
-      return res.redirect("/admin/list_all_students?faculty_id=" + _id);
-    }
-  });
+  );
 };
 
 // Update Student Account
 const updateStudent_admin = (req, res, next) => {
   let user = {};
   let info = {};
-  const { _id } = req.body;
+  const _id = req.params.id;
+  const { msg } = req.query;
 
   AppUser.findOne({ _id: _id })
     .exec()
@@ -108,6 +114,7 @@ const updateStudent_admin = (req, res, next) => {
                   .then((assign) => {
                     console.log(assign);
                     res.render("adminViews/admin_update_studentAcc", {
+                      err: msg,
                       data: {
                         name: value.name,
                         desc: value.description,
@@ -122,6 +129,7 @@ const updateStudent_admin = (req, res, next) => {
                   .catch();
               } else {
                 res.render("adminViews/admin_update_studentAcc", {
+                  err: msg,
                   data: {
                     _id: value._id,
                     user: user,
@@ -169,32 +177,50 @@ const updateStudentInfo_admin = (req, res, next) => {
   );
 };
 
-const updateStudentAcc_admin = (req, res, next) => {
+const updateStudentAcc_admin = async (req, res, next) => {
   const { usr, pwd, _id } = req.body;
   const newValue = {};
   if (usr) newValue.username = usr;
   if (pwd) newValue.password = pwd;
 
-  Student.findOne({ account_id: _id })
-    .exec()
-    .then((value) => {
-      AppUser.findOneAndUpdate(
-        { _id: _id },
-        { $set: newValue },
-        { new: true },
-        (err, data) => {
-          if (err) {
-            console.log(err);
-            return res.render("adminViews/admin_update_studentAcc");
-          } else {
-            console.log(data);
-            return res.redirect(
-              "/admin/list_all_students?faculty_id=" + value.faculty_id
+  await AppUser.findOne({ username: usr, role: "student" }).exec(
+    async (err, user) => {
+      if (err) {
+        return console.log(err);
+      } else if (user) {
+        const errorUsername = "Username has already exist !!!";
+        return res.redirect(
+          `/admin/update_student/${_id}?msg=${errorUsername}`
+        );
+      } else if (pwd.length < 4) {
+        const errorPassword = "Password must be at least 4 characters !!!";
+        return res.redirect(
+          `/admin/update_student/${_id}?msg=${errorPassword}`
+        );
+      } else {
+        Student.findOne({ account_id: _id })
+          .exec()
+          .then((value) => {
+            AppUser.findOneAndUpdate(
+              { _id: _id },
+              { $set: newValue },
+              { new: true },
+              (err, data) => {
+                if (err) {
+                  console.log(err);
+                  return res.render("adminViews/admin_update_studentAcc");
+                } else {
+                  console.log(data);
+                  return res.redirect(
+                    "/admin/list_all_students?faculty_id=" + value.faculty_id
+                  );
+                }
+              }
             );
-          }
-        }
-      );
-    });
+          });
+      }
+    }
+  );
 };
 
 // Delete Student account
@@ -285,46 +311,54 @@ const getListFacultyForAddCoordinator = (req, res, next) => {
 // Adding new Coordinator account
 const addCoordinator_admin = async (req, res, next) => {
   const { usr, pwd, name, email, _id } = req.body;
-  AppUser.findOne({ username: usr }).exec((err, user) => {
-    if (err) {
-      return console.log(err);
-    } else if (user) {
-      const msg = "User has already exist !!!";
-      return res.redirect(`/admin/add_coordinator?msg=${msg}`);
+  await AppUser.findOne({ username: usr, role: "coordinator" }).exec(
+    async (err, user) => {
+      if (err) {
+        return console.log(err);
+      } else if (user) {
+        const msg = "Username has already exist !!!";
+        return res.redirect(`/admin/add_coordinator?msg=${msg}`);
+      } else if (pwd.length < 4) {
+        const msg = "Password must be at least 4 characters !!!";
+        return res.redirect(`/admin/add_coordinator?msg=${msg}`);
+      } else {
+        const newUser = new AppUser({
+          username: usr,
+          password: pwd,
+          role: "coordinator",
+        });
+
+        await newUser.save();
+
+        AppUser.findOne({ username: usr }).exec(async (err, user) => {
+          if (err) {
+            return console.log(err);
+          } else {
+            const newCoordinator = new Coordinator({
+              name: name,
+              email: email,
+              faculty_id: _id,
+              account_id: user._id,
+            });
+
+            await newCoordinator.save();
+
+            return res.redirect(
+              "/admin/list_all_coordinators?faculty_id=" + _id
+            );
+          }
+        });
+      }
     }
-  });
-
-  const newUser = new AppUser({
-    username: usr,
-    password: pwd,
-    role: "coordinator",
-  });
-
-  await newUser.save();
-
-  AppUser.findOne({ username: usr }).exec(async (err, user) => {
-    if (err) {
-      return console.log(err);
-    } else {
-      const newCoordinator = new Coordinator({
-        name: name,
-        email: email,
-        faculty_id: _id,
-        account_id: user._id,
-      });
-
-      await newCoordinator.save();
-
-      return res.redirect("/admin/list_all_coordinators?faculty_id=" + _id);
-    }
-  });
+  );
 };
 
 // Update Marketing Coordinator Account
 const updateCoordinator_admin = (req, res, next) => {
   let user = {};
   let info = {};
-  const { _id } = req.body;
+  const _id = req.params.id;
+  const {msg} = req.query;
 
   AppUser.findOne({ _id: _id })
     .exec()
@@ -349,6 +383,7 @@ const updateCoordinator_admin = (req, res, next) => {
                   .then((assign) => {
                     console.log(assign);
                     res.render("adminViews/admin_update_coordinatorAcc", {
+                      err: msg,
                       data: {
                         name: value.name,
                         desc: value.description,
@@ -362,6 +397,7 @@ const updateCoordinator_admin = (req, res, next) => {
                   });
               } else {
                 res.render("adminViews/admin_update_coordinatorAcc", {
+                  err: msg,
                   data: {
                     _id: value._id,
                     user: user,
@@ -409,32 +445,47 @@ const updateCoordinatorInfo_admin = (req, res, next) => {
   );
 };
 
-const updateCoordinatorAcc_admin = (req, res, next) => {
+const updateCoordinatorAcc_admin = async (req, res, next) => {
   const { usr, pwd, _id } = req.body;
   const newValue = {};
   if (usr) newValue.username = usr;
   if (pwd) newValue.password = pwd;
 
-  Coordinator.findOne({ account_id: _id })
-    .exec()
-    .then((value) => {
-      AppUser.findOneAndUpdate(
-        { _id: _id },
-        { $set: newValue },
-        { new: true },
-        (err, data) => {
-          if (err) {
-            console.log(err);
-            return res.render("adminViews/admin_update_coordinatorAcc");
-          } else {
-            console.log(data);
-            return res.redirect(
-              "/admin/list_all_coordinators?faculty_id=" + value.faculty_id
+  await AppUser.findOne({ username: usr, role: "coordinator" }).exec(
+    async (err, user) => {
+      if (err) {
+        return console.log(err);
+      } else if (user) {
+        const msg = "Username has already exist !!!";
+        return res.redirect(`/admin/update_coordinator/${_id}?msg=${msg}`);
+      } else if (pwd.length < 4) {
+        const msg = "Password must be at least 4 characters !!!";
+        return res.redirect(`/admin/update_coordinator/${_id}?msg=${msg}`);
+      } else {
+        Coordinator.findOne({ account_id: _id })
+          .exec()
+          .then((value) => {
+            AppUser.findOneAndUpdate(
+              { _id: _id },
+              { $set: newValue },
+              { new: true },
+              (err, data) => {
+                if (err) {
+                  console.log(err);
+                  return res.render("adminViews/admin_update_coordinatorAcc");
+                } else {
+                  console.log(data);
+                  return res.redirect(
+                    "/admin/list_all_coordinators?faculty_id=" +
+                      value.faculty_id
+                  );
+                }
+              }
             );
-          }
-        }
-      );
-    });
+          });
+      }
+    }
+  );
 };
 
 // Delete Marketing Coordinator account
@@ -503,45 +554,51 @@ const listManager_Admin = (req, res, next) => {
 // Adding new Manager account
 const addManager_admin = async (req, res, next) => {
   const { usr, pwd, name, email } = req.body;
-  AppUser.findOne({ username: usr }).exec((err, user) => {
-    if (err) {
-      return console.log(err);
-    } else if (user) {
-      const msg = "User has already exist !!!";
-      return res.redirect(`/admin/add_manager?msg=${msg}`);
+  await AppUser.findOne({ username: usr, role: "manager" }).exec(
+    async (err, user) => {
+      if (err) {
+        return console.log(err);
+      } else if (user) {
+        const msg = "Username has already exist !!!";
+        return res.redirect(`/admin/add_manager?msg=${msg}`);
+      } else if (pwd.length < 4) {
+        const msg = "Password must be at least 4 characters !!!";
+        return res.redirect(`/admin/add_manager?msg=${msg}`);
+      } else {
+        const newUser = new AppUser({
+          username: usr,
+          password: pwd,
+          role: "manager",
+        });
+
+        await newUser.save();
+
+        AppUser.findOne({ username: usr }).exec(async (err, user) => {
+          if (err) {
+            return console.log(err);
+          } else {
+            const newManager = new Manager({
+              name: name,
+              email: email,
+              account_id: user._id,
+            });
+
+            await newManager.save();
+
+            return res.redirect("/admin/list_all_managers");
+          }
+        });
+      }
     }
-  });
-
-  const newUser = new AppUser({
-    username: usr,
-    password: pwd,
-    role: "manager",
-  });
-
-  await newUser.save();
-
-  AppUser.findOne({ username: usr }).exec(async (err, user) => {
-    if (err) {
-      return console.log(err);
-    } else {
-      const newManager = new Manager({
-        name: name,
-        email: email,
-        account_id: user._id,
-      });
-
-      await newManager.save();
-
-      return res.redirect("/admin/list_all_managers");
-    }
-  });
+  );
 };
 
 // Update Marketing Manager Account
 const updateManager_admin = (req, res, next) => {
   let user = {};
   let info = {};
-  const { _id } = req.body;
+  const _id = req.params.id;
+  const {msg} = req.query;
 
   AppUser.findOne({ _id: _id })
     .exec()
@@ -560,6 +617,7 @@ const updateManager_admin = (req, res, next) => {
           };
 
           res.render("adminViews/admin_update_managerAcc", {
+            err: msg,
             data: {
               user: user,
               info: info,
@@ -598,23 +656,37 @@ const updateManagerInfo_admin = (req, res, next) => {
   );
 };
 
-const updateManagerAcc_admin = (req, res, next) => {
+const updateManagerAcc_admin = async (req, res, next) => {
   const { usr, pwd, _id } = req.body;
   const newValue = {};
   if (usr) newValue.username = usr;
   if (pwd) newValue.password = pwd;
 
-  AppUser.findOneAndUpdate(
-    { _id: _id },
-    { $set: newValue },
-    { new: true },
-    (err, data) => {
+  await AppUser.findOne({ username: usr, role: "manager" }).exec(
+    async (err, user) => {
       if (err) {
-        console.log(err);
-        return res.render("adminViews/admin_update_managerAcc");
+        return console.log(err);
+      } else if (user) {
+        const msg = "Username has already exist !!!";
+        return res.redirect(`/admin/update_manager/${_id}?msg=${msg}`);
+      } else if (pwd.length < 4) {
+        const msg = "Password must be at least 4 characters !!!";
+        return res.redirect(`/admin/update_manager/${_id}?msg=${msg}`);
       } else {
-        console.log(data);
-        return res.redirect("/admin/list_all_managers");
+        AppUser.findOneAndUpdate(
+          { _id: _id },
+          { $set: newValue },
+          { new: true },
+          (err, data) => {
+            if (err) {
+              console.log(err);
+              return res.render("adminViews/admin_update_managerAcc");
+            } else {
+              console.log(data);
+              return res.redirect("/admin/list_all_managers");
+            }
+          }
+        );
       }
     }
   );
@@ -659,38 +731,38 @@ const listFaculty_admin = (req, res, next) => {
 };
 
 // adding new faculty
-const addFaculty_admin = (req, res, next) => {
+const addFaculty_admin = async (req, res, next) => {
   const { name, desc } = req.body;
-  Faculty.findOne({ name: name })
-    .exec()
-    .then((value) => {
+  await Faculty.findOne({ name: name }).exec((err, value) => {
+    if (err) {
+      return console.log(err);
+    } else if (value) {
       const msg = "This faculty is already exist !!! Please Try again";
-      res.redirect(`/admin/add_faculty?msg=${msg}`);
-    })
-    .catch((err) => {
-      res.send(err);
-    });
+      return res.redirect(`/admin/add_faculty?msg=${msg}`);
+    } else {
+      const newFaculty = new Faculty({
+        name: name,
+        description: desc,
+      });
 
-  const newFaculty = new Faculty({
-    name: name,
-    description: desc,
+      newFaculty.save();
+      return res.redirect("/admin/list_all_faculty");
+    }
   });
-
-  newFaculty.save();
-
-  return res.redirect("/admin/list_all_faculty");
 };
 
 // update faculty
 // get update faculty page
 const updatePageFaculty_admin = (req, res, next) => {
-  const { _id } = req.body;
+  const _id = req.params.id;
+  const {msg} = req.query;
   // console.log(_id);
   Faculty.findOne({ _id: _id })
     .exec()
     .then((value) => {
       console.log(value);
       res.render("adminViews/admin_update_faculty", {
+        err: msg,
         data: {
           name: value.name,
           desc: value.description,
@@ -709,16 +781,25 @@ const updateFaculty_admin = (req, res, next) => {
   if (name) newValue.name = name;
   if (desc) newValue.description = desc;
 
-  Faculty.findByIdAndUpdate({ _id: _id }, { $set: newValue }, { new: true })
-    .exec()
-    .then((value) => {
-      console.log(value);
-      res.redirect("/admin/list_all_faculty");
-    })
-    .catch((err) => {
-      console.log(err);
-      res.send(err);
-    });
+  Faculty.findOne({ name: name }).exec((err, value) => {
+    if (err) {
+      return console.log(err);
+    } else if (value) {
+      const msg = "This faculty is already exist !!! Please Try again";
+      return res.redirect(`/admin/update_faculty/${_id}?msg=${msg}`);
+    } else {
+      Faculty.findByIdAndUpdate({ _id: _id }, { $set: newValue }, { new: true })
+        .exec()
+        .then((value) => {
+          console.log(value);
+          res.redirect("/admin/list_all_faculty");
+        })
+        .catch((err) => {
+          console.log(err);
+          res.send(err);
+        });
+    }
+  });
 };
 
 // Delete Faculty
@@ -761,31 +842,33 @@ const addTopic_admin = (req, res, next) => {
     } else if (value) {
       const msg = "This Topic is already exist !!! Please Try again";
       return res.redirect(`/admin/add_topic?msg=${msg}`);
+    } else {
+      const newTopic = new Topic({
+        name: name,
+        description: desc,
+        timeCreated: timeCreated,
+        timeOver: timeOver,
+      });
+
+      newTopic.save();
+
+      return res.redirect("/admin/list_all_topic");
     }
   });
-
-  const newTopic = new Topic({
-    name: name,
-    description: desc,
-    timeCreated: timeCreated,
-    timeOver: timeOver,
-  });
-
-  newTopic.save();
-
-  return res.redirect("/admin/list_all_topic");
 };
 
 // update topic
 // get update topic page
 const updatePageTopic_admin = (req, res, next) => {
-  const { _id } = req.body;
+  const _id = req.params.id;
+  const {msg} = req.query;
   // console.log(_id);
   Topic.findOne({ _id: _id })
     .exec()
     .then((value) => {
       console.log(value);
       res.render("adminViews/admin_update_topic", {
+        err: msg,
         data: {
           name: value.name,
           desc: value.description,
@@ -808,16 +891,25 @@ const updateTopic_admin = (req, res, next) => {
   if (timeCreated) newValue.timeCreated = timeCreated;
   if (timeOver) newValue.timeOver = timeOver;
 
-  Topic.findByIdAndUpdate({ _id: _id }, { $set: newValue }, { new: true })
-    .exec()
-    .then((value) => {
-      console.log(value);
-      res.redirect("/admin/list_all_topic");
-    })
-    .catch((err) => {
-      console.log(err);
-      res.send(err);
-    });
+  Topic.findOne({ name: name }).exec((err, value) => {
+    if (err) {
+      return console.log(err);
+    } else if (value) {
+      const msg = "This Topic is already exist !!! Please Try again";
+      return res.redirect(`/admin/update_topic/${_id}?msg=${msg}`);
+    } else {
+      Topic.findByIdAndUpdate({ _id: _id }, { $set: newValue }, { new: true })
+        .exec()
+        .then((value) => {
+          console.log(value);
+          res.redirect("/admin/list_all_topic");
+        })
+        .catch((err) => {
+          console.log(err);
+          res.send(err);
+        });
+    }
+  });
 };
 
 // Delete Topic
@@ -879,46 +971,52 @@ const getListFacultyForAddGuest = (req, res, next) => {
 // Adding new Guest account
 const addGuest_admin = async (req, res, next) => {
   const { usr, pwd, name, email, _id } = req.body;
-  AppUser.findOne({ username: usr }).exec((err, user) => {
-    if (err) {
-      return console.log(err);
-    } else if (user) {
-      const msg = "User has already exist !!!";
-      return res.redirect(`/admin/add_guest?msg=${msg}`);
+  await AppUser.findOne({ username: usr, role: "guest" }).exec(
+    async (err, user) => {
+      if (err) {
+        return console.log(err);
+      } else if (user) {
+        const msg = "Username has already exist !!!";
+        return res.redirect(`/admin/add_guest?msg=${msg}`);
+      } else if (pwd.length < 4) {
+        const msg = "Password must be at least 4 characters !!!";
+        return res.redirect(`/admin/add_guest?msg=${msg}`);
+      } else {
+        const newUser = new AppUser({
+          username: usr,
+          password: pwd,
+          role: "guest",
+        });
+
+        await newUser.save();
+
+        AppUser.findOne({ username: usr }).exec(async (err, user) => {
+          if (err) {
+            return console.log(err);
+          } else {
+            const newGuest = new Guest({
+              name: name,
+              email: email,
+              faculty_id: _id,
+              account_id: user._id,
+            });
+
+            await newGuest.save();
+
+            return res.redirect("/admin/list_all_guests?faculty_id=" + _id);
+          }
+        });
+      }
     }
-  });
-
-  const newUser = new AppUser({
-    username: usr,
-    password: pwd,
-    role: "guest",
-  });
-
-  await newUser.save();
-
-  AppUser.findOne({ username: usr }).exec(async (err, user) => {
-    if (err) {
-      return console.log(err);
-    } else {
-      const newGuest = new Guest({
-        name: name,
-        email: email,
-        faculty_id: _id,
-        account_id: user._id,
-      });
-
-      await newGuest.save();
-
-      return res.redirect("/admin/list_all_guests?faculty_id=" + _id);
-    }
-  });
+  );
 };
 
 // Update guest Account
 const updateGuest_admin = (req, res, next) => {
   let user = {};
   let info = {};
-  const { _id } = req.body;
+  const _id = req.params.id;
+  const { msg } = req.query;
 
   AppUser.findOne({ _id: _id })
     .exec()
@@ -943,6 +1041,7 @@ const updateGuest_admin = (req, res, next) => {
                   .then((assign) => {
                     console.log(assign);
                     res.render("adminViews/admin_update_guestAcc", {
+                      err: msg,
                       data: {
                         name: value.name,
                         desc: value.description,
@@ -956,6 +1055,7 @@ const updateGuest_admin = (req, res, next) => {
                   });
               } else {
                 res.render("adminViews/admin_update_guestAcc", {
+                  err: msg,
                   data: {
                     _id: value._id,
                     user: user,
@@ -1003,7 +1103,7 @@ const updateGuestInfo_admin = (req, res, next) => {
   );
 };
 
-const updateGuestAcc_admin = (req, res, next) => {
+const updateGuestAcc_admin = async (req, res, next) => {
   const { usr, pwd, _id } = req.body;
   const newValue = {};
   if (usr) newValue.username = usr;
@@ -1011,19 +1111,33 @@ const updateGuestAcc_admin = (req, res, next) => {
 
   Guest.findOne({ account_id: _id })
     .exec()
-    .then((value) => {
-      AppUser.findOneAndUpdate(
-        { _id: _id },
-        { $set: newValue },
-        { new: true },
-        (err, data) => {
+    .then(async (value) => {
+      await AppUser.findOne({ username: usr, role: "guest" }).exec(
+        async (err, user) => {
           if (err) {
-            console.log(err);
-            return res.render("adminViews/admin_update_guestAcc");
+            return console.log(err);
+          } else if (user) {
+            const msg = "Username has already exist !!!";
+            return res.redirect(`/admin/update_guest/${_id}?msg=${msg}`);
+          } else if (pwd.length < 4) {
+            const msg = "Password must be at least 4 characters !!!";
+            return res.redirect(`/admin/update_guest/${_id}?msg=${msg}`);
           } else {
-            console.log(data);
-            return res.redirect(
-              "/admin/list_all_guests?faculty_id=" + value.faculty_id
+            AppUser.findOneAndUpdate(
+              { _id: _id },
+              { $set: newValue },
+              { new: true },
+              (err, data) => {
+                if (err) {
+                  console.log(err);
+                  return res.render("adminViews/admin_update_guestAcc");
+                } else {
+                  console.log(data);
+                  return res.redirect(
+                    "/admin/list_all_guests?faculty_id=" + value.faculty_id
+                  );
+                }
+              }
             );
           }
         }

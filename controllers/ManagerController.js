@@ -131,7 +131,7 @@ const getDetailStatistics = (req, res, next) => {
     });
 };
 
-const downloadFile = (req, res, next) => {
+const downloadFile = async (req, res, next) => {
   var a = req.body.check;
   if (!a) {
     res.send(
@@ -164,8 +164,8 @@ const downloadFile = (req, res, next) => {
       console.log("file name: ", file);
       archive.append(fs.createReadStream(file), { name: file });
     }
-    archive.finalize();
-    // console.log(output);
+    await archive.finalize();
+    console.log("Hello===========");
     res.redirect("/managers/downloadFile");
   }
 };

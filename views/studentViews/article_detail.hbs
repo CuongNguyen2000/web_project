@@ -179,9 +179,9 @@
                             <div class="pcoded-navigatio-lavel" data-i18n="nav.category.form">Navigation</div>
                             <ul class="pcoded-item pcoded-left-item">
                                 <li class="active">
-                                    <a href="/coordinators/list_articles">
-                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">List of Article</span>
+                                    <a href="/students/post_article">
+                                        <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.dash.main">Post Articles</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
@@ -260,15 +260,15 @@
                                                             <p class="card-text">Topic: {{value.topic_id.name}}</p>
                                                             <div class="text-center">
                                                                 <form style="display: inline-block"
-                                                                    action="/students/update_article" method="POST">
-                                                                    <input type="hidden" name="_id" value={{value._id}}>
+                                                                    action="/students/update_article/{{value._id}}"
+                                                                    method="POST">
                                                                     <button type="submit"
                                                                         class="btn btn-primary btn-round">Update</button>
                                                                 </form>
                                                                 <form style="display:inline-block"
-                                                                    action="/students/delete_article" method="POST"
+                                                                    action="/students/delete_article/{{value._id}}"
+                                                                    method="POST"
                                                                     enctype="application/x-www-form-urlencoded">
-                                                                    <input type="hidden" name="_id" value={{value._id}}>
                                                                     <input type="hidden" name="_method" value="DELETE">
                                                                     <button type="submit"
                                                                         class="btn btn-danger btn-round">Delete</button>

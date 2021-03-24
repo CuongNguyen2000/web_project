@@ -162,7 +162,7 @@ const getUpdateArticle_student = (req, res, next) => {
       Articles.findOne({ _id: _id })
         .exec()
         .then((value) => {
-          Topic.find({})
+          Topic.findOne({ _id: value.topic_id })
             .exec()
             .then((topic) => {
               if (topic.timeOver > now) {
@@ -196,8 +196,8 @@ const getUpdateArticle_student = (req, res, next) => {
                 const msg =
                   "The time allowed to post has expired and you can't edit your article !!!";
                 res.render("studentViews/student_update_article", {
-                  err: msg,
                   data: {
+                    err: msg,
                     value: value,
                     _id: value._id,
                     topic: topic,

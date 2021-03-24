@@ -29,9 +29,10 @@ router.get("/detail_statistic/:id", isManager, getDetailStatistics);
 router.post("/downloadFile", isManager, downloadFile);
 
 router.get("/downloadFile", isManager, (req, res, next) => {
-  var x = __dirname.replace("routes", "public/") + "fileDownload.zip";
+  var x = __dirname.replace("routes", "public\\") + "fileDownload.zip";
   console.log("===========");
   console.log(x);
+  res.header("Content-Type", "application/zip");
   res.download(x);
 });
 

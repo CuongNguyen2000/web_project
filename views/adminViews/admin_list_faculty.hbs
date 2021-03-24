@@ -303,13 +303,10 @@
                                                                         <td>{{description}}</td>
                                                                         <td>{{timeCreated}}</td>
                                                                         <td class="d-flex flex-row">
-                                                                            <form action="/admin/update_faculty"
-                                                                                method="POST">
-                                                                                <input type="hidden" name="_id"
-                                                                                    value={{_id}}>
+                                                                            <a href="/admin/update_faculty/{{_id}}">
                                                                                 <button type="submit"
                                                                                     class="btn btn-primary">Update</button>
-                                                                            </form>
+                                                                            </a>
                                                                             <form action="/admin/delete_faculty"
                                                                                 method="POST"
                                                                                 enctype="application/x-www-form-urlencoded">

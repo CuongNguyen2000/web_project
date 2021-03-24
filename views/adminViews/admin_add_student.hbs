@@ -276,6 +276,7 @@
                                                     <div class="card-block table-border-style">
                                                         <div class="card-block">
                                                             <form action="/admin/add_student" method="POST">
+
                                                                 <div class="form-row">
                                                                     <div class="form-group col-md-6">
                                                                         <label for="username">Username</label>
@@ -304,13 +305,14 @@
                                                                 <button type="submit"
                                                                     class="btn btn-primary">Submit</button>
                                                                 <br><br>
+
+                                                                <input type="hidden" name="_id" id="_id"
+                                                                    value="{{faculty._id}}">
                                                                 {{#if err}}
                                                                 <div class="alert alert-danger" role="alert">
                                                                     {{err}}
                                                                 </div>
                                                                 {{/if}}
-                                                                <input type="hidden" name="_id" id="_id"
-                                                                    value="{{faculty._id}}">
                                                             </form>
                                                         </div>
                                                         <!-- card-block end -->

@@ -301,13 +301,10 @@
                                                                         <td>{{timeCreated}}</td>
                                                                         <td>{{timeOver}}</td>
                                                                         <td class="d-flex flex-row">
-                                                                            <form action="/admin/update_topic"
-                                                                                method="POST">
-                                                                                <input type="hidden" name="_id"
-                                                                                    value={{_id}}>
-                                                                                <button type="submit"
+                                                                            <a href="/admin/update_topic/{{_id}}">
+                                                                                <button
                                                                                     class="btn btn-primary">Update</button>
-                                                                            </form>
+                                                                            </a>
                                                                             <form action="/admin/delete_topic"
                                                                                 method="POST"
                                                                                 enctype="application/x-www-form-urlencoded">

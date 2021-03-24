@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 
-var { Login, Logout } = require("../controllers/LoginControllers");
+var { Login, Logout, SignUp } = require("../controllers/LoginControllers");
 
 const { route } = require(".");
 
@@ -20,6 +20,6 @@ router.get("/login", (req, res, next) => {
 // Get login / logout request
 router.post("/login", Login);
 router.get("/logout", Logout);
-// router.get("/signup", SignUp);
+router.get("/signup", SignUp);
 
 module.exports = router;

@@ -1,16 +1,16 @@
 var AppUser = require("../models/AppUserModel");
 var bcrypt = require("bcrypt");
 
-// const SignUp = async (req, res, next) => {
-//   const user = AppUser({
-//     username: "admin",
-//     password: "admin",
-//     role: "admin",
-//   });
-//   await user.save();
-//   console.log(user);
-//   return res.send(user);
-// };
+const SignUp = async (req, res, next) => {
+  const user = AppUser({
+    username: "admin",
+    password: "admin",
+    role: "admin",
+  });
+  await user.save();
+  console.log(user);
+  return res.send(user);
+};
 
 const Login = (req, res, next) => {
   console.log(req.body);
@@ -66,4 +66,4 @@ const Logout = (req, res, next) => {
   }
 };
 
-module.exports = { Login, Logout };
+module.exports = { Login, Logout, SignUp };

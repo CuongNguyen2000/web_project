@@ -306,13 +306,12 @@
                                                                         <td>Hidden</td>
                                                                         <td>{{account_id.timeCreated}}</td>
                                                                         <td class="d-flex flex-row">
-                                                                            <form action="/admin/update_guest"
-                                                                                method="POST">
-                                                                                <input type="hidden" name="_id"
-                                                                                    value={{account_id._id}}>
-                                                                                <button type="submit"
+                                                                            <a
+                                                                                href="/admin/update_guest/{{account_id._id}}">
+                                                                                <button
                                                                                     class="btn btn-primary">Update</button>
-                                                                            </form>
+                                                                            </a>
+
                                                                             <form action="/admin/delete_guest"
                                                                                 method="POST"
                                                                                 enctype="application/x-www-form-urlencoded">
@@ -329,7 +328,7 @@
                                                                             <div class="alert alert-primary"
                                                                                 role="alert">
                                                                                 There isn't any Guest Account ---
-                                                                                Let's add an M.C !!!
+                                                                                Let's add an Guest Account !!!
                                                                             </div>
                                                                         </td>
                                                                     </tr>

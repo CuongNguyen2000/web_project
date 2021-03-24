@@ -138,7 +138,8 @@ router.post("/add_topic", isAdmin, addTopic_admin);
 // Update student
 router.put("/update_student_account", isAdmin, updateStudentAcc_admin);
 router.put("/update_student_information", isAdmin, updateStudentInfo_admin);
-router.post("/update_student", isAdmin, updateStudent_admin);
+router.put("/assign_faculty_student", isAdmin, assignFacultyForStudent_admin);
+router.get("/update_student/:id", isAdmin, updateStudent_admin);
 
 // Update Marketing Coordinator
 router.put("/update_coordinator_account", isAdmin, updateCoordinatorAcc_admin);
@@ -147,36 +148,31 @@ router.put(
   isAdmin,
   updateCoordinatorInfo_admin
 );
-router.post("/update_coordinator", isAdmin, updateCoordinator_admin);
-
-//Update Marketing Manger
-router.put("/update_manager_account", isAdmin, updateManagerAcc_admin);
-router.put("/update_manager_information", isAdmin, updateManagerInfo_admin);
-router.post("/update_manager", isAdmin, updateManager_admin);
-
-// Update Guest
-router.put("/update_guest_account", isAdmin, updateGuestAcc_admin);
-router.put("/update_guest_information", isAdmin, updateGuestInfo_admin);
-router.post("/update_guest", isAdmin, updateGuest_admin);
-
-// Update Faculty
-router.put("/update_faculty_information", isAdmin, updateFaculty_admin);
-router.post("/update_faculty", isAdmin, updatePageFaculty_admin);
-
-// Update Topic
-router.put("/update_topic_information", isAdmin, updateTopic_admin);
-router.post("/update_topic", isAdmin, updatePageTopic_admin);
-
-// assign faculty for student / coordinator
-router.put("/assign_faculty_student", isAdmin, assignFacultyForStudent_admin);
-
 router.put(
   "/assign_faculty_coordinator",
   isAdmin,
   assignFacultyForCoordinator_admin
 );
+router.get("/update_coordinator/:id", isAdmin, updateCoordinator_admin);
 
+//Update Marketing Manger
+router.put("/update_manager_account", isAdmin, updateManagerAcc_admin);
+router.put("/update_manager_information", isAdmin, updateManagerInfo_admin);
+router.get("/update_manager/:id", isAdmin, updateManager_admin);
+
+// Update Guest
+router.put("/update_guest_account", isAdmin, updateGuestAcc_admin);
+router.put("/update_guest_information", isAdmin, updateGuestInfo_admin);
 router.put("/assign_faculty_guest", isAdmin, assignFacultyForGuest_admin);
+router.get("/update_guest/:id", isAdmin, updateGuest_admin);
+
+// Update Faculty
+router.put("/update_faculty_information", isAdmin, updateFaculty_admin);
+router.get("/update_faculty/:id", isAdmin, updatePageFaculty_admin);
+
+// Update Topic
+router.put("/update_topic_information", isAdmin, updateTopic_admin);
+router.get("/update_topic/:id", isAdmin, updatePageTopic_admin);
 
 // Delete user account / faculty
 router.delete("/delete_student", isAdmin, deleteStudent_Admin);
