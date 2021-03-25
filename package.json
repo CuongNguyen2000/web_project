@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "main": " ./bin/www"
   },
   "dependencies": {
     "archiver": "^5.3.0",
