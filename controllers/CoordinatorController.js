@@ -59,6 +59,75 @@ const GetCoordinatorHome = (req, res, next) => {
     });
 };
 
+const getUpdateAccount = (req, res, next) => {
+  let user = {};
+  const _id = req.params.id;
+  const { msg } = req.query;
+
+  AppUser.findOne({ _id: _id })
+    .exec()
+    .then((value) => {
+      user = {
+        _id: _id,
+        username: value.username,
+      };
+      Coordinator.findOne({ account_id: _id })
+        .exec()
+        .then((info) => {
+          res.render("coordinatorViews/update_account", {
+            err: msg,
+            data: {
+              _id: _id,
+              info: info,
+              user: user,
+            },
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.redirect("/coordinators/home");
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect("/coordinators/home");
+    });
+};
+
+const updateAccount = async (req, res, next) => {
+  const { pwd, _id } = req.body;
+  const newValue = {};
+  if (pwd) newValue.password = pwd;
+
+  await AppUser.findOne({ _id: _id }).exec(async (err, user) => {
+    if (err) {
+      return console.log(err);
+    } else if (pwd.length < 4) {
+      const msg = "Password must be at least 4 characters !!!";
+      return res.redirect(`/coordinators/update_account/${_id}?msg=${msg}`);
+    } else {
+      Coordinator.findOne({ account_id: _id })
+        .exec()
+        .then((value) => {
+          AppUser.findOneAndUpdate(
+            { _id: _id },
+            { $set: newValue },
+            { new: true },
+            (err, data) => {
+              if (err) {
+                console.log(err);
+                return res.render("coordinatorViews/update_account");
+              } else {
+                console.log(data);
+                return res.redirect("/coordinators/home");
+              }
+            }
+          );
+        });
+    }
+  });
+};
+
 const getListArticles_coordinator = (req, res, next) => {
   const _id = req.query.topicID;
   let query = {};
@@ -234,6 +303,8 @@ const deleteComment = async (req, res, next) => {
 
 module.exports = {
   GetCoordinatorHome,
+  getUpdateAccount,
+  updateAccount,
   getListArticles_coordinator,
   acceptArticle_coordinator,
   rejectArticle_coordinator,

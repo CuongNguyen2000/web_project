@@ -5,6 +5,8 @@ var { isManager } = require("../middleware/RequiresLogin");
 
 var {
   GetManagerHome,
+  getUpdateAccount,
+  updateAccount,
   getListArticles_manager,
   getStatistics_manager,
   getDetailStatistics,
@@ -16,6 +18,10 @@ var {
 
 // Get Homepage
 router.get("/home", isManager, GetManagerHome);
+
+// update account
+router.get("/update_account/:id", isManager, getUpdateAccount);
+router.put("/update_account", isManager, updateAccount);
 
 // get list article page
 router.get("/list_articles", isManager, getListArticles_manager);

@@ -60,6 +60,78 @@ const GetStudentHome = (req, res, next) => {
     });
 };
 
+const getUpdateAccount = (req, res, next) => {
+  let user = {};
+  const _id = req.params.id;
+  const { msg } = req.query;
+
+  AppUser.findOne({ _id: _id })
+    .exec()
+    .then((value) => {
+      user = {
+        _id: _id,
+        username: value.username,
+      };
+      Student.findOne({ account_id: _id })
+        .exec()
+        .then((info) => {
+          res.render("studentViews/update_account", {
+            err: msg,
+            data: {
+              _id: _id,
+              info: info,
+              user: user,
+            },
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.redirect("/students/home");
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect("/students/home");
+    });
+};
+
+const updateAccount = async (req, res, next) => {
+  const { usr, pwd, _id } = req.body;
+  const newValue = {};
+  if (usr) newValue.username = usr;
+  if (pwd) newValue.password = pwd;
+
+  await AppUser.findOne({ _id: _id }).exec(async (err, user) => {
+    if (err) {
+      return console.log(err);
+    } else if (pwd.length < 4) {
+      const errorPassword = "Password must be at least 4 characters !!!";
+      return res.redirect(
+        `/students/update_account/${_id}?msg=${errorPassword}`
+      );
+    } else {
+      Student.findOne({ account_id: _id })
+        .exec()
+        .then((value) => {
+          AppUser.findOneAndUpdate(
+            { _id: _id },
+            { $set: newValue },
+            { new: true },
+            (err, data) => {
+              if (err) {
+                console.log(err);
+                return res.render("studentViews/update_account");
+              } else {
+                console.log(data);
+                return res.redirect("/students/home");
+              }
+            }
+          );
+        });
+    }
+  });
+};
+
 const addArticle_student = async (req, res, next) => {
   const { _id } = req.body;
   Student.findOne({ account_id: req.session.userId })
@@ -87,17 +159,17 @@ const addArticle_student = async (req, res, next) => {
                 faculty.amountArticle.push(item);
                 info.save();
                 faculty.save();
-                // const coordinator = await Coordinator.findOne({
-                //   faculty_id: faculty._id,
-                // });
-                // // console.log(coordinator);
-                // await Nodemailer(coordinator.email)
-                //   .then((result) => {
-                //     console.log("Email sent...", result);
-                //   })
-                //   .catch((err) => {
-                //     console.log(err.message);
-                //   });
+                const coordinator = await Coordinator.findOne({
+                  faculty_id: faculty._id,
+                });
+                // console.log(coordinator);
+                await Nodemailer(coordinator.email)
+                  .then((result) => {
+                    console.log("Email sent...", result);
+                  })
+                  .catch((err) => {
+                    console.log(err.message);
+                  });
                 res.redirect("/students/list_articles?id=" + _id);
               }
             });
@@ -373,6 +445,8 @@ const getArticleDetails = (req, res, next) => {
 
 module.exports = {
   GetStudentHome,
+  getUpdateAccount,
+  updateAccount,
   addArticle_student,
   getListArticles_student,
   getUpdateArticle_student,

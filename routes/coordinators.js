@@ -5,6 +5,8 @@ var { isCoordinator } = require("../middleware/RequiresLogin");
 
 var {
   GetCoordinatorHome,
+  getUpdateAccount,
+  updateAccount,
   getListArticles_coordinator,
   acceptArticle_coordinator,
   rejectArticle_coordinator,
@@ -18,6 +20,10 @@ var {
 
 // Get Homepage
 router.get("/home", isCoordinator, GetCoordinatorHome);
+
+// Update Password
+router.get("/update_account/:id", isCoordinator, getUpdateAccount);
+router.put("/update_account", isCoordinator, updateAccount);
 
 // get list of article page
 router.get("/list_articles", isCoordinator, getListArticles_coordinator);

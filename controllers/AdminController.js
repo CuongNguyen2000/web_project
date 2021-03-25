@@ -178,10 +178,9 @@ const updateStudentInfo_admin = (req, res, next) => {
 };
 
 const updateStudentAcc_admin = async (req, res, next) => {
-  const { usr, pwd, _id } = req.body;
+  const { usr, _id } = req.body;
   const newValue = {};
   if (usr) newValue.username = usr;
-  if (pwd) newValue.password = pwd;
 
   await AppUser.findOne({ username: usr, role: "student" }).exec(
     async (err, user) => {
@@ -191,11 +190,6 @@ const updateStudentAcc_admin = async (req, res, next) => {
         const errorUsername = "Username has already exist !!!";
         return res.redirect(
           `/admin/update_student/${_id}?msg=${errorUsername}`
-        );
-      } else if (pwd.length < 4) {
-        const errorPassword = "Password must be at least 4 characters !!!";
-        return res.redirect(
-          `/admin/update_student/${_id}?msg=${errorPassword}`
         );
       } else {
         Student.findOne({ account_id: _id })
@@ -358,7 +352,7 @@ const updateCoordinator_admin = (req, res, next) => {
   let user = {};
   let info = {};
   const _id = req.params.id;
-  const {msg} = req.query;
+  const { msg } = req.query;
 
   AppUser.findOne({ _id: _id })
     .exec()
@@ -446,10 +440,9 @@ const updateCoordinatorInfo_admin = (req, res, next) => {
 };
 
 const updateCoordinatorAcc_admin = async (req, res, next) => {
-  const { usr, pwd, _id } = req.body;
+  const { usr, _id } = req.body;
   const newValue = {};
   if (usr) newValue.username = usr;
-  if (pwd) newValue.password = pwd;
 
   await AppUser.findOne({ username: usr, role: "coordinator" }).exec(
     async (err, user) => {
@@ -457,9 +450,6 @@ const updateCoordinatorAcc_admin = async (req, res, next) => {
         return console.log(err);
       } else if (user) {
         const msg = "Username has already exist !!!";
-        return res.redirect(`/admin/update_coordinator/${_id}?msg=${msg}`);
-      } else if (pwd.length < 4) {
-        const msg = "Password must be at least 4 characters !!!";
         return res.redirect(`/admin/update_coordinator/${_id}?msg=${msg}`);
       } else {
         Coordinator.findOne({ account_id: _id })
@@ -598,7 +588,7 @@ const updateManager_admin = (req, res, next) => {
   let user = {};
   let info = {};
   const _id = req.params.id;
-  const {msg} = req.query;
+  const { msg } = req.query;
 
   AppUser.findOne({ _id: _id })
     .exec()
@@ -657,10 +647,9 @@ const updateManagerInfo_admin = (req, res, next) => {
 };
 
 const updateManagerAcc_admin = async (req, res, next) => {
-  const { usr, pwd, _id } = req.body;
+  const { usr, _id } = req.body;
   const newValue = {};
   if (usr) newValue.username = usr;
-  if (pwd) newValue.password = pwd;
 
   await AppUser.findOne({ username: usr, role: "manager" }).exec(
     async (err, user) => {
@@ -668,9 +657,6 @@ const updateManagerAcc_admin = async (req, res, next) => {
         return console.log(err);
       } else if (user) {
         const msg = "Username has already exist !!!";
-        return res.redirect(`/admin/update_manager/${_id}?msg=${msg}`);
-      } else if (pwd.length < 4) {
-        const msg = "Password must be at least 4 characters !!!";
         return res.redirect(`/admin/update_manager/${_id}?msg=${msg}`);
       } else {
         AppUser.findOneAndUpdate(
@@ -755,7 +741,7 @@ const addFaculty_admin = async (req, res, next) => {
 // get update faculty page
 const updatePageFaculty_admin = (req, res, next) => {
   const _id = req.params.id;
-  const {msg} = req.query;
+  const { msg } = req.query;
   // console.log(_id);
   Faculty.findOne({ _id: _id })
     .exec()
@@ -861,7 +847,7 @@ const addTopic_admin = (req, res, next) => {
 // get update topic page
 const updatePageTopic_admin = (req, res, next) => {
   const _id = req.params.id;
-  const {msg} = req.query;
+  const { msg } = req.query;
   // console.log(_id);
   Topic.findOne({ _id: _id })
     .exec()

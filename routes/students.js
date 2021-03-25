@@ -5,6 +5,8 @@ var { isStudent } = require("../middleware/RequiresLogin");
 
 var {
   GetStudentHome,
+  getUpdateAccount,
+  updateAccount,
   addArticle_student,
   getListArticles_student,
   getUpdateArticle_student,
@@ -25,6 +27,10 @@ const Articles = require("../models/ArticlesModel");
 
 // Get Homepage
 router.get("/home", isStudent, GetStudentHome);
+
+// update password
+router.get("/update_account/:id", isStudent, getUpdateAccount);
+router.put("/update_account", isStudent, updateAccount);
 
 // Get post articles page
 router.get("/post_article", isStudent, getListTopic);

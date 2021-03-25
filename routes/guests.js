@@ -1,7 +1,11 @@
 var express = require("express");
 var router = express.Router();
 
-var { GetGuestHome } = require("../controllers/guestController");
+var {
+  GetGuestHome,
+  getUpdateAccount,
+  updateAccount,
+} = require("../controllers/guestController");
 
 var { isGuest } = require("../middleware/RequiresLogin");
 
@@ -10,5 +14,9 @@ var { isGuest } = require("../middleware/RequiresLogin");
 
 // Get Homepage
 router.get("/home", isGuest, GetGuestHome);
+
+// Update account
+router.get("/update_account/:id", isGuest, getUpdateAccount);
+router.put("/update_account", isGuest, updateAccount);
 
 module.exports = router;

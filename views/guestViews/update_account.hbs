@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="">
 
 <head>
-    <title>Welcome to Simple House</title>
+    <title>Update account</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="/stylesheets/indexLayout.css" type="text/css" media="all">
     <link rel="stylesheet" href="/stylesheets/all.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
+    <!-- themify-icons line icon -->
+    <link rel="stylesheet" type="text/css" href="/assets/icon/themify-icons/themify-icons.css">
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" href="/assets/icon/icofont/css/icofont.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
@@ -22,8 +27,8 @@
         <header id="header" class="hoc clear">
             <!-- ################################################################################################ -->
             <div id="logo" class="one_quarter first">
-                <h1><a href="/">Simple House</a></h1>
-                <p>Welcome to our world</p>
+                <h1><a href="../index.html">Foxclore</a></h1>
+                <p>Placerat sem hendrerit</p>
             </div>
             <div class="three_quarter">
                 <ul class="nospace clear">
@@ -62,7 +67,7 @@
                             <a class="nav-link" href="/guests/home">Home <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/guests/update_account/{{user._id}}">Update Account <span
+                            <a class="nav-link" href="/guests/update_account/{{data.user._id}}">Update Account <span
                                     class="sr-only">(current)</span></a>
                         </li>
                     </ul>
@@ -75,13 +80,13 @@
         <!-- ################################################################################################ -->
         <!-- ################################################################################################ -->
         <!-- ################################################################################################ -->
-        <div id="pageintro" class="hoc clear">
+        <div id="breadcrumb" class="hoc clear">
             <!-- ################################################################################################ -->
-            <article>
-                <p>Welcome Guest: {{info.name}}</p>
-                <h3 class="heading">Welcome to Simple House</h3>
-                <p>This is a project of Group 6 for Enterprise Website Subject</p>
-            </article>
+            <h6 class="heading">Update Account</h6>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">update account</a></li>
+            </ul>
             <!-- ################################################################################################ -->
         </div>
         <!-- ################################################################################################ -->
@@ -94,105 +99,50 @@
         <main class="hoc container clear">
             <!-- main body -->
             <!-- ################################################################################################ -->
-            <section id="introblocks">
-                <ul class="nospace group">
-                    {{#each items}}
-                    <li class="one_third">
-                        <figure>
-                            <a class="imgover" href="/uploads/{{this.articleImage}}">
-                                <img src="/uploads/{{this.articleImage}}" alt="Article image">
-                            </a>
-                            <figcaption>
-                                <h6 class="heading">{{name}}</h6>
-                                <p>{{desc}}</p>
-                            </figcaption>
-                        </figure>
-                    </li>
-                    {{else}}
-                    <div class="alert alert-primary" role="alert">
-                        There isn't any content !!!
+            <div class="content">
+                <form action="/guests/update_account" method="POST" enctype="application/x-www-form-urlencoded">
+                    <div class="form-group">
+                        <label for="usr">Username: <span class="changeStyle">{{data.user.username}}</span></label>
                     </div>
-                    {{/each}}
-                </ul>
-            </section>
+                    <div class="form-group">
+                        <label for="pwd">Password</label>
+                        <div class="input-group mb-3">
+                            <input type="password" class="form-control" id="pwd" name="pwd" onkeyup="check();">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" id="btnPassword">
+                                    <span class="ti-eye"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="repwd">Re-enter Password</label>
+                        <div class="input-group mb-3">
+                            <input type="password" class="form-control" id="repwd" name="repwd" onkeyup="check();">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" id="btnRePassword">
+                                    <span class="ti-eye"></span>
+                                </button>
+                            </div>
+                        </div>
+                        <span id="message"></span>
+                    </div>
+                    <input type="hidden" name="_method" value="PUT">
+                    <input type="hidden" name="_id" value="{{data.user._id}}">
+                    <button type="submit" class="btn btn-primary" id="submit_acc">Update</button>
+                    <br><br>
+                    {{#if err}}
+                    <div class="alert alert-danger" role="alert">
+                        {{err}}
+                    </div>
+                    {{/if}}
+                </form>
+            </div>
             <!-- ################################################################################################ -->
             <!-- / main body -->
-            {{!-- <div class="clear"></div> --}}
+            <div class="clear"></div>
         </main>
     </div>
-    <!-- ################################################################################################ -->
-    <!-- ################################################################################################ -->
-    <!-- ################################################################################################ -->
-
-    <div class="wrapper coloured">
-        <section id="testimonials" class="hoc container clear">
-            <div class="sectiontitle">
-                <p class="nospace font-xs">At ante morbi consequat lobortis</p>
-                <h6 class="heading">Eros suspendisse scelerisque</h6>
-            </div>
-            <div class="tm-container-inner tm-persons">
-                <div class="row">
-                    <article class="col-lg-6">
-                        <figure class="tm-person">
-                            <img src="/images/teamAVT/me.png" alt="Image" class="img-fluid tm-person-img" />
-                            <figcaption class="tm-person-description">
-                                <h4 class="tm-person-name">Nguyen Duc Cuong</h4>
-                                <p class="tm-person-title">Leader</p>
-                                <p class="tm-person-about">Vivamus cursus leo nec sem feugiat sagittis.
-                                    Duis ut feugiat odio, sit amet accumsan
-                                    odio.</p>
-                            </figcaption>
-                        </figure>
-                    </article>
-                    <article class="col-lg-6">
-                        <figure class="tm-person">
-                            <img src="/images/teamAVT/thang.png" alt="Image" class="img-fluid tm-person-img" />
-                            <figcaption class="tm-person-description">
-                                <h4 class="tm-person-name">Pham Ngoc Thang</h4>
-                                <p class="tm-person-title">Leader</p>
-                                <p class="tm-person-about">Praesent non vulputate elit. Orci varius
-                                    natoque et magnis dis parturient, nascetur ridiculus mus.</p>
-                            </figcaption>
-                        </figure>
-                    </article>
-                    <article class="col-lg-6">
-                        <figure class="tm-person">
-                            <img src="/images/teamAVT/vu duc.png" alt="Image" class="img-fluid tm-person-img" />
-                            <figcaption class="tm-person-description">
-                                <h4 class="tm-person-name">Vu Viet Duc</h4>
-                                <p class="tm-person-title">Database Designer</p>
-                                <p class="tm-person-about">Aenean sapien sem, ultricies sed vulputate
-                                    et, auctor vel mauris. Integer sit amet diam eget est facilisis lacinia vitae.</p>
-                            </figcaption>
-                        </figure>
-                    </article>
-                    <article class="col-lg-6">
-                        <figure class="tm-person">
-                            <img src="/images/teamAVT/p.cuong.png" alt="Image" class="img-fluid tm-person-img" />
-                            <figcaption class="tm-person-description">
-                                <h4 class="tm-person-name">Pham Quoc Cuong</h4>
-                                <p class="tm-person-title">Front-end Developer</p>
-                                <p class="tm-person-about">Praesent non vulputate elit. Orci varius
-                                    natoque penatibus et magnis montes, nascetur ridiculus mus.</p>
-                            </figcaption>
-                        </figure>
-                    </article>
-                    <article class="col-lg-12">
-                        <figure class="tm-person">
-                            <img src="/images/teamAVT/son.png" alt="Image" class="img-fluid tm-person-img" />
-                            <figcaption class="tm-person-description">
-                                <h4 class="tm-person-name">Nguyen Hoang Son</h4>
-                                <p class="tm-person-title">Front-end Designer</p>
-                                <p class="tm-person-about">Praesent non vulputate elit. Orci varius
-                                    natoque penatibus et magnis montes, nascetur ridiculus mus.</p>
-                            </figcaption>
-                        </figure>
-                    </article>
-                </div>
-            </div>
-        </section>
-    </div>
-
     <!-- ################################################################################################ -->
     <!-- ################################################################################################ -->
     <!-- ################################################################################################ -->
@@ -234,9 +184,9 @@
     <!-- ################################################################################################ -->
     <!-- ################################################################################################ -->
     <a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
-
     <!-- JAVASCRIPTS -->
-
+    <script type="text/javascript" src="/js/hideShowPwd.js"></script>
+    <script type="text/javascript" src="/js/checkRetypePwd.js"></script>
     <script src="/js/indexJS/jquery.min.js"></script>
     <script src="/js/indexJS/jquery.backtotop.js"></script>
     <script src="/js/indexJS/jquery.mobilemenu.js"></script>

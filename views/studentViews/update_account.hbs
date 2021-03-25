@@ -223,31 +223,52 @@
                                             <div class="col-sm-12">
                                                 <!-- Tab variant tab card start -->
                                                 <div class="card">
-                                                    <div class="card-block tab-icon">
-
-                                                        <h2 class="sub-title">Student Information</h2>
-
-                                                        <ol>
-                                                            <li>Username : <span
-                                                                    class="changeStyle">{{data.user.username}}</span>
-                                                            </li>
-                                                            <li>Name : <span
-                                                                    class="changeStyle">{{data.info.name}}</span>
-                                                            </li>
-                                                            <li>Email : <span
-                                                                    class="changeStyle">{{data.info.email}}</span>
-                                                            </li>
-                                                            <li>Faculty : <span
-                                                                    class="changeStyle">{{data.assign}}</span>
-                                                            </li>
-
-                                                        </ol>
-
-                                                        <a href="/students/update_account/{{data.user._id}}">
-                                                            <button type="submit" class="btn btn-primary">Change
-                                                                Password</button>
-                                                        </a>
-
+                                                    <div class="card-block">
+                                                        <h3 class="sub-title">Change your Password</h3>
+                                                        <form action="/students/update_account" method="POST"
+                                                            enctype="application/x-www-form-urlencoded">
+                                                            <div class="form-group">
+                                                                <label for="usr">Username: <span
+                                                                        class="changeStyle">{{data.user.username}}</span></label>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="pwd">Password</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="password" class="form-control" id="pwd"
+                                                                        name="pwd" onkeyup="check();">
+                                                                    <div class="input-group-append">
+                                                                        <button class="btn btn-outline-secondary"
+                                                                            type="button" id="btnPassword">
+                                                                            <span class="ti-eye"></span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="repwd">Re-enter Password</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input type="password" class="form-control"
+                                                                        id="repwd" name="repwd" onkeyup="check();">
+                                                                    <div class="input-group-append">
+                                                                        <button class="btn btn-outline-secondary"
+                                                                            type="button" id="btnRePassword">
+                                                                            <span class="ti-eye"></span>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <span id="message"></span>
+                                                            </div>
+                                                            <input type="hidden" name="_method" value="PUT">
+                                                            <input type="hidden" name="_id" value="{{data.user._id}}">
+                                                            <button type="submit" class="btn btn-primary"
+                                                                id="submit_acc">Update</button>
+                                                            <br><br>
+                                                            {{#if err}}
+                                                            <div class="alert alert-danger" role="alert">
+                                                                {{err}}
+                                                            </div>
+                                                            {{/if}}
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -275,6 +296,8 @@
         </div>
     </div>
 
+    <script type="text/javascript" src="/js/hideShowPwd.js"></script>
+    <script type="text/javascript" src="/js/checkRetypePwd.js"></script>
     <script type="text/javascript" src="/assets/js/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/assets/js/jquery-ui/jquery-ui.min.js"></script>
     <script type="text/javascript" src="/assets/js/popper.js/popper.min.js"></script>

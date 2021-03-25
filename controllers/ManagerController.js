@@ -29,6 +29,71 @@ const GetManagerHome = (req, res, next) => {
     });
 };
 
+const getUpdateAccount = (req, res, next) => {
+  let user = {};
+  const _id = req.params.id;
+  const { msg } = req.query;
+
+  AppUser.findOne({ _id: _id })
+    .exec()
+    .then((value) => {
+      user = {
+        _id: _id,
+        username: value.username,
+      };
+      Manager.findOne({ account_id: _id })
+        .exec()
+        .then((info) => {
+          res.render("managerViews/update_account", {
+            err: msg,
+            data: {
+              _id: _id,
+              info: info,
+              user: user,
+            },
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.redirect("/managers/home");
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect("/managers/home");
+    });
+};
+
+const updateAccount = async (req, res, next) => {
+  const { pwd, _id } = req.body;
+  const newValue = {};
+  if (pwd) newValue.password = pwd;
+
+  await AppUser.findOne({ _id: _id }).exec(async (err, user) => {
+    if (err) {
+      return console.log(err);
+    } else if (pwd.length < 4) {
+      const msg = "Password must be at least 4 characters !!!";
+      return res.redirect(`/managers/update_account/${_id}?msg=${msg}`);
+    } else {
+      AppUser.findOneAndUpdate(
+        { _id: _id },
+        { $set: newValue },
+        { new: true },
+        (err, data) => {
+          if (err) {
+            console.log(err);
+            return res.render("managerViews/update_account");
+          } else {
+            console.log(data);
+            return res.redirect("/managers/home");
+          }
+        }
+      );
+    }
+  });
+};
+
 const getListArticles_manager = (req, res, next) => {
   const _id = req.query.faculty_id;
   let query = {};
@@ -172,6 +237,8 @@ const downloadFile = async (req, res, next) => {
 
 module.exports = {
   GetManagerHome,
+  getUpdateAccount,
+  updateAccount,
   getListArticles_manager,
   getStatistics_manager,
   getDetailStatistics,
