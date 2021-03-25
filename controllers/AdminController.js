@@ -1048,12 +1048,68 @@ const updateTopic_admin = (req, res, next) => {
 // Delete Topic
 const deleteTopic_admin = (req, res, next) => {
   const { _id } = req.body;
-  Topic.findByIdAndRemove({ _id: _id })
+  Topic.findOneAndRemove({ _id: _id })
     .exec()
     .then((value) => {
       console.log("Delete successfully in Topic");
-      console.log(value);
-      res.redirect("/admin/list_all_topic");
+      // console.log(value);
+      Article.findOneAndRemove({ topic_id: _id }, (err, article) => {
+        if (err) {
+          console.log(err);
+          return res.redirect("/admin/list_all_topic");
+        } else {
+          console.log("Delete successfully Article of topic");
+          Comment.findOneAndRemove({ _id: article.comment }, (err) => {
+            if (err) {
+              console.log(err);
+              return res.redirect("/admin/list_all_topic");
+            } else {
+              console.log("Delete successfully Comment of article");
+              Student.findOneAndUpdate(
+                { posts: article._id },
+                { $pull: { posts: article._id } },
+                { safe: true, upsert: true },
+                (err, data) => {
+                  if (err) {
+                    res.render("error", {
+                      message: "Sorry failed to delete post id in students",
+                      error: {
+                        status: err,
+                        stacks: "failed to delete post id in students",
+                      },
+                    });
+                  } else {
+                    console.log("Delete successfully in array from Student");
+                    Faculty.findOneAndUpdate(
+                      { amountArticle: article._id },
+                      { $pull: { amountArticle: article._id } },
+                      { safe: true, upsert: true },
+                      (err, data) => {
+                        if (err) {
+                          res.render("error", {
+                            message:
+                              "Sorry failed to delete Article id in amountArticle",
+                            error: {
+                              status: err,
+                              stacks:
+                                "failed to delete Article id in amountArticle",
+                            },
+                          });
+                        } else {
+                          console.log(
+                            "Delete successfully in array from Faculty"
+                          );
+                          return res.redirect("/admin/list_all_topic");
+                        }
+                      }
+                    );
+                  }
+                }
+              );
+            }
+          });
+        }
+      });
     })
     .catch((err) => {
       res.send(err);
