@@ -159,17 +159,17 @@ const addArticle_student = async (req, res, next) => {
                 faculty.amountArticle.push(item);
                 info.save();
                 faculty.save();
-                const coordinator = await Coordinator.findOne({
-                  faculty_id: faculty._id,
-                });
-                // console.log(coordinator);
-                await Nodemailer(coordinator.email)
-                  .then((result) => {
-                    console.log("Email sent...", result);
-                  })
-                  .catch((err) => {
-                    console.log(err.message);
-                  });
+                // const coordinator = await Coordinator.findOne({
+                //   faculty_id: faculty._id,
+                // });
+                // // console.log(coordinator);
+                // await Nodemailer(coordinator.email)
+                //   .then((result) => {
+                //     console.log("Email sent...", result);
+                //   })
+                //   .catch((err) => {
+                //     console.log(err.message);
+                //   });
                 res.redirect("/students/list_articles?id=" + _id);
               }
             });
@@ -387,10 +387,10 @@ const deleteArticle_student = async (req, res, next) => {
                         if (err) {
                           res.render("error", {
                             message:
-                              "Sorry failed to delete post id in students",
+                              "Sorry failed to delete Article id in amountArticle",
                             error: {
                               status: err,
-                              stacks: "failed to delete post id in students",
+                              stacks: "failed to delete Article id in amountArticle",
                             },
                           });
                         } else {

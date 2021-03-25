@@ -5,6 +5,8 @@ const Manager = require("../models/ManagerModel");
 const Faculty = require("../models/FacultyModel");
 const Guest = require("../models/GuestModel");
 const Topic = require("../models/TopicModel");
+const Article = require("../models/ArticlesModel");
+const Comment = require("../models/commentModel");
 
 // The processing section for a student's account is below
 // showing list of student
@@ -229,9 +231,48 @@ const deleteStudent_Admin = async (req, res, next) => {
       Student.findOneAndRemove({ account_id: _id })
         .then((result) => {
           console.log("Delete successfully in Student");
-          return res.redirect(
-            "/admin/list_all_students?faculty_id=" + result.faculty_id
-          );
+          Article.findOneAndRemove({ _id: result.posts }, (err, article) => {
+            if (err) {
+              console.log(err);
+              return res.redirect("/admin/list_all_students");
+            } else {
+              console.log("Delete successfully articles of student");
+              Comment.findOneAndRemove({ _id: article.comments }, (err) => {
+                if (err) {
+                  console.log(err);
+                  return res.redirect("/admin/list_all_students");
+                } else {
+                  console.log("Delete successfully comment of article");
+                  Faculty.findOneAndUpdate(
+                    { amountArticle: result.posts },
+                    { $pull: { amountArticle: result.posts } },
+                    { safe: true, upsert: true },
+                    (err, data) => {
+                      if (err) {
+                        res.render("error", {
+                          message:
+                            "Sorry failed to delete Article id in amountArticle",
+                          error: {
+                            status: err,
+                            stacks:
+                              "failed to delete Article id in amountArticle",
+                          },
+                        });
+                      } else {
+                        console.log(
+                          "Delete successfully in array from Faculty"
+                        );
+                        return res.redirect(
+                          "/admin/list_all_students?faculty_id=" +
+                            result.faculty_id
+                        );
+                      }
+                    }
+                  );
+                }
+              });
+            }
+          });
         })
         .catch((err) => {
           console.log(err);
@@ -789,18 +830,124 @@ const updateFaculty_admin = (req, res, next) => {
 };
 
 // Delete Faculty
-const deleteFaculty_admin = (req, res, next) => {
+const deleteFaculty_admin = async (req, res, next) => {
   const { _id } = req.body;
-  Faculty.findByIdAndRemove({ _id: _id })
-    .exec()
-    .then((value) => {
+
+  const faculty = Faculty.findOne({ _id: _id });
+  const student = Student.find({ faculty_id: _id });
+  const article = Article.find({ _id: student.posts });
+  const coordinator = Coordinator.find({ faculty_id: _id });
+  const guest = Guest.find({ faculty_id: _id });
+
+  await Faculty.findOneAndRemove({ _id: _id }, (err) => {
+    if (err) {
+      console.log(err);
+      return res.redirect("/admin/list_all_faculty");
+    } else {
+      console.log("======================================");
       console.log("Delete successfully in Faculty");
-      console.log(value);
-      res.redirect("/admin/list_all_faculty");
-    })
-    .catch((err) => {
-      res.send(err);
-    });
+      Student.findOneAndRemove({ faculty_id: _id }, (err, student) => {
+        if (err) {
+          console.log(err);
+          return res.redirect("/admin/list_all_faculty");
+        } else {
+          console.log("--------");
+          console.log("Delete successfully students in faculty");
+          AppUser.findOneAndRemove({ _id: student.account_id }, (err) => {
+            if (err) {
+              console.log(err);
+              return res.redirect("/admin/list_all_faculty");
+            } else {
+              console.log("Delete successfully account of student");
+              Article.findOneAndRemove({ _id: student.posts }, (err) => {
+                if (err) {
+                  console.log(err);
+                  return res.redirect("/admin/list_all_faculty");
+                } else {
+                  console.log("Delete successfully articles of student");
+                  Comment.findOneAndRemove({ _id: article.comments }, (err) => {
+                    if (err) {
+                      console.log(err);
+                      return res.redirect("/admin/list_all_faculty");
+                    } else {
+                      console.log("Delete successfully comments of article");
+                      Coordinator.findOneAndRemove(
+                        { faculty_id: _id },
+                        (err, coordinator) => {
+                          if (err) {
+                            console.log(err);
+                            return res.redirect("/admin/list_all_faculty");
+                          } else {
+                            console.log("--------");
+                            console.log(
+                              "Delete successfully coordinator of faculty"
+                            );
+                            AppUser.findOneAndRemove(
+                              { _id: coordinator.account_id },
+                              (err) => {
+                                if (err) {
+                                  console.log(err);
+                                  return res.redirect(
+                                    "/admin/list_all_faculty"
+                                  );
+                                } else {
+                                  console.log(
+                                    "Delete successfully account of Coordinator"
+                                  );
+                                  Guest.findOneAndRemove(
+                                    {
+                                      faculty_id: _id,
+                                    },
+                                    (err, guest) => {
+                                      if (err) {
+                                        console.log(err);
+                                        return res.redirect(
+                                          "/admin/list_all_faculty"
+                                        );
+                                      } else {
+                                        console.log("--------");
+                                        console.log(
+                                          "Delete successfully guests of faculty"
+                                        );
+                                        AppUser.findOneAndRemove(
+                                          {
+                                            _id: guest.account_id,
+                                          },
+                                          (err) => {
+                                            if (err) {
+                                              console.log(err);
+                                              return res.redirect(
+                                                "/admin/list_all_faculty"
+                                              );
+                                            } else {
+                                              console.log(
+                                                "Delete successfully account of guests"
+                                              );
+                                              return res.redirect(
+                                                "/admin/list_all_faculty"
+                                              );
+                                            }
+                                          }
+                                        );
+                                      }
+                                    }
+                                  );
+                                }
+                              }
+                            );
+                          }
+                        }
+                      );
+                    }
+                  });
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  });
 };
 
 /* ================================================================

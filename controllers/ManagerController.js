@@ -225,9 +225,9 @@ const downloadFile = async (req, res, next) => {
 
     archive.pipe(output);
     for (var i = 1; i < a.length; i++) {
-      var file = "public/" + a[i];
+      var file = "public/uploads/" + a[i];
       console.log("file name: ", file);
-      archive.append(fs.createReadStream(file), { name: file });
+      archive.append(fs.createReadStream(file), { name: a[i] });
     }
     await archive.finalize();
     console.log("Hello===========");
