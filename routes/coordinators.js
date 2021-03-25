@@ -7,6 +7,7 @@ var {
   GetCoordinatorHome,
   getListArticles_coordinator,
   acceptArticle_coordinator,
+  rejectArticle_coordinator,
   getReviewArticles,
   doComment,
   deleteComment,
@@ -23,6 +24,9 @@ router.get("/list_articles", isCoordinator, getListArticles_coordinator);
 
 // accept article for publication
 router.put("/accept_article", isCoordinator, acceptArticle_coordinator);
+
+// reject article for publication
+router.put("/reject_article", isCoordinator, rejectArticle_coordinator);
 
 router.get("/article_detail", isCoordinator, getReviewArticles);
 

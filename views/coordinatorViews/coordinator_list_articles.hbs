@@ -280,16 +280,51 @@
                                                                                 <button type="submit"
                                                                                     class="btn btn-primary">Details</button>
                                                                             </a>
-                                                                            <form action="/coordinators/accept_article"
-                                                                                method="POST"
-                                                                                enctype="application/x-www-form-urlencoded">
-                                                                                <input type="hidden" name="_id"
-                                                                                    value={{_id}}>
-                                                                                <input type="hidden" name="_method"
-                                                                                    value="PUT">
-                                                                                <button type="submit"
-                                                                                    class="btn btn-danger">Accept</button>
-                                                                            </form>
+                                                                            <div class="dropdown-success dropdown open">
+                                                                                <button
+                                                                                    class="btn btn-success dropdown-toggle waves-effect waves-light "
+                                                                                    type="button" id="dropdown-3"
+                                                                                    data-toggle="dropdown"
+                                                                                    aria-haspopup="true"
+                                                                                    aria-expanded="true">Status</button>
+                                                                                <div class="dropdown-menu"
+                                                                                    aria-labelledby="dropdown-3"
+                                                                                    data-dropdown-in="fadeIn"
+                                                                                    data-dropdown-out="fadeOut">
+                                                                                    <a class="dropdown-item waves-light waves-effect"
+                                                                                        href="#">
+                                                                                        <form
+                                                                                            action="/coordinators/accept_article"
+                                                                                            method="POST"
+                                                                                            enctype="application/x-www-form-urlencoded">
+                                                                                            <input type="hidden"
+                                                                                                name="_id"
+                                                                                                value={{_id}}>
+                                                                                            <input type="hidden"
+                                                                                                name="_method"
+                                                                                                value="PUT">
+                                                                                            <button type="submit"
+                                                                                                class="btn btn-success">Accept</button>
+                                                                                        </form>
+                                                                                    </a>
+                                                                                    <a class="dropdown-item waves-light waves-effect"
+                                                                                        href="#">
+                                                                                        <form
+                                                                                            action="/coordinators/reject_article"
+                                                                                            method="POST"
+                                                                                            enctype="application/x-www-form-urlencoded">
+                                                                                            <input type="hidden"
+                                                                                                name="_id"
+                                                                                                value={{_id}}>
+                                                                                            <input type="hidden"
+                                                                                                name="_method"
+                                                                                                value="PUT">
+                                                                                            <button type="submit"
+                                                                                                class="btn btn-danger">Reject</button>
+                                                                                        </form>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
                                                                         </td>
                                                                         {{else}}
                                                                         <td colspan="9">

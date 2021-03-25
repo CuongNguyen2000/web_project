@@ -112,6 +112,24 @@ const acceptArticle_coordinator = (req, res, next) => {
     });
 };
 
+const rejectArticle_coordinator = (req, res, next) => {
+  const { _id } = req.body;
+  Articles.findByIdAndUpdate(
+    { _id: _id },
+    { $set: { status: false } },
+    { new: true, useFindAndModify: false }
+  )
+    .exec()
+    .then((value) => {
+      console.log(value);
+      res.redirect("/coordinators/list_articles");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send(err);
+    });
+};
+
 const getReviewArticles = (req, res, next) => {
   const _id = req.query.id;
   Coordinator.findOne({ account_id: req.session.userId })
@@ -218,6 +236,7 @@ module.exports = {
   GetCoordinatorHome,
   getListArticles_coordinator,
   acceptArticle_coordinator,
+  rejectArticle_coordinator,
   getReviewArticles,
   doComment,
   deleteComment,
