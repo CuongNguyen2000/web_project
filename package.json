@@ -2,9 +2,9 @@
   "name": "mywebapplication",
   "version": "0.0.0",
   "private": true,
+  "main": " ./bin/www",
   "scripts": {
-    "start": "nodemon ./bin/www",
-    "main": " ./bin/www"
+    "start": "nodemon ./bin/www"
   },
   "dependencies": {
     "archiver": "^5.3.0",
