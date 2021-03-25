@@ -232,17 +232,18 @@ const getUpdateArticle_student = (req, res, next) => {
     .exec()
     .then((info) => {
       Articles.findOne({ _id: _id })
+        .populate("topic_id")
         .exec()
         .then((value) => {
-          Topic.findOne({ _id: value.topic_id })
-            .exec()
-            .then((topic) => {
-              if (topic.timeOver > now) {
+          if (value.topic_id.timeOver > now) {
+            Topic.find({})
+              .exec()
+              .then((topic) => {
                 if (value.topic_id) {
                   Topic.findOne({ _id: value.topic_id })
                     .exec()
                     .then((assign) => {
-                      console.log(assign);
+                      console.log("Current Topic is: ", assign);
                       res.render("studentViews/student_update_article", {
                         data: {
                           value: value,
@@ -264,23 +265,22 @@ const getUpdateArticle_student = (req, res, next) => {
                     },
                   });
                 }
-              } else {
-                const msg =
-                  "The time allowed to post has expired and you can't edit your article !!!";
-                res.render("studentViews/student_update_article", {
-                  data: {
-                    err: msg,
-                    value: value,
-                    _id: value._id,
-                    topic: topic,
-                    info: info,
-                  },
-                });
-              }
-            })
-            .catch((err) => {
-              console.log(err);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          } else {
+            const msg =
+              "The time allowed to post has expired and you can't edit your article !!!";
+            res.render("studentViews/student_update_article", {
+              data: {
+                err: msg,
+                value: value,
+                _id: value._id,
+                info: info,
+              },
             });
+          }
         })
         .catch((err) => {
           console.log(err);
