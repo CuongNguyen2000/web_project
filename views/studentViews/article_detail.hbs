@@ -266,9 +266,9 @@
                                                                         class="btn btn-primary btn-round">Update</button>
                                                                 </form>
                                                                 <form style="display:inline-block"
-                                                                    action="/students/delete_article/{{value._id}}"
-                                                                    method="POST"
+                                                                    action="/students/delete_article" method="POST"
                                                                     enctype="application/x-www-form-urlencoded">
+                                                                    <input type="hidden" name="_id" value={{_id}}>
                                                                     <input type="hidden" name="_method" value="DELETE">
                                                                     <button type="submit"
                                                                         class="btn btn-danger btn-round">Delete</button>
