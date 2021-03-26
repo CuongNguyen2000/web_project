@@ -4,7 +4,8 @@
   "private": true,
   "main": " ./bin/www",
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "dev": "nodemon ./bin/www",
+    "start": "node ./bin/www"
   },
   "dependencies": {
     "archiver": "^5.3.0",
