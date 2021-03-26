@@ -200,6 +200,12 @@ const rejectArticle_coordinator = (req, res, next) => {
 };
 
 const getReviewArticles = (req, res, next) => {
+  var Xmas95 = new Date();
+  var day = Xmas95.getDate().toString().padStart(2, "0");
+  var month = (Xmas95.getMonth() + 1).toString().padStart(2, "0");
+  var year = Xmas95.getFullYear();
+  let now = year + "-" + month + "-" + day;
+
   const _id = req.query.id;
   Coordinator.findOne({ account_id: req.session.userId })
     .exec()
@@ -211,10 +217,20 @@ const getReviewArticles = (req, res, next) => {
         .exec()
         .then((value) => {
           console.log(value);
-          res.render("coordinatorViews/article_detail", {
-            value: value,
-            info: info,
-          });
+          if (value.topic_id.timeOver > now) {
+            res.render("coordinatorViews/article_detail", {
+              value: value,
+              info: info,
+            });
+          } else {
+            const msg =
+              "Comment allow time has expired !!! You cannot feedback student articles anymore.";
+            res.render("coordinatorViews/article_detail", {
+              err: msg,
+              value: value,
+              info: info,
+            });
+          }
         })
         .catch((err) => {
           console.log(err);
