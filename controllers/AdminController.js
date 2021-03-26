@@ -1128,6 +1128,7 @@ const listGuest_admin = (req, res, next) => {
   const _id = req.query.faculty_id;
   Guest.find({ faculty_id: _id })
     .populate("account_id")
+    .populate("faculty_id")
     .exec()
     .then((guests) => {
       Faculty.findOne({ _id: _id })
