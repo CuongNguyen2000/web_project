@@ -244,12 +244,13 @@ const getUpdateArticle_student = (req, res, next) => {
                     .exec()
                     .then((assign) => {
                       console.log("Current Topic is: ", assign);
+                      
                       res.render("studentViews/student_update_article", {
                         data: {
                           value: value,
                           _id: value._id,
                           assign: assign.name,
-                          topic: topic,
+                        
                           info: info,
                         },
                       });
@@ -260,7 +261,7 @@ const getUpdateArticle_student = (req, res, next) => {
                     data: {
                       value: value,
                       _id: value._id,
-                      topic: topic,
+                      
                       info: info,
                     },
                   });
@@ -323,25 +324,25 @@ const updateArticleInfo = (req, res, next) => {
 };
 
 // Assign article to Topic
-const assignTopicForArticle_student = (req, res, next) => {
-  const { _id, topic } = req.body;
+// const assignTopicForArticle_student = (req, res, next) => {
+//   const { _id, topic } = req.body;
 
-  console.log(topic, _id);
-  Articles.findOneAndUpdate(
-    { _id: _id },
-    { $set: { topic_id: topic } },
-    { new: true, useFindAndModify: false }
-  )
-    .exec()
-    .then((value) => {
-      console.log(value);
-      res.redirect("/students/list_articles?id=" + value.topic_id);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.send(err);
-    });
-};
+//   console.log(topic, _id);
+//   Articles.findOneAndUpdate(
+//     { _id: _id },
+//     { $set: { topic_id: topic } },
+//     { new: true, useFindAndModify: false }
+//   )
+//     .exec()
+//     .then((value) => {
+//       console.log(value);
+//       res.redirect("/students/list_articles?id=" + value.topic_id);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       res.send(err);
+//     });
+// };
 
 const deleteArticle_student = async (req, res, next) => {
   const { _id } = req.body;
@@ -390,7 +391,8 @@ const deleteArticle_student = async (req, res, next) => {
                               "Sorry failed to delete Article id in amountArticle",
                             error: {
                               status: err,
-                              stacks: "failed to delete Article id in amountArticle",
+                              stacks:
+                                "failed to delete Article id in amountArticle",
                             },
                           });
                         } else {
@@ -453,6 +455,6 @@ module.exports = {
   getArticleDetails,
   getListTopic,
   deleteArticle_student,
-  assignTopicForArticle_student,
+  // assignTopicForArticle_student,
   updateArticleInfo,
 };

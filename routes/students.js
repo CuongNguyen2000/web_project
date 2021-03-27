@@ -13,7 +13,7 @@ var {
   getArticleDetails,
   getListTopic,
   deleteArticle_student,
-  assignTopicForArticle_student,
+  // assignTopicForArticle_student,
   updateArticleInfo,
 } = require("../controllers/StudentController");
 
@@ -81,7 +81,7 @@ router.post("/add_article", multerInstance, isStudent, addArticle_student);
 router.delete("/delete_article", isStudent, deleteArticle_student);
 
 // Assign a topic for article
-router.put("/assign_topic_article", isStudent, assignTopicForArticle_student);
+// router.put("/assign_topic_article", isStudent, assignTopicForArticle_student);
 
 // GET update page article
 router.post("/update_article/:id", isStudent, getUpdateArticle_student);
