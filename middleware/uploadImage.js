@@ -8,6 +8,8 @@ const MIME_TYPES = {
   "application/pdf": "pdf",
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document":
     "docx",
+  "application/vnd.openxmlformats-officedocument.presentationml.presentation":
+    "pptx",
   "application/zip": "zip",
 };
 

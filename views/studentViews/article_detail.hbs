@@ -259,6 +259,11 @@
                                                             <p class="card-text">Description: {{value.desc}}</p>
                                                             <p class="card-text">Topic: {{value.topic_id.name}}</p>
                                                             <div class="text-center">
+                                                                <a href="/uploads/{{value.articleImage}}">
+                                                                    <button type="submit"
+                                                                        class="btn btn-info btn-round">Read
+                                                                        more</button>
+                                                                </a>
                                                                 <form style="display: inline-block"
                                                                     action="/students/update_article/{{value._id}}"
                                                                     method="POST">

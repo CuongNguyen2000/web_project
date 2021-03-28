@@ -208,7 +208,7 @@
                                                         <i
                                                             class="icofont icofont icofont icofont-file-document bg-c-pink"></i>
                                                         <div class="d-inline">
-                                                            <h4>Statistics Page</h4>
+                                                            <h4>Statistics for Faculty of the {{faculty.name}}</h4>
                                                             <span>Statistics of Contributions by each faculty</span>
 
                                                         </div>
@@ -233,278 +233,323 @@
                                         <!-- Page-header end -->
                                         <div class="row">
                                             <div class="col-sm-12">
+                                                {{!-- tab card start --}}
                                                 <div class="card">
                                                     <div class="card-header">
                                                         <h5>Details of statistic for {{faculty.name}}</h5>
                                                     </div>
                                                     <div class="card-block">
-                                                        <div class="col-lg-12">
-                                                            <div class="sub-title">Statistics on the moderation status
-                                                                of articles</div>
-                                                            <!-- Nav tabs -->
-                                                            <ul class="nav nav-tabs md-tabs" role="tablist">
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link active" data-toggle="tab"
-                                                                        href="#rejectArticle" role="tab">List of
-                                                                        uncensored
-                                                                        articles</a>
-                                                                    <div class="slide"></div>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" data-toggle="tab"
-                                                                        href="#acceptArticle" role="tab">List of
-                                                                        articles
-                                                                        that have been moderated</a>
-                                                                    <div class="slide"></div>
-                                                                </li>
-                                                            </ul>
-                                                            <!-- Tab panes -->
-                                                            <div class="tab-content card-block">
-                                                                <div class="tab-pane active" id="rejectArticle"
-                                                                    role="tabpanel">
-                                                                    <div class="table-responsive">
-                                                                        <table class="table table-hover">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th scope="col">#</th>
-                                                                                    <th scope="col">Student</th>
-                                                                                    <th scope="col">Article Name</th>
-                                                                                    <th scope="col">File Name</th>
-                                                                                    <th scope="col">Description</th>
-                                                                                    <th scope="col">Topic</th>
-                                                                                    <th scope="col">Status</th>
-                                                                                    <th scope="col">Option</th>
-                                                                                <tr></tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                {{#each demo.rejectArticle}}
-                                                                                <tr>
-                                                                                    <td scope="row">{{@index}}</td>
-                                                                                    <td scope="row">{{author.name}}</td>
-                                                                                    <td scope="row">{{name}}</td>
-                                                                                    <td scope="row">
-                                                                                        {{this.articleImage}}
-                                                                                    </td>
-                                                                                    <td scope="row">{{desc}}</td>
-                                                                                    <td scope="row">{{topic_id.name}}
-                                                                                    </td>
-                                                                                    <td scope="row">{{status}}</td>
-                                                                                    <td>
-                                                                                        <a
-                                                                                            href="/uploads/{{this.articleImage}}">
-                                                                                            <button type="submit"
-                                                                                                class="btn btn-info">
-                                                                                                Detailed
-                                                                                            </button>
-                                                                                        </a>
-                                                                                    </td>
-                                                                                    {{else}}
-                                                                                    <td colspan="9">
-                                                                                        <div class="alert alert-primary"
-                                                                                            role="alert">
-                                                                                            There isn't any content !!!
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                {{/each}}
-                                                                            </tbody>
-                                                                        </table>
+                                                        {{!-- row start --}}
+                                                        <div class="row m-b-30">
+                                                            <div class="col-lg-12">
+                                                                <div class="sub-title">Statistics on the moderation
+                                                                    status
+                                                                    of articles</div>
+                                                                <!-- Nav tabs -->
+                                                                <ul class="nav nav-tabs md-tabs" role="tablist">
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link active" data-toggle="tab"
+                                                                            href="#rejectArticle" role="tab">List of
+                                                                            uncensored
+                                                                            articles</a>
+                                                                        <div class="slide"></div>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" data-toggle="tab"
+                                                                            href="#acceptArticle" role="tab">List of
+                                                                            articles
+                                                                            that have been moderated</a>
+                                                                        <div class="slide"></div>
+                                                                    </li>
+                                                                </ul>
+                                                                <!-- Tab panes -->
+                                                                <div class="tab-content card-block">
+                                                                    <div class="tab-pane active" id="rejectArticle"
+                                                                        role="tabpanel">
+                                                                        <div class="card-block table-border-style">
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-hover">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th scope="col">#</th>
+                                                                                            <th scope="col">Student</th>
+                                                                                            <th scope="col">Article Name
+                                                                                            </th>
+                                                                                            <th scope="col">File Name
+                                                                                            </th>
+                                                                                            <th scope="col">Description
+                                                                                            </th>
+                                                                                            <th scope="col">Topic</th>
+                                                                                            <th scope="col">Status</th>
+                                                                                            <th scope="col">Option</th>
+                                                                                        <tr></tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        {{#each demo.rejectArticle}}
+                                                                                        <tr>
+                                                                                            <td scope="row">{{@index}}
+                                                                                            </td>
+                                                                                            <td scope="row">
+                                                                                                {{author.name}}
+                                                                                            </td>
+                                                                                            <td scope="row">{{name}}
+                                                                                            </td>
+                                                                                            <td scope="row">
+                                                                                                {{this.articleImage}}
+                                                                                            </td>
+                                                                                            <td scope="row">{{desc}}
+                                                                                            </td>
+                                                                                            <td scope="row">
+                                                                                                {{topic_id.name}}
+                                                                                            </td>
+                                                                                            <td scope="row">{{status}}
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <a
+                                                                                                    href="/uploads/{{this.articleImage}}">
+                                                                                                    <button
+                                                                                                        type="submit"
+                                                                                                        class="btn btn-info">
+                                                                                                        Detailed
+                                                                                                    </button>
+                                                                                                </a>
+                                                                                            </td>
+                                                                                            {{else}}
+                                                                                            <td colspan="9">
+                                                                                                <div class="alert alert-primary"
+                                                                                                    role="alert">
+                                                                                                    There isn't any
+                                                                                                    content
+                                                                                                    !!!
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        {{/each}}
+                                                                                    </tbody>
+                                                                                </table>
 
+                                                                            </div>
+                                                                        </div>
+                                                                        {{!-- table responsive end --}}
                                                                     </div>
-                                                                    {{!-- table responsive end --}}
-                                                                </div>
-                                                                <div class="tab-pane" id="acceptArticle"
-                                                                    role="tabpanel">
-                                                                    {{!-- table responsive start --}}
-                                                                    <div class="table-responsive">
-                                                                        <table class="table table-hover">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th scope="col">#</th>
-                                                                                    <th scope="col">Student</th>
-                                                                                    <th scope="col">Article Name</th>
-                                                                                    <th scope="col">File Name</th>
-                                                                                    <th scope="col">Description</th>
-                                                                                    <th scope="col">Topic</th>
-                                                                                    <th scope="col">Status</th>
-                                                                                    <th scope="col">Option</th>
-                                                                                <tr></tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                {{#each demo.acceptArticle}}
-                                                                                <tr>
-                                                                                    <td scope="row">{{@index}}</td>
-                                                                                    <td scope="row">{{author.name}}</td>
-                                                                                    <td scope="row">{{name}}</td>
-                                                                                    <td scope="row">
-                                                                                        {{this.articleImage}}
-                                                                                    </td>
-                                                                                    <td scope="row">{{desc}}</td>
-                                                                                    <td scope="row">{{topic_id.name}}
-                                                                                    </td>
-                                                                                    <td scope="row">{{status}}</td>
-                                                                                    <td>
-                                                                                        <a
-                                                                                            href="/uploads/{{this.articleImage}}">
-                                                                                            <button type="submit"
-                                                                                                class="btn btn-info">
-                                                                                                Detailed
-                                                                                            </button>
-                                                                                        </a>
-                                                                                    </td>
-                                                                                    {{else}}
-                                                                                    <td colspan="9">
-                                                                                        <div class="alert alert-primary"
-                                                                                            role="alert">
-                                                                                            There isn't any content !!!
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                {{/each}}
-                                                                            </tbody>
-                                                                        </table>
+                                                                    <div class="tab-pane" id="acceptArticle"
+                                                                        role="tabpanel">
+                                                                        {{!-- table responsive start --}}
+                                                                        <div class="table-responsive">
+                                                                            <table class="table table-hover">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th scope="col">#</th>
+                                                                                        <th scope="col">Student</th>
+                                                                                        <th scope="col">Article Name
+                                                                                        </th>
+                                                                                        <th scope="col">File Name</th>
+                                                                                        <th scope="col">Description</th>
+                                                                                        <th scope="col">Topic</th>
+                                                                                        <th scope="col">Status</th>
+                                                                                        <th scope="col">Option</th>
+                                                                                    <tr></tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    {{#each demo.acceptArticle}}
+                                                                                    <tr>
+                                                                                        <td scope="row">{{@index}}</td>
+                                                                                        <td scope="row">{{author.name}}
+                                                                                        </td>
+                                                                                        <td scope="row">{{name}}</td>
+                                                                                        <td scope="row">
+                                                                                            {{this.articleImage}}
+                                                                                        </td>
+                                                                                        <td scope="row">{{desc}}</td>
+                                                                                        <td scope="row">
+                                                                                            {{topic_id.name}}
+                                                                                        </td>
+                                                                                        <td scope="row">{{status}}</td>
+                                                                                        <td>
+                                                                                            <a
+                                                                                                href="/uploads/{{this.articleImage}}">
+                                                                                                <button type="submit"
+                                                                                                    class="btn btn-info">
+                                                                                                    Detailed
+                                                                                                </button>
+                                                                                            </a>
+                                                                                        </td>
+                                                                                        {{else}}
+                                                                                        <td colspan="9">
+                                                                                            <div class="alert alert-primary"
+                                                                                                role="alert">
+                                                                                                There isn't any content
+                                                                                                !!!
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    {{/each}}
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                        {{!-- table responsive end --}}
                                                                     </div>
-                                                                    {{!-- table responsive end --}}
                                                                 </div>
-                                                            </div>
-                                                            <!-- Tab panes end -->
-                                                        </div>
-                                                        <div class="col-lg-12">
-                                                            <div class="sub-title">List of posts that have received and
-                                                                have not received feedback</div>
-                                                            <!-- Nav tabs -->
-                                                            <ul class="nav nav-tabs md-tabs tabs-left b-none"
-                                                                role="tablist">
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link active" data-toggle="tab"
-                                                                        href="#home5" role="tab">Have Comments</a>
-                                                                    <div class="slide"></div>
-                                                                </li>
-                                                                <li class="nav-item">
-                                                                    <a class="nav-link" data-toggle="tab"
-                                                                        href="#profile5" role="tab">No Comment yet</a>
-                                                                    <div class="slide"></div>
-                                                                </li>
-
-                                                            </ul>
-                                                            <!-- Tab panes -->
-                                                            <div class="tab-content tabs-left-content card-block">
-
-                                                                <div class="tab-pane active" id="home5" role="tabpanel">
-                                                                    {{!-- table responsive start --}}
-                                                                    <div class="table-responsive">
-                                                                        <table class="table table-hover">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th scope="col">#</th>
-                                                                                    <th scope="col">Student</th>
-                                                                                    <th scope="col">Article Name</th>
-                                                                                    <th scope="col">File Name</th>
-                                                                                    <th scope="col">Description</th>
-                                                                                    <th scope="col">Topic</th>
-                                                                                    <th scope="col">Status</th>
-                                                                                    <th scope="col">Option</th>
-                                                                                <tr></tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                {{#each demo.commentExist}}
-                                                                                <tr>
-                                                                                    <td scope="row">{{@index}}</td>
-                                                                                    <td scope="row">{{author.name}}</td>
-                                                                                    <td scope="row">{{name}}</td>
-                                                                                    <td scope="row">
-                                                                                        {{this.articleImage}}
-                                                                                    </td>
-                                                                                    <td scope="row">{{desc}}</td>
-                                                                                    <td scope="row">{{topic_id.name}}
-                                                                                    </td>
-                                                                                    <td scope="row">{{status}}</td>
-                                                                                    <td>
-                                                                                        <a
-                                                                                            href="/uploads/{{this.articleImage}}">
-                                                                                            <button type="submit"
-                                                                                                class="btn btn-info">
-                                                                                                Detailed
-                                                                                            </button>
-                                                                                        </a>
-                                                                                    </td>
-                                                                                    {{else}}
-                                                                                    <td colspan="9">
-                                                                                        <div class="alert alert-primary"
-                                                                                            role="alert">
-                                                                                            There isn't any content !!!
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                {{/each}}
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-                                                                    {{!-- table responsive end --}}
-                                                                </div>
-                                                                <div class="tab-pane" id="profile5" role="tabpanel">
-                                                                    {{!-- table responsive start --}}
-                                                                    <div class="table-responsive">
-                                                                        <table class="table table-hover">
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th scope="col">#</th>
-                                                                                    <th scope="col">Student</th>
-                                                                                    <th scope="col">Article Name</th>
-                                                                                    <th scope="col">File Name</th>
-                                                                                    <th scope="col">Description</th>
-                                                                                    <th scope="col">Topic</th>
-                                                                                    <th scope="col">Status</th>
-                                                                                    <th scope="col">Option</th>
-                                                                                <tr></tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                {{#each demo.noComment}}
-                                                                                <tr>
-                                                                                    <td scope="row">{{@index}}</td>
-                                                                                    <td scope="row">{{author.name}}</td>
-                                                                                    <td scope="row">{{name}}</td>
-                                                                                    <td scope="row">
-                                                                                        {{this.articleImage}}
-                                                                                    </td>
-                                                                                    <td scope="row">{{desc}}</td>
-                                                                                    <td scope="row">{{topic_id.name}}
-                                                                                    </td>
-                                                                                    <td scope="row">{{status}}</td>
-                                                                                    <td>
-                                                                                        <a
-                                                                                            href="/uploads/{{this.articleImage}}">
-                                                                                            <button type="submit"
-                                                                                                class="btn btn-info">
-                                                                                                Detailed
-                                                                                            </button>
-                                                                                        </a>
-                                                                                    </td>
-                                                                                    {{else}}
-                                                                                    <td colspan="9">
-                                                                                        <div class="alert alert-primary"
-                                                                                            role="alert">
-                                                                                            There isn't any content !!!
-                                                                                        </div>
-                                                                                    </td>
-                                                                                </tr>
-                                                                                {{/each}}
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-                                                                    {{!-- table responsive end --}}
-                                                                </div>
-
-
+                                                                <!-- Tab panes end -->
                                                             </div>
                                                         </div>
+                                                        {{!-- row end --}}
+                                                        {{!-- row start --}}
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <div class="sub-title">List of posts that have received
+                                                                    and
+                                                                    have not received feedback</div>
+                                                                <!-- Nav tabs -->
+                                                                <ul class="nav nav-tabs md-tabs tabs-left b-none"
+                                                                    role="tablist">
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link active" data-toggle="tab"
+                                                                            href="#home5" role="tab">Have Comments</a>
+                                                                        <div class="slide"></div>
+                                                                    </li>
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link" data-toggle="tab"
+                                                                            href="#profile5" role="tab">No Comment
+                                                                            yet</a>
+                                                                        <div class="slide"></div>
+                                                                    </li>
 
+                                                                </ul>
+                                                                <!-- Tab panes -->
+                                                                <div class="tab-content tabs-left-content card-block">
+                                                                    <div class="tab-pane active" id="home5"
+                                                                        role="tabpanel">
+                                                                        {{!-- table responsive start --}}
+                                                                        <div class="card-block table-border-style">
+                                                                            <div class="table-responsive">
+                                                                                <table class="table table-hover">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <th scope="col">#</th>
+                                                                                            <th scope="col">Student</th>
+                                                                                            <th scope="col">Article Name
+                                                                                            </th>
+                                                                                            <th scope="col">File Name
+                                                                                            </th>
+                                                                                            <th scope="col">Description
+                                                                                            </th>
+                                                                                            <th scope="col">Topic</th>
+                                                                                            <th scope="col">Status</th>
+                                                                                            <th scope="col">Option</th>
+                                                                                        <tr></tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+                                                                                        {{#each demo.commentExist}}
+                                                                                        <tr>
+                                                                                            <td scope="row">{{@index}}
+                                                                                            </td>
+                                                                                            <td scope="row">
+                                                                                                {{author.name}}
+                                                                                            </td>
+                                                                                            <td scope="row">{{name}}
+                                                                                            </td>
+                                                                                            <td scope="row">
+                                                                                                {{this.articleImage}}
+                                                                                            </td>
+                                                                                            <td scope="row">{{desc}}
+                                                                                            </td>
+                                                                                            <td scope="row">
+                                                                                                {{topic_id.name}}
+                                                                                            </td>
+                                                                                            <td scope="row">{{status}}
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <a
+                                                                                                    href="/uploads/{{this.articleImage}}">
+                                                                                                    <button
+                                                                                                        type="submit"
+                                                                                                        class="btn btn-info">
+                                                                                                        Detailed
+                                                                                                    </button>
+                                                                                                </a>
+                                                                                            </td>
+                                                                                            {{else}}
+                                                                                            <td colspan="9">
+                                                                                                <div class="alert alert-primary"
+                                                                                                    role="alert">
+                                                                                                    There isn't any
+                                                                                                    content
+                                                                                                    !!!
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        {{/each}}
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                        {{!-- table responsive end --}}
+                                                                    </div>
+                                                                    <div class="tab-pane" id="profile5" role="tabpanel">
+                                                                        {{!-- table responsive start --}}
+                                                                        <div class="table-responsive">
+                                                                            <table class="table table-hover">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th scope="col">#</th>
+                                                                                        <th scope="col">Student</th>
+                                                                                        <th scope="col">Article Name
+                                                                                        </th>
+                                                                                        <th scope="col">File Name</th>
+                                                                                        <th scope="col">Description</th>
+                                                                                        <th scope="col">Topic</th>
+                                                                                        <th scope="col">Status</th>
+                                                                                        <th scope="col">Option</th>
+                                                                                    <tr></tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    {{#each demo.noComment}}
+                                                                                    <tr>
+                                                                                        <td scope="row">{{@index}}</td>
+                                                                                        <td scope="row">{{author.name}}
+                                                                                        </td>
+                                                                                        <td scope="row">{{name}}</td>
+                                                                                        <td scope="row">
+                                                                                            {{this.articleImage}}
+                                                                                        </td>
+                                                                                        <td scope="row">{{desc}}</td>
+                                                                                        <td scope="row">
+                                                                                            {{topic_id.name}}
+                                                                                        </td>
+                                                                                        <td scope="row">{{status}}</td>
+                                                                                        <td>
+                                                                                            <a
+                                                                                                href="/uploads/{{this.articleImage}}">
+                                                                                                <button type="submit"
+                                                                                                    class="btn btn-info">
+                                                                                                    Detailed
+                                                                                                </button>
+                                                                                            </a>
+                                                                                        </td>
+                                                                                        {{else}}
+                                                                                        <td colspan="9">
+                                                                                            <div class="alert alert-primary"
+                                                                                                role="alert">
+                                                                                                There isn't any content
+                                                                                                !!!
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    {{/each}}
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                        {{!-- table responsive end --}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{!-- row end --}}
                                                     </div>
                                                 </div>
-                                                {{!-- col end --}}
-
+                                                {{!-- tab card end --}}
                                             </div>
-
                                         </div>
                                         {{!-- end row --}}
                                     </div>
