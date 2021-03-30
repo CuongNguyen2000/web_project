@@ -30,7 +30,7 @@ mongoose
   .then(() => console.log("Connection to DB ...."))
   .catch((err) => console.log(`Connect to Db failed. Error: ${err}`));
 
-// Session
+// using Session to verify User Login.
 app.use(
   session({
     secret: "mySecretSession",

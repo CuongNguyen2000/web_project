@@ -159,17 +159,17 @@ const addArticle_student = async (req, res, next) => {
                 faculty.amountArticle.push(item);
                 info.save();
                 faculty.save();
-                // const coordinator = await Coordinator.findOne({
-                //   faculty_id: faculty._id,
-                // });
-                // // console.log(coordinator);
-                // await Nodemailer(coordinator.email)
-                //   .then((result) => {
-                //     console.log("Email sent...", result);
-                //   })
-                //   .catch((err) => {
-                //     console.log(err.message);
-                //   });
+                const coordinator = await Coordinator.findOne({
+                  faculty_id: faculty._id,
+                });
+                // console.log(coordinator);
+                await Nodemailer(coordinator.email)
+                  .then((result) => {
+                    console.log("Email sent...", result);
+                  })
+                  .catch((err) => {
+                    console.log(err.message);
+                  });
                 res.redirect("/students/list_articles?id=" + _id);
               }
             });
@@ -356,7 +356,6 @@ const deleteArticle_student = async (req, res, next) => {
         } else {
           console.log("====================================");
           console.log("Delete successfully in Articles");
-
           Comment.findOneAndRemove({ _id: value.comments }, (err) => {
             if (err) {
               console.log(err);

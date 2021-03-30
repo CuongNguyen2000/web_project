@@ -24,33 +24,33 @@ const Login = (req, res, next) => {
       // res.status(401);
       const msg = "User Not Found !!!";
       return res.redirect(`/users/login?msg=${msg}`);
-    }
+    } else {
+      bcrypt.compare(pwd, user.password, (err, same) => {
+        if (same) {
+          req.session.userId = user._id;
+          req.session.isAdmin = user.role === "admin" ? true : false;
+          req.session.isStudent = user.role === "student" ? true : false;
+          req.session.isCoordinator = user.role === "coordinator" ? true : false;
+          req.session.isManager = user.role === "manager" ? true : false;
+          req.session.isGuest = user.role === "guest" ? true : false;
 
-    bcrypt.compare(pwd, user.password, (err, same) => {
-      if (same) {
-        req.session.userId = user._id;
-        req.session.isAdmin = user.role === "admin" ? true : false;
-        req.session.isStudent = user.role === "student" ? true : false;
-        req.session.isCoordinator = user.role === "coordinator" ? true : false;
-        req.session.isManager = user.role === "manager" ? true : false;
-        req.session.isGuest = user.role === "guest" ? true : false;
-
-        if (user.role === "admin") {
-          return res.redirect(`/admin/home`);
-        } else if (user.role === "student") {
-          return res.redirect(`/students/home`);
-        } else if (user.role === "manager") {
-          return res.redirect(`/managers/home`);
-        } else if (user.role === "coordinator") {
-          return res.redirect(`/coordinators/home`);
+          if (user.role === "admin") {
+            return res.redirect(`/admin/home`);
+          } else if (user.role === "student") {
+            return res.redirect(`/students/home`);
+          } else if (user.role === "manager") {
+            return res.redirect(`/managers/home`);
+          } else if (user.role === "coordinator") {
+            return res.redirect(`/coordinators/home`);
+          } else {
+            return res.redirect(`/guests/home`);
+          }
         } else {
-          return res.redirect(`/guests/home`);
+          const msg = "Username or Password is incorrect !!!";
+          return res.redirect(`/users/login?msg=${msg}`);
         }
-      } else {
-        const msg = "Username or Password is incorrect !!!";
-        return res.redirect(`/users/login?msg=${msg}`);
-      }
-    });
+      });
+    }
   });
 };
 
