@@ -171,8 +171,8 @@ const getDetailStatistics = (req, res, next) => {
                     .populate("topic_id")
                     .populate("author")
                     .exec()
-                    .then((article) => {
-                      demo["commentExist"] = article;
+                    .then((article_commentExist) => {
+                      demo["commentExist"] = article_commentExist;
                       Article.find({
                         faculty_id: faculty._id,
                         comments: { $exists: true, $size: 0 },
@@ -180,8 +180,8 @@ const getDetailStatistics = (req, res, next) => {
                         .populate("topic_id")
                         .populate("author")
                         .exec()
-                        .then((article) => {
-                          demo["noComment"] = article;
+                        .then((article_noComment) => {
+                          demo["noComment"] = article_noComment;
                           // console.log(demo);
                           res.render("managerViews/manager_detail_statistic", {
                             info: info,
@@ -230,7 +230,6 @@ const downloadFile = async (req, res, next) => {
       archive.append(fs.createReadStream(file), { name: a[i] });
     }
     await archive.finalize();
-    console.log("Hello===========");
     res.redirect("/managers/downloadFile");
   }
 };
