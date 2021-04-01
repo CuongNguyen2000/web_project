@@ -2,7 +2,6 @@
   "name": "mywebapplication",
   "version": "0.0.0",
   "private": true,
-  "main": " ./bin/www",
   "scripts": {
     "dev": "nodemon ./bin/www",
     "start": "node ./bin/www"
