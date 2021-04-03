@@ -20,6 +20,7 @@ const GetGuestHome = (req, res, next) => {
                 } else {
                   console.log(items);
                   res.render("guestViews/guest_home", {
+                    title: "Guest's Homepage",
                     items: items,
                     info: value,
                     user: user,

@@ -37,6 +37,7 @@ const getListFacultyForAddStudent = (req, res, next) => {
     .then((faculties) => {
       res.render("adminViews/add_student", {
         faculties: faculties,
+        title: "List of Faculties for add Students",
       });
     })
     .catch((err) => {
@@ -118,6 +119,7 @@ const updateStudent_admin = (req, res, next) => {
                     console.log(assign);
                     res.render("adminViews/admin_update_studentAcc", {
                       err: msg,
+                      title: "Update Student Account",
                       data: {
                         name: value.name,
                         desc: value.description,
@@ -133,6 +135,7 @@ const updateStudent_admin = (req, res, next) => {
               } else {
                 res.render("adminViews/admin_update_studentAcc", {
                   err: msg,
+                  title: "Update Student Account",
                   data: {
                     _id: value._id,
                     user: user,
@@ -327,6 +330,7 @@ const listCoordinator_Admin = (req, res, next) => {
           res.render("adminViews/admin_list_coordinator", {
             faculty: faculty,
             coordinators: coordinators,
+            title: "List of Marketing Coordinators",
           });
         });
     })
@@ -340,6 +344,7 @@ const getListFacultyForAddCoordinator = (req, res, next) => {
     .then((faculties) => {
       res.render("adminViews/add_coordinator", {
         faculties: faculties,
+        title: "List of Faculties for add Marketing Coordinators",
       });
     })
     .catch((err) => {
@@ -423,6 +428,7 @@ const updateCoordinator_admin = (req, res, next) => {
                     console.log(assign);
                     res.render("adminViews/admin_update_coordinatorAcc", {
                       err: msg,
+                      title: "Update Marketing Coordinator Account",
                       data: {
                         name: value.name,
                         desc: value.description,
@@ -437,6 +443,7 @@ const updateCoordinator_admin = (req, res, next) => {
               } else {
                 res.render("adminViews/admin_update_coordinatorAcc", {
                   err: msg,
+                  title: "Update Marketing Coordinator Account",
                   data: {
                     _id: value._id,
                     user: user,
@@ -581,7 +588,10 @@ const listManager_Admin = (req, res, next) => {
   AppUser.find({ role: "manager" })
     .exec()
     .then((user) => {
-      res.render("adminViews/admin_list_manager", { user: user });
+      res.render("adminViews/admin_list_manager", {
+        user: user,
+        title: "List of Managers",
+      });
     })
     .catch((err) => console.log(err));
 };
@@ -653,6 +663,7 @@ const updateManager_admin = (req, res, next) => {
 
           res.render("adminViews/admin_update_managerAcc", {
             err: msg,
+            title: "Update Manager Account",
             data: {
               user: user,
               info: info,
@@ -756,7 +767,10 @@ const listFaculty_admin = (req, res, next) => {
   Faculty.find({})
     .exec()
     .then((faculty) => {
-      res.render("adminViews/admin_list_faculty", { faculty: faculty });
+      res.render("adminViews/admin_list_faculty", {
+        faculty: faculty,
+        title: "List of Faculties",
+      });
     })
     .catch((err) => console.log(err));
 };
@@ -794,6 +808,7 @@ const updatePageFaculty_admin = (req, res, next) => {
       console.log(value);
       res.render("adminViews/admin_update_faculty", {
         err: msg,
+        title: "Update Faculty",
         data: {
           name: value.name,
           desc: value.description,
@@ -964,7 +979,10 @@ const listTopic_admin = (req, res, next) => {
   Topic.find({})
     .exec()
     .then((topic) => {
-      res.render("adminViews/admin_list_topic", { topic: topic });
+      res.render("adminViews/admin_list_topic", {
+        topic: topic,
+        title: "List of Topics",
+      });
     })
     .catch((err) => console.log(err));
 };
@@ -1005,6 +1023,7 @@ const updatePageTopic_admin = (req, res, next) => {
       console.log(value);
       res.render("adminViews/admin_update_topic", {
         err: msg,
+        title: "Update Topic",
         data: {
           name: value.name,
           desc: value.description,
@@ -1143,6 +1162,7 @@ const listGuest_admin = (req, res, next) => {
         .then((faculty) => {
           console.log(guests);
           res.render("adminViews/admin_list_guest", {
+            title: "List of Guests Account",
             faculty: faculty,
             guests: guests,
           });
@@ -1158,6 +1178,7 @@ const getListFacultyForAddGuest = (req, res, next) => {
     .then((faculties) => {
       res.render("adminViews/add_guest", {
         faculties: faculties,
+        title: "List of Faculties for add Guests",
       });
     })
     .catch((err) => {
@@ -1239,6 +1260,7 @@ const updateGuest_admin = (req, res, next) => {
                     console.log(assign);
                     res.render("adminViews/admin_update_guestAcc", {
                       err: msg,
+                      title: "Update Guest Account",
                       data: {
                         name: value.name,
                         desc: value.description,
@@ -1253,6 +1275,7 @@ const updateGuest_admin = (req, res, next) => {
               } else {
                 res.render("adminViews/admin_update_guestAcc", {
                   err: msg,
+                  title: "Update Guest Account",
                   data: {
                     _id: value._id,
                     user: user,

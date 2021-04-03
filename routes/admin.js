@@ -82,6 +82,7 @@ router.get("/add_student", isAdmin, (req, res, next) => {
       res.render("adminViews/admin_add_student", {
         err: msg,
         faculty: faculty,
+        title: "Adding new Student Account",
       });
     });
 });
@@ -96,6 +97,7 @@ router.get("/add_coordinator", isAdmin, (req, res, next) => {
       res.render("adminViews/admin_add_coordinator", {
         err: msg,
         faculty: faculty,
+        title: "Adding new coordinator Account",
       });
     });
 });
@@ -103,7 +105,10 @@ router.post("/add_coordinator", isAdmin, addCoordinator_admin);
 
 router.get("/add_manager", isAdmin, (req, res, next) => {
   const { msg } = req.query;
-  res.render("adminViews/admin_add_manager", { err: msg });
+  res.render("adminViews/admin_add_manager", {
+    err: msg,
+    title: "Adding new manager account",
+  });
 });
 router.post("/add_manager", isAdmin, addManager_admin);
 
@@ -116,6 +121,7 @@ router.get("/add_guest", isAdmin, (req, res, next) => {
       res.render("adminViews/admin_add_guest", {
         err: msg,
         faculty: faculty,
+        title: "Adding new guest account",
       });
     });
 });
@@ -124,14 +130,20 @@ router.post("/add_guest", isAdmin, addGuest_admin);
 // Adding new Faculty
 router.get("/add_faculty", isAdmin, (req, res, next) => {
   const { msg } = req.query;
-  res.render("adminViews/admin_add_faculty", { err: msg });
+  res.render("adminViews/admin_add_faculty", {
+    err: msg,
+    title: "Adding new faculty",
+  });
 });
 router.post("/add_faculty", isAdmin, addFaculty_admin);
 
 // Adding new Topic
 router.get("/add_topic", isAdmin, (req, res, next) => {
   const { msg } = req.query;
-  res.render("adminViews/admin_add_topic", { err: msg });
+  res.render("adminViews/admin_add_topic", {
+    err: msg,
+    title: "Adding new topic",
+  });
 });
 router.post("/add_topic", isAdmin, addTopic_admin);
 

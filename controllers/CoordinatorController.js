@@ -30,6 +30,7 @@ const GetCoordinatorHome = (req, res, next) => {
               .then((assign) => {
                 console.log(assign);
                 res.render("coordinatorViews/coordinator_home", {
+                  title: "Marketing Coordinator's Homepage",
                   data: {
                     _id: value._id,
                     user: user,
@@ -40,6 +41,7 @@ const GetCoordinatorHome = (req, res, next) => {
               });
           } else {
             res.render("coordinatorViews/coordinator_home", {
+              title: "Marketing Coordinator's Homepage",
               data: {
                 _id: value._id,
                 user: user,
@@ -76,6 +78,7 @@ const getUpdateAccount = (req, res, next) => {
         .then((info) => {
           res.render("coordinatorViews/update_account", {
             err: msg,
+            title: "Change password",
             data: {
               _id: _id,
               info: info,
@@ -152,6 +155,7 @@ const getListArticles_coordinator = (req, res, next) => {
                 } else {
                   console.log(items);
                   res.render("coordinatorViews/coordinator_list_articles", {
+                    title: "List of Student's Articles",
                     items: items,
                     info: info,
                     topic: topic,
@@ -226,6 +230,7 @@ const getReviewArticles = (req, res, next) => {
             const msg =
               "Comment allow time has expired !!! You cannot feedback student articles anymore.";
             res.render("coordinatorViews/article_detail", {
+              title: "Article Details",
               err: msg,
               value: value,
               info: info,

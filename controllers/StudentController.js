@@ -31,6 +31,7 @@ const GetStudentHome = (req, res, next) => {
               .then((assign) => {
                 // console.log(assign);
                 res.render("studentViews/student_home", {
+                  title: "Student's Homepage",
                   data: {
                     _id: value._id,
                     user: user,
@@ -41,6 +42,7 @@ const GetStudentHome = (req, res, next) => {
               });
           } else {
             res.render("studentViews/student_home", {
+              title: "Student's Homepage",
               data: {
                 _id: value._id,
                 user: user,
@@ -77,6 +79,7 @@ const getUpdateAccount = (req, res, next) => {
         .then((info) => {
           res.render("studentViews/update_account", {
             err: msg,
+            title: "Change password",
             data: {
               _id: _id,
               info: info,
@@ -186,6 +189,7 @@ const getListTopic = (req, res, next) => {
         .exec()
         .then((topic) => {
           res.render("studentViews/student_post_article", {
+            title: "List of Topics to post article",
             topic: topic,
             info: info,
           });
@@ -211,6 +215,7 @@ const getListArticles_student = (req, res, next) => {
             } else {
               console.log(items);
               res.render("studentViews/student_list_articles", {
+                title: "List of Article",
                 items: items,
                 info: info,
               });
@@ -243,14 +248,14 @@ const getUpdateArticle_student = (req, res, next) => {
                   Topic.findOne({ _id: value.topic_id })
                     .exec()
                     .then((assign) => {
+                      console.log("=========================");
                       console.log("Current Topic is: ", assign);
-                      
                       res.render("studentViews/student_update_article", {
+                        title: "Update your article",
                         data: {
                           value: value,
                           _id: value._id,
                           assign: assign.name,
-                        
                           info: info,
                         },
                       });
@@ -258,10 +263,10 @@ const getUpdateArticle_student = (req, res, next) => {
                     .catch();
                 } else {
                   res.render("studentViews/student_update_article", {
+                    title: "Update your article",
                     data: {
                       value: value,
                       _id: value._id,
-                      
                       info: info,
                     },
                   });
@@ -274,6 +279,7 @@ const getUpdateArticle_student = (req, res, next) => {
             const msg =
               "The time allowed to post has expired and you can't edit your article !!!";
             res.render("studentViews/student_update_article", {
+              title: "Update your article",
               data: {
                 err: msg,
                 value: value,
@@ -429,6 +435,7 @@ const getArticleDetails = (req, res, next) => {
         .then((value) => {
           console.log(value);
           res.render("studentViews/article_detail", {
+            title: "Article Details",
             value: value,
             info: info,
           });

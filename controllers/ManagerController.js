@@ -14,6 +14,7 @@ const GetManagerHome = (req, res, next) => {
         .exec()
         .then((user) => {
           res.render("managerViews/manager_home", {
+            title: "Manager's Homepage",
             data: {
               user: user,
               info: info,
@@ -46,6 +47,7 @@ const getUpdateAccount = (req, res, next) => {
         .then((info) => {
           res.render("managerViews/update_account", {
             err: msg,
+            title: "Change password",
             data: {
               _id: _id,
               info: info,
@@ -117,6 +119,7 @@ const getListArticles_manager = (req, res, next) => {
               } else {
                 console.log(items);
                 res.render("managerViews/manager_list_articles", {
+                  title: "List of Student's Articles",
                   faculty: faculty,
                   items: items,
                   info: info,
@@ -136,6 +139,7 @@ const getStatistics_manager = (req, res, next) => {
         .exec()
         .then((faculties) => {
           res.render("managerViews/manager_statistics", {
+            title: "Dashboard to view statistics",
             info: info,
             faculty: faculties,
           });
@@ -184,6 +188,7 @@ const getDetailStatistics = (req, res, next) => {
                           demo["noComment"] = article_noComment;
                           // console.log(demo);
                           res.render("managerViews/manager_detail_statistic", {
+                            title: "Details of statistics",
                             info: info,
                             faculty: faculty,
                             demo: demo,

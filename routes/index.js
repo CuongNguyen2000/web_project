@@ -5,7 +5,7 @@ var Article = require("../models/ArticlesModel");
 /* GET home page. */
 router.get("/", function (req, res, next) {
   const { msg } = req.query;
-  res.render("index", { err: msg });
+  res.render("index", { err: msg, title: "Article Management System" });
 
   // Article.find({}, (err, items) => {
   //   if (err) {
