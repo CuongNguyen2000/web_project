@@ -1048,18 +1048,21 @@ const updateTopic_admin = (req, res, next) => {
 // Delete Topic
 const deleteTopic_admin = (req, res, next) => {
   const { _id } = req.body;
+  const article = Article.find({ topic_id: _id });
+
   Topic.findOneAndRemove({ _id: _id })
     .exec()
     .then((value) => {
+      console.log("=========================");
       console.log("Delete successfully in Topic");
       // console.log(value);
-      Article.findOneAndRemove({ topic_id: _id }, (err, article) => {
+      Article.findOneAndRemove({ topic_id: _id }, (err) => {
         if (err) {
           console.log(err);
           return res.redirect("/admin/list_all_topic");
         } else {
           console.log("Delete successfully Article of topic");
-          Comment.findOneAndRemove({ _id: article.comment }, (err) => {
+          Comment.findOneAndRemove({ _id: article.comments }, (err) => {
             if (err) {
               console.log(err);
               return res.redirect("/admin/list_all_topic");
@@ -1068,7 +1071,7 @@ const deleteTopic_admin = (req, res, next) => {
               Student.findOneAndUpdate(
                 { posts: article._id },
                 { $pull: { posts: article._id } },
-                { safe: true, upsert: true },
+                { new: true, useFindAndModify: false },
                 (err, data) => {
                   if (err) {
                     res.render("error", {
@@ -1083,7 +1086,7 @@ const deleteTopic_admin = (req, res, next) => {
                     Faculty.findOneAndUpdate(
                       { amountArticle: article._id },
                       { $pull: { amountArticle: article._id } },
-                      { safe: true, upsert: true },
+                      { new: true, useFindAndModify: false },
                       (err, data) => {
                         if (err) {
                           res.render("error", {
@@ -1099,6 +1102,7 @@ const deleteTopic_admin = (req, res, next) => {
                           console.log(
                             "Delete successfully in array from Faculty"
                           );
+                          console.log("=========================");
                           return res.redirect("/admin/list_all_topic");
                         }
                       }
