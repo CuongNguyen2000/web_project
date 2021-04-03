@@ -222,6 +222,9 @@ const updateStudentAcc_admin = async (req, res, next) => {
 // Delete Student account
 const deleteStudent_Admin = async (req, res, next) => {
   const { _id } = req.body;
+  const student = Student.find({ account_id: _id });
+  const article = Article.find({ _id: student.posts });
+
   await AppUser.findOneAndRemove({ _id: _id }, (err) => {
     if (err) {
       console.log(err);
@@ -231,7 +234,7 @@ const deleteStudent_Admin = async (req, res, next) => {
       Student.findOneAndRemove({ account_id: _id })
         .then((result) => {
           console.log("Delete successfully in Student");
-          Article.findOneAndRemove({ _id: result.posts }, (err, article) => {
+          Article.findOneAndRemove({ _id: result.posts }, (err) => {
             if (err) {
               console.log(err);
               return res.redirect("/admin/list_all_students");
