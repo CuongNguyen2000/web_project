@@ -837,7 +837,6 @@ const updateFaculty_admin = (req, res, next) => {
 const deleteFaculty_admin = async (req, res, next) => {
   const { _id } = req.body;
 
-  const faculty = Faculty.findOne({ _id: _id });
   const student = Student.find({ faculty_id: _id });
   const article = Article.find({ _id: student.posts });
   const coordinator = Coordinator.find({ faculty_id: _id });
@@ -850,12 +849,11 @@ const deleteFaculty_admin = async (req, res, next) => {
     } else {
       console.log("======================================");
       console.log("Delete successfully in Faculty");
-      Student.findOneAndRemove({ faculty_id: _id }, (err, student) => {
+      Student.findOneAndRemove({ faculty_id: _id }, (err) => {
         if (err) {
           console.log(err);
           return res.redirect("/admin/list_all_faculty");
         } else {
-          console.log("--------");
           console.log("Delete successfully students in faculty");
           AppUser.findOneAndRemove({ _id: student.account_id }, (err) => {
             if (err) {
@@ -877,12 +875,11 @@ const deleteFaculty_admin = async (req, res, next) => {
                       console.log("Delete successfully comments of article");
                       Coordinator.findOneAndRemove(
                         { faculty_id: _id },
-                        (err, coordinator) => {
+                        (err) => {
                           if (err) {
                             console.log(err);
                             return res.redirect("/admin/list_all_faculty");
                           } else {
-                            console.log("--------");
                             console.log(
                               "Delete successfully coordinator of faculty"
                             );
@@ -902,14 +899,13 @@ const deleteFaculty_admin = async (req, res, next) => {
                                     {
                                       faculty_id: _id,
                                     },
-                                    (err, guest) => {
+                                    (err) => {
                                       if (err) {
                                         console.log(err);
                                         return res.redirect(
                                           "/admin/list_all_faculty"
                                         );
                                       } else {
-                                        console.log("--------");
                                         console.log(
                                           "Delete successfully guests of faculty"
                                         );
@@ -926,6 +922,9 @@ const deleteFaculty_admin = async (req, res, next) => {
                                             } else {
                                               console.log(
                                                 "Delete successfully account of guests"
+                                              );
+                                              console.log(
+                                                "======================================"
                                               );
                                               return res.redirect(
                                                 "/admin/list_all_faculty"
