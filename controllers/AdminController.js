@@ -1070,8 +1070,8 @@ const deleteTopic_admin = (req, res, next) => {
               console.log("Delete successfully Comment of article");
               Student.findOneAndUpdate(
                 { posts: article._id },
-                { $pull: { posts: article._id } },
-                { new: true, useFindAndModify: false },
+                { $pull: { posts: { $in: article._id } } },
+                { new: true, useFindAndModify: false, multi: true },
                 (err, data) => {
                   if (err) {
                     res.render("error", {
@@ -1085,8 +1085,8 @@ const deleteTopic_admin = (req, res, next) => {
                     console.log("Delete successfully in array from Student");
                     Faculty.findOneAndUpdate(
                       { amountArticle: article._id },
-                      { $pull: { amountArticle: article._id } },
-                      { new: true, useFindAndModify: false },
+                      { $pull: { amountArticle: { $in: article._id } } },
+                      { new: true, useFindAndModify: false, multi: true },
                       (err, data) => {
                         if (err) {
                           res.render("error", {
