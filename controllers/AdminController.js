@@ -23,6 +23,7 @@ const listStudent_Admin = (req, res, next) => {
           res.render("adminViews/admin_list_student", {
             faculty: faculty,
             students: students,
+            title: "List of Students",
           });
         });
     })
