@@ -251,6 +251,14 @@
                                                                     onclick="window.location='/students/list_articles?id={{_id}}'">List
                                                                     Articles</button>
                                                             </div>
+                                                            {{#if error}}
+                                                            <div class="col-lg-6">
+                                                                <div class="alert alert-danger" role="alert"
+                                                                    style="width: auto;">
+                                                                    {{err}}
+                                                                </div>
+                                                            </div>
+                                                            {{else}}
                                                             <div class="col-lg-6">
                                                                 <button
                                                                     class="btn btn-primary btn-outline-primary col-12"
@@ -258,6 +266,9 @@
                                                                     Add Article
                                                                 </button>
                                                             </div>
+                                                            {{/if}}
+                                                            <input type="hidden" name="_id" value="{{_id}}">
+
                                                         </div>
                                                     </div>
                                                 </div>
