@@ -205,7 +205,7 @@ const downloadFile = async (req, res, next) => {
   var a = req.body.check;
   if (!a) {
     res.send(
-      '<script>alert("You need to choose at least one file to download")</script>',
+      '<script>alert("You need to choose at least one file to download")</script>'
     );
   } else {
     var output = fs.createWriteStream("./public/fileDownload.zip");
