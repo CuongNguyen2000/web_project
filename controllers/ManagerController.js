@@ -2,7 +2,8 @@ var AppUser = require("../models/AppUserModel");
 var Manager = require("../models/ManagerModel");
 var Article = require("../models/ArticlesModel");
 var Faculty = require("../models/FacultyModel");
-var fs = require("fs");
+
+const fs = require("fs");
 const archiver = require("archiver");
 
 const GetManagerHome = (req, res, next) => {

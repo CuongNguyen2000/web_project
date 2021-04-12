@@ -1,11 +1,11 @@
-var AppUser = require("../models/AppUserModel");
-var Student = require("../models/StudentModel");
-var Articles = require("../models/ArticlesModel");
-var Faculty = require("../models/FacultyModel");
-var Topic = require("../models/TopicModel");
+const AppUser = require("../models/AppUserModel");
+const Student = require("../models/StudentModel");
+const Articles = require("../models/ArticlesModel");
+const Faculty = require("../models/FacultyModel");
+const Topic = require("../models/TopicModel");
 const Coordinator = require("../models/CoordinatorModel");
 const Comment = require("../models/commentModel");
-var Nodemailer = require("../middleware/sendingEmail");
+const Nodemailer = require("../middleware/sendingEmail");
 
 const GetStudentHome = (req, res, next) => {
   let user = {};

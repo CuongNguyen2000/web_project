@@ -189,7 +189,7 @@
                                     <a href="/managers/statistic_contributions">
                                         <span class="pcoded-micon"><i class="ti-layout-grid2-alt"></i><b>D</b></span>
                                         <span class="pcoded-mtext" data-i18n="nav.dash.main">Statistic of
-                                            contributors</span>>
+                                            contributions</span>>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                 </li>
@@ -256,24 +256,37 @@
                                                     <div class="card-block table-border-style">
                                                         <div class="table-responsive">
                                                             <table class="table table-hover">
+                                                                <form action="/managers/downloadFile" method="POST">
+                                                                    <input type="hidden" name="check" id="">
+                                                                    <button style="display:inline-block" type="submit"
+                                                                        class="btn btn-danger"
+                                                                        onsubmit="alert(this);">Download</button>
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th scope="col">#</th>
+                                                                            <th scope="col">Student</th>
+                                                                            <th scope="col">Article Name</th>
+                                                                            <th scope="col">File Name</th>
+                                                                            <th scope="col">Description</th>
+                                                                            <th scope="col">Topic</th>
+                                                                            <th scope="col">Faculty</th>
+                                                                            <th scope="col">Choose to download
+                                                                                <div style="justify-content:center;"
+                                                                                    class="checkbox-fade fade-in-primary d-block">
+                                                                                    <label class="check-task d-block">
+                                                                                        <input type="checkbox"
+                                                                                            id="select-all">
+                                                                                        <span class="cr">
+                                                                                            <i
+                                                                                                class="cr-icon icofont icofont-ui-check txt-default"></i>
+                                                                                        </span>
 
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th scope="col">#</th>
-                                                                        <th scope="col">Student</th>
-                                                                        <th scope="col">Article Name</th>
-                                                                        <th scope="col">File Name</th>
-                                                                        <th scope="col">Description</th>
-                                                                        <th scope="col">Topic</th>
-                                                                        <th scope="col">Faculty</th>
-                                                                        <th scope="col">Choose to download</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <form action="/managers/downloadFile" method="POST">
-                                                                        <input type="hidden" name="check" id="">
-                                                                        <button type="submit" class="btn btn-danger"
-                                                                            onsubmit="alert(this);">Download</button>
+                                                                                    </label>
+                                                                                </div>
+                                                                            </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
                                                                         {{#each items}}
                                                                         <tr>
                                                                             <td scope="row">{{@index}}</td>
@@ -309,9 +322,8 @@
                                                                             </td>
                                                                         </tr>
                                                                         {{/each}}
-                                                                    </form>
-
-                                                                </tbody>
+                                                                    </tbody>
+                                                                </form>
                                                             </table>
                                                         </div>
                                                         {{!-- table responsive end --}}
@@ -369,6 +381,14 @@
                 nav.removeClass('active');
             }
         });
+    </script>
+    <script>
+        document.getElementById('select-all').onclick = function () {
+            var checkboxes = document.getElementsByName('check');
+            for (var checkbox of checkboxes) {
+                checkbox.checked = this.checked;
+            }
+        }
     </script>
 </body>
 
