@@ -206,20 +206,25 @@ const getListArticles_student = (req, res, next) => {
     .exec()
     .then((info) => {
       if (info.posts) {
-        Articles.find({ _id: info.posts, topic_id: _id })
-          .populate("topic_id")
-          .exec((err, items) => {
-            if (err) {
-              console.log(err);
-              res.status(500).send("An error occurred", err);
-            } else {
-              console.log(items);
-              res.render("studentViews/student_list_articles", {
-                title: "List of Article",
-                items: items,
-                info: info,
+        Topic.findOne({ _id: _id })
+          .exec()
+          .then((topic) => {
+            Articles.find({ _id: info.posts, topic_id: _id })
+              .populate("topic_id")
+              .exec((err, items) => {
+                if (err) {
+                  console.log(err);
+                  res.status(500).send("An error occurred", err);
+                } else {
+                  console.log(items);
+                  res.render("studentViews/student_list_articles", {
+                    title: "List of Article",
+                    topic: topic,
+                    items: items,
+                    info: info,
+                  });
+                }
               });
-            }
           });
       }
     });
