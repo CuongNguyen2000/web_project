@@ -198,7 +198,7 @@
                                                     <div class="page-header-title">
                                                         <i class="icofont icofont-table bg-c-blue"></i>
                                                         <div class="d-inline">
-                                                            <h4>Insert new Article</h4>
+                                                            <h4>Uploading new Article for {{topic.name}}</h4>
                                                             <span>Adding new Article</span>
                                                         </div>
                                                     </div>
@@ -232,10 +232,15 @@
                                                         <h3 class="sub-title">Upload new Article</h3>
                                                         <form id="uploadForm" action="/students/add_article"
                                                             method="POST" enctype="multipart/form-data">
-                                                            {{#if err}}
+                                                            {{#if errFirstDate}}
+                                                            <div class="alert alert-info" role="alert"
+                                                                style="width: auto;">
+                                                                {{errFirstDate}}
+                                                            </div>
+                                                            {{else if errFinalDate}}
                                                             <div class="alert alert-danger" role="alert"
                                                                 style="width: auto;">
-                                                                {{err}}
+                                                                {{errFinalDate}}
                                                             </div>
                                                             {{else}}
                                                             <div class="form-group row">

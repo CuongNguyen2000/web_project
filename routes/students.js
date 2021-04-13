@@ -57,7 +57,15 @@ router.get("/add_article", isStudent, (req, res, next) => {
         .exec()
         .then((topic) => {
           // console.log(topic.timeOver);
-          if (topic.timeOver > now) {
+          if (topic.timeCreated > now) {
+            const msg = `Topic will be opened on ${topic.timeCreated}`;
+            res.render("studentViews/student_add_article", {
+              title: "Upload new Article",
+              errFirstDate: msg,
+              topic: topic,
+              info: info,
+            });
+          } else if (topic.timeOver > now) {
             res.render("studentViews/student_add_article", {
               topic: topic,
               info: info,
@@ -67,7 +75,7 @@ router.get("/add_article", isStudent, (req, res, next) => {
               "The time allowed to post has expired !!! --- If you have a problem, please contact the Marketing Coordinator of your faculty.";
             res.render("studentViews/student_add_article", {
               title: "Upload new Article",
-              err: msg,
+              errFinalDate: msg,
               topic: topic,
               info: info,
             });
